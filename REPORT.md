@@ -7,5 +7,5 @@
 3. Subject area 
 4. Postman
 5. Database
-7. Angular first project
+6. Angular first project
 
