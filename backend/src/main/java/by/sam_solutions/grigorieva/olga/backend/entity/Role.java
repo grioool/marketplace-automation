@@ -1,18 +1,23 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@Getter
 @Table(name = "role")
-@Data
-public class Role extends AbstractEntity {
+public enum Role {
+
+    USER, ADMIN, UNAUTHORIZED;
 
     @Column(name = "role_name")
     private String roleName;
+
+    @Id
+    private Integer id;
+
 }
