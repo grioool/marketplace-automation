@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.enitity;
+package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class PrimaryKey implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue

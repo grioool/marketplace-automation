@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.enitity;
+package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "role")
 @Data
-public class Role extends PrimaryKey {
+public class Role extends AbstractEntity {
 
     @Column(name = "role_name")
     private String roleName;

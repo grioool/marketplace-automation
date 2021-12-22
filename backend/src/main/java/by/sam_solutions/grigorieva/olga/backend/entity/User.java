@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.enitity;
+package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "`user`")
 @Data
-public class User extends PrimaryKey {
+public class User extends AbstractEntity {
 
     @Column(name = "email")
     private String email;

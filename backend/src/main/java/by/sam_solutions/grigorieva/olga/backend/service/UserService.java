@@ -2,8 +2,8 @@ package by.sam_solutions.grigorieva.olga.backend.service;
 
 import by.sam_solutions.grigorieva.olga.backend.dao.RoleDao;
 import by.sam_solutions.grigorieva.olga.backend.dao.UserDao;
-import by.sam_solutions.grigorieva.olga.backend.enitity.Role;
-import by.sam_solutions.grigorieva.olga.backend.enitity.User;
+import by.sam_solutions.grigorieva.olga.backend.entity.Role;
+import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +31,6 @@ public class UserService {
         user.setIsBlocked(false);
         user.setIsSubscribed(false);
         user.setWildBerriesKeys("asd");
-        userDao.save(user);
+      // userDao.save(user);
     }
 }
