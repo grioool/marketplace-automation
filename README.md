@@ -9,6 +9,11 @@
 5. Database (marketplace-automation/database.sql) was made.
 6. Start of work with Angular. First project was made.
 7. Start of work and configure Hibernate.
-8. Start of work with Spring. 
+8. Start of work with Spring Boot. First project was made and setting. 
 9. Setting User, Role tables.
 
+## Second week (20.12.21 - 21.12.21)
+
+1. Start of work with Spring MVC. Spring MVC was setting.
+2. Tomcat deploy.
+3. 
