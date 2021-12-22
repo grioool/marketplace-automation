@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional
-public class UserRepository {
+public class UserRepository extends AbstractRepository {
     @PersistenceContext
     private EntityManager entityManager;
 }
