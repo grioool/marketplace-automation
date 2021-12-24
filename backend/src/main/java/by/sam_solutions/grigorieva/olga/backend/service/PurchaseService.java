@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface PurchaseService {
 
-    Purchase addPurchase(Purchase purchase);
+    Purchase add(Purchase purchase);
 
-    void delete(Purchase purchase);
+    Purchase delete(Purchase purchase);
 
     Purchase getByName(String name);
 
-    Purchase updatePurchase(Purchase purchase);
+    Purchase getById(Integer id);
+
+    Purchase update(Purchase purchase);
 
     List<Purchase> getAll();
 }

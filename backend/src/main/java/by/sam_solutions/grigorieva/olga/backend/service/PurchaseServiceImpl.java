@@ -1,33 +1,56 @@
 package by.sam_solutions.grigorieva.olga.backend.service;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Service("purchaseServiceImpl")
 public class PurchaseServiceImpl implements PurchaseService {
 
-    @Override
-    public Purchase addPurchase(Purchase purchase) {
-        return null;
+    @PersistenceContext
+    private EntityManager entityManger;
+
+    @Transactional
+    public Purchase add(Purchase purchase) {
+        entityManger.persist(purchase);
+        return purchase;
     }
 
-    @Override
-    public void delete(Purchase purchase) {
-
+    @Transactional
+    public Purchase update(Purchase purchase) {
+        entityManger.merge(purchase);
+        return purchase;
     }
 
-    @Override
+    @Transactional
+    public Purchase delete(Purchase purchase) {
+        if (entityManger.contains(purchase)) {
+            entityManger.remove(purchase);
+        } else {
+            entityManger.remove(entityManger.merge(purchase));
+        }
+
+        return purchase;
+    }
+
+    @Transactional
+    public Purchase getById(Integer id) {
+        Purchase response = entityManger.find(Purchase.class, id);
+        return response;
+    }
+
+    @Transactional
     public Purchase getByName(String name) {
-        return null;
-    }
-
-    @Override
-    public Purchase updatePurchase(Purchase purchase) {
-        return null;
+        Purchase response = entityManger.find(Purchase.class, name);
+        return response;
     }
 
     @Override
     public List<Purchase> getAll() {
-        return null;
+        return entityManger.createQuery("SELECT a FROM Purchase a", Purchase.class).getResultList();
     }
 }
