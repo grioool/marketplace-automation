@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-//TODO - CRUD для закупок
 //TODO - сделать этот CRUD на фронте
 //TODO - подключить Spring Security c jwt токеном
 //TODO - реализовать  логин, регистрацию

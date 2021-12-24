@@ -39,14 +39,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Transactional
     public Purchase getById(Integer id) {
-        Purchase response = entityManger.find(Purchase.class, id);
-        return response;
+        return entityManger.find(Purchase.class, id);
     }
 
     @Transactional
     public Purchase getByName(String name) {
-        Purchase response = entityManger.find(Purchase.class, name);
-        return response;
+        return entityManger.find(Purchase.class, name);
     }
 
     @Override

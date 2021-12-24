@@ -46,7 +46,7 @@ public class PurchaseController {
         return purchaseService.add(purchase);
     }
 
-    @RequestMapping(value = "purchase", //
+    @RequestMapping(value = "/purchase", //
             method = RequestMethod.PUT, //
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
