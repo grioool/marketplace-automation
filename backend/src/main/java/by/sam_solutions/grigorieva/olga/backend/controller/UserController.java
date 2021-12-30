@@ -53,11 +53,11 @@ public class UserController {
         return userRepository.update(user);
     }
 
-    @RequestMapping(value = "/user",
+    @RequestMapping(value = "/user/{userId}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public void delete(@PathVariable("purchaseId") int id) {
+    public void delete(@PathVariable("userId") int id) {
         userRepository.delete(id);
     }
 
