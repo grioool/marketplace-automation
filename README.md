@@ -12,8 +12,11 @@
 8. Start of work with Spring Boot. First project was made and setting. 
 9. Setting User, Role tables.
 
-## Second week (20.12.21 - 21.12.21)
+## Second week (20.12.21 - 27.12.21)
 
 1. Start of work with Spring MVC. Spring MVC was setting.
 2. Tomcat deploy.
-3. 
+3. Purchase controller, repository, service
+4. User controller, repository, service
+5. Front: user CRUD
+6. Front: purchase CRUD
