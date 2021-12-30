@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    this.serv.deleteUser(user._id).subscribe(data => {
+    this.serv.deleteUser(user).subscribe(data => {
       this.statusMessage = 'Данные успешно удалены';
         this.loadUsers();
     });

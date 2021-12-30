@@ -26,7 +26,7 @@ db.connect(function(err, client){
   });
 });
 
-app.get("/users", function(req, res){
+app.get("/purchases", function(req, res){
 
   const collection = req.app.locals.collection;
   collection.find({}).toArray(function(err, users){
@@ -36,7 +36,7 @@ app.get("/users", function(req, res){
   });
 
 });
-app.get("/user/:id", function(req, res){
+app.get("/purchase:id", function(req, res){
 
   const id = new objectId(req.params.id);
   const collection = req.app.locals.collection;
@@ -47,7 +47,7 @@ app.get("/user/:id", function(req, res){
   });
 });
 
-app.post("/user", jsonParser, function (req, res) {
+app.post("/purchase", jsonParser, function (req, res) {
 
   if(!req.body) return res.sendStatus(400);
 
@@ -71,7 +71,7 @@ app.post("/user", jsonParser, function (req, res) {
   });
 });
 
-app.delete("/user", function(req, res){
+app.delete("/purchase", function(req, res){
 
   const id = new objectId(req.params.id);
   const collection = req.app.locals.collection;
@@ -83,7 +83,7 @@ app.delete("/user", function(req, res){
   });
 });
 
-app.put("/user", jsonParser, function(req, res){
+app.put("/purchase", jsonParser, function(req, res){
 
   if(!req.body) return res.sendStatus(400);
   const id = new objectId(req.body._id);

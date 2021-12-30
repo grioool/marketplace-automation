@@ -5,7 +5,7 @@
         <non-jta-data-source>movieDatabaseUnmanaged</non-jta-data-source>
 
         <class>by.sam_solutions.grigorieva.olga.backend.entity.Role</class>
-        <class>by.sam_solutions.grigorieva.olga.backend.entity.User</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.Purchase</class>
         <class>by.sam_solutions.grigorieva.olga.backend.entity.Purchase</class>
 
         <properties>
