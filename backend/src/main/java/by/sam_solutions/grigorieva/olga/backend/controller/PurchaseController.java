@@ -3,64 +3,62 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import java.util.List;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
-import by.sam_solutions.grigorieva.olga.backend.service.PurchaseService;
+import by.sam_solutions.grigorieva.olga.backend.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PurchaseController {
 
     @Autowired
-    private PurchaseService purchaseService;
+    private PurchaseRepository purchaseRepository;
 
     PurchaseController() {}
 
     @RequestMapping(value = "/purchases",
             method = RequestMethod.GET,
-            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+            produces = MediaType.APPLICATION_JSON_VALUE)
 
-    @ResponseBody
+
     public List<Purchase> getPurchases() {
-        return purchaseService.getAll();
+        return purchaseRepository.getAll();
     }
 
-    @RequestMapping(value = "/purchases/{purchaseNo}", //
-            method = RequestMethod.GET, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @ResponseBody
-    public Purchase getPurchase(@PathVariable("purchaseNo") String purchaseN) {
-        return purchaseService.getByName(purchaseN);
+    @RequestMapping(value = "/purchases/{purchaseId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public Purchase getPurchase(@PathVariable("purchaseId") Integer id) {
+        return purchaseRepository.getById(id);
     }
 
-    @RequestMapping(value = "/purchase", //
-            method = RequestMethod.POST, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @ResponseBody
+    @RequestMapping(value = "/purchase",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
     public Purchase add(@RequestBody Purchase purchase) {
-        return purchaseService.add(purchase);
+        return purchaseRepository.add(purchase);
     }
 
-    @RequestMapping(value = "/purchase", //
-            method = RequestMethod.PUT, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @ResponseBody
+    @RequestMapping(value = "/purchase",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
     public Purchase update(@RequestBody Purchase purchase) {
-
-        return purchaseService.update(purchase);
+        return purchaseRepository.update(purchase);
     }
 
-    @RequestMapping(value = "/purchases/{purchaseNo}", //
-            method = RequestMethod.DELETE, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @ResponseBody
-    public void delete(@PathVariable("purchaseNo") Purchase purchase) {
-        purchaseService.delete(purchase);
+    @RequestMapping(value = "/purchase",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public Purchase delete(@RequestBody Purchase purchase) {
+        return purchaseRepository.delete(purchase);
     }
 
 }
