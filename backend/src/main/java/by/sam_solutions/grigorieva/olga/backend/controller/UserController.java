@@ -57,8 +57,8 @@ public class UserController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public User delete(@RequestBody User user) {
-        return userRepository.delete(user);
+    public void delete(@PathVariable("purchaseId") int id) {
+        userRepository.delete(id);
     }
 
 }

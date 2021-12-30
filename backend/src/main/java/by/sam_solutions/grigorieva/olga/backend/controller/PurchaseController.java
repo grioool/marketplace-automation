@@ -6,13 +6,11 @@ import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class PurchaseController {
 
     @Autowired
@@ -33,7 +31,7 @@ public class PurchaseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public Purchase getPurchase(@PathVariable("purchaseId") Integer id) {
+    public Purchase getPurchase(@PathVariable("purchaseId") int id) {
         return purchaseRepository.getById(id);
     }
 
@@ -53,12 +51,12 @@ public class PurchaseController {
         return purchaseRepository.update(purchase);
     }
 
-    @RequestMapping(value = "/purchase",
+    @RequestMapping(value = "/purchase/{purchaseId}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public Purchase delete(@RequestBody Purchase purchase) {
-        return purchaseRepository.delete(purchase);
+    public void delete(@PathVariable("purchaseId") int id) {
+        purchaseRepository.delete(id);
     }
 
 }

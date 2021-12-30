@@ -19,6 +19,11 @@ public class PurchaseRepository extends AbstractRepository<Purchase> {
     private EntityManager entityManger;
 
     @Transactional
+    public void delete(int id) {
+        entityManger.remove(getById(id));
+    }
+
+    @Transactional
     public Purchase getById(Integer id) {
         return entityManger.find(Purchase.class, id);
     }

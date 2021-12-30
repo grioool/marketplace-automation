@@ -19,6 +19,11 @@ public class UserRepository extends AbstractRepository<User>{
     private EntityManager entityManger;
 
     @Transactional
+    public void delete(int id) {
+        entityManger.remove(getById(id));
+    }
+
+    @Transactional
     public User getById(Integer id) {
         return entityManger.find(User.class, id);
     }

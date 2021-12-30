@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.repository;
 
-import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -23,16 +22,4 @@ public abstract class AbstractRepository<Entity>{
         entityManger.merge(entity);
         return entity;
     }
-
-    @Transactional
-    public Entity delete(Entity entity) {
-        if (entityManger.contains(entity)) {
-            entityManger.remove(entity);
-        } else {
-            entityManger.remove(entityManger.merge(entity));
-        }
-
-        return entity;
-    }
-
 }
