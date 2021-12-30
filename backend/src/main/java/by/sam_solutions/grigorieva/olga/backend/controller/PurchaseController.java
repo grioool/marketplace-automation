@@ -3,10 +3,9 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import java.util.List;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
-import by.sam_solutions.grigorieva.olga.backend.repository.PurchaseRepository;
+import by.sam_solutions.grigorieva.olga.backend.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class PurchaseController {
 
     @Autowired
-    private PurchaseRepository purchaseRepository;
+    private PurchaseService purchaseService;
 
     PurchaseController() {}
 
@@ -22,9 +21,8 @@ public class PurchaseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-
     public List<Purchase> getPurchases() {
-        return purchaseRepository.getAll();
+        return purchaseService.getAll();
     }
 
     @RequestMapping(value = "/purchases/{purchaseId}",
@@ -32,7 +30,7 @@ public class PurchaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public Purchase getPurchase(@PathVariable("purchaseId") int id) {
-        return purchaseRepository.getById(id);
+        return purchaseService.getById(id);
     }
 
     @RequestMapping(value = "/purchase",
@@ -40,7 +38,7 @@ public class PurchaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public Purchase add(@RequestBody Purchase purchase) {
-        return purchaseRepository.add(purchase);
+        return purchaseService.add(purchase);
     }
 
     @RequestMapping(value = "/purchase",
@@ -48,7 +46,7 @@ public class PurchaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public Purchase update(@RequestBody Purchase purchase) {
-        return purchaseRepository.update(purchase);
+        return purchaseService.update(purchase);
     }
 
     @RequestMapping(value = "/purchase/{purchaseId}",
@@ -56,7 +54,7 @@ public class PurchaseController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public void delete(@PathVariable("purchaseId") int id) {
-        purchaseRepository.delete(id);
+        purchaseService.delete(id);
     }
 
 }

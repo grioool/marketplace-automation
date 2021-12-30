@@ -3,7 +3,7 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import java.util.List;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.repository.UserRepository;
+import by.sam_solutions.grigorieva.olga.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     UserController() {}
 
@@ -23,7 +23,7 @@ public class UserController {
 
 
     public List<User> getUsers() {
-        return userRepository.getAll();
+        return userService.getAll();
     }
 
     @RequestMapping(value = "users/{userId}",
@@ -31,7 +31,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User getUser(@PathVariable("userId") Integer id) {
-        return userRepository.getById(id);
+        return userService.getById(id);
     }
 
     @RequestMapping(value = "/user",
@@ -39,7 +39,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User add(@RequestBody User user) {
-        return userRepository.add(user);
+        return userService.add(user);
     }
 
     @RequestMapping(value = "/user",
@@ -47,7 +47,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User update(@RequestBody User user) {
-        return userRepository.update(user);
+        return userService.update(user);
     }
 
     @RequestMapping(value = "/user/{userId}",
@@ -55,7 +55,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public void delete(@PathVariable("userId") int id) {
-        userRepository.delete(id);
+        userService.delete(id);
     }
 
 }

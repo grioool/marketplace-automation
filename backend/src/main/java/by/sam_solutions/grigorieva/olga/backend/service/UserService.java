@@ -1,10 +1,10 @@
-package by.sam_solutions.grigorieva.olga.backend.repository;
+package by.sam_solutions.grigorieva.olga.backend.service;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 
 import java.util.List;
 
-public interface UserRepository extends AbstractRepository<User> {
+public interface UserService extends AbstractService<User> {
 
     List<User> getAll();
 
