@@ -6,13 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
 
 @Entity
 @Getter
 @Table(name = "role")
 public enum Role {
 
-    USER, ADMIN, UNAUTHORIZED;
+    USER(1), ADMIN(2), UNAUTHORIZED(3);
 
     @Column(name = "role_name")
     private String roleName;
@@ -20,4 +21,10 @@ public enum Role {
     @Id
     private Integer id;
 
+    Role(Integer id) {
+        this.id = id;
+    }
+
+    Role() {
+    }
 }

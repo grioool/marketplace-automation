@@ -31,7 +31,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User getUser(@PathVariable("userId") Integer id) {
-        return userService.getById(id);
+        return userService.findById(id);
     }
 
     @RequestMapping(value = "/user",
@@ -39,7 +39,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User add(@RequestBody User user) {
-        return userService.add(user);
+        return userService.create(user);
     }
 
     @RequestMapping(value = "/user",

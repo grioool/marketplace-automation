@@ -11,7 +11,7 @@ public abstract class AbstractRepositoryImpl<Entity>{
     private EntityManager entityManger;
 
     @Transactional
-    public Entity add(Entity entity) {
+    public Entity create(Entity entity) {
         entityManger.persist(entity);
         return entity;
     }

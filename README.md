@@ -16,7 +16,18 @@
 
 1. Start of work with Spring MVC. Spring MVC was setting.
 2. Tomcat deploy.
-3. Purchase controller, repository, service
-4. User controller, repository, service
-5. Front: user CRUD
-6. Front: purchase CRUD
+3. Purchase controller, repository, service.
+4. User controller, repository, service.
+5. Front: user CRUD.
+6. Front: purchase CRUD.
+
+## Third week(31.12.21 - 06.01.22)
+
+/exam preparing/
+
+1. Spring security introduction .
+2. Start of work with Spring security.
+3. Start of work with Jwt.
+4. Test login and registration controllers were made.
+5. Security config.
+6. Auth controller was made.

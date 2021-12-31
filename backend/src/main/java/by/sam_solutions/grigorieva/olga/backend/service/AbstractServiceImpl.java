@@ -8,8 +8,8 @@ public abstract class AbstractServiceImpl<Entity> implements AbstractService<Ent
     private AbstractRepository<Entity> abstractRepository;
 
     @Transactional
-    public Entity add(Entity entity) {
-        abstractRepository.add(entity);
+    public Entity create(Entity entity) {
+        abstractRepository.create(entity);
         return entity;
     }
 

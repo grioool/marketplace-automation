@@ -8,7 +8,9 @@ public interface UserRepository extends AbstractRepository<User> {
 
     List<User> getAll();
 
-    User getById(int id);
+    User findById(int id);
 
     void delete(int id);
+
+    User findByUsername(String username);
 }

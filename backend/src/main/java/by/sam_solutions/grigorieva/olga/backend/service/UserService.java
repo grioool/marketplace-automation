@@ -8,7 +8,11 @@ public interface UserService extends AbstractService<User> {
 
     List<User> getAll();
 
-    User getById(int id);
+    User findById(int id);
 
     void delete(int id);
+
+    User findByUsername(String username);
+
+    User findByUsernameAndPassword(String username, String password);
 }

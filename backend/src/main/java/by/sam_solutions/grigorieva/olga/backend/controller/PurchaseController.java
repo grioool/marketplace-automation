@@ -37,8 +37,8 @@ public class PurchaseController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public Purchase add(@RequestBody Purchase purchase) {
-        return purchaseService.add(purchase);
+    public Purchase create(@RequestBody Purchase purchase) {
+        return purchaseService.create(purchase);
     }
 
     @RequestMapping(value = "/purchase",

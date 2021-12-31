@@ -23,8 +23,8 @@ public class User extends AbstractEntity {
     @Column(name = "ozon_key")
     private String ozonKey;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
