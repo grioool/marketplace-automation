@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.controller;
+package by.sam_solutions.grigorieva.olga.backend.controller.auth;
 
 import lombok.Data;
 
