@@ -7,27 +7,28 @@ import {User} from '../classes/user';
 })
 export class UserService{
 
-  private url = "http://localhost:8080/user";
+  private url = "http://localhost:8080";
   constructor(private http: HttpClient){ }
 
   getUsers(){
-    return this.http.get<Array<User>>(this.url + "s");
+    return this.http.get<Array<User>>(this.url + '/users');
   }
 
-  getUser(id: number){
+  getUser(id: string){
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.get<User>(this.url);
-  } //TODO
+    return this.http.get<User>(this.url + '/user' + id);
+  }
 
   createUser(user: User){
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.post<User>(this.url, JSON.stringify(user), {headers: myHeaders});
+    return this.http.post<User>(this.url + '/user', JSON.stringify(user), {headers: myHeaders});
   }
   updateUser(user: User) {
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.put<User>(this.url, JSON.stringify(user), {headers:myHeaders});
+    return this.http.put<User>(this.url + '/user', JSON.stringify(user), {headers:myHeaders});
   }
-  deleteUser(user: User){
-    return this.http.delete<User>(this.url);
+
+  deleteUser(id: number){
+    return this.http.delete<User>(this.url + '/user/' + id);
   }
 }

@@ -7,7 +7,7 @@ import {isPresent} from "../../../util";
 @Component({
   selector: 'users-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.css']
+  styleUrls: ['./user-list.component.css']
 })
 
 export class UserList implements OnInit {
@@ -79,8 +79,8 @@ export class UserList implements OnInit {
     this.editedUser = null;
   }
 
-  deleteUser(user: User) {
-    this.serv.deleteUser(user).subscribe(data => {
+  deleteUser(id: number) {
+    this.serv.deleteUser(id).subscribe(data => {
       this.statusMessage = 'Данные успешно удалены';
         this.loadUsers();
     });

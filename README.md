@@ -31,3 +31,6 @@
 4. Test login and registration controllers were made.
 5. Security config.
 6. Auth controller was made.
+7. Structure update.
+8. Autowired change.
+9. 

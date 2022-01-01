@@ -30,7 +30,7 @@
         <input type="button" value="Изменить" class="btn btn-default" (click)="editUser(user)">
       </td>
       <td>
-        <input type="button" value="Удалить" (click)="deleteUser(user)" class="btn btn-danger">
+        <input type="button" value="Удалить" (click)="deleteUser(user._id)" class="btn btn-danger">
       </td>
     </ng-container>
     <ng-container *ngIf="isEditable(user)">

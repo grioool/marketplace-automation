@@ -2,20 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { UserList } from './components/user-list/user-list';
-import { PurchaseList } from "./components/purchase-list/purchase-list";
+import { UserList } from './components/user-list/user-list.component';
+import { PurchaseList } from "./components/purchase-list/purchase-list.component";
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./components/app.component";
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent, PurchaseList, UserList
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, RouterModule
+    BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent, PurchaseList, UserList]
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }
