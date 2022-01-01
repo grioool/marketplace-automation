@@ -1,5 +1,6 @@
-package by.sam_solutions.grigorieva.olga.backend.entity;
+package by.sam_solutions.grigorieva.olga.backend.entity.role;
 
+import by.sam_solutions.grigorieva.olga.backend.entity.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +15,6 @@ public class Role extends AbstractEntity {
 
     @Column(name = "role_name")
     @Enumerated(value = EnumType.STRING)
-    private Name roleName;
+    private RoleName roleName;
 
-    public enum Name {
-        USER, ADMIN, UNAUTHORIZED
-    }
 }
