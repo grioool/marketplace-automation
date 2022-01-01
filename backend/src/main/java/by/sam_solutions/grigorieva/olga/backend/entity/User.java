@@ -1,7 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

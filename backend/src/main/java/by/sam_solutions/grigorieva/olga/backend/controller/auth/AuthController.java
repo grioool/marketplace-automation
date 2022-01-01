@@ -1,7 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.auth;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
-import by.sam_solutions.grigorieva.olga.backend.controller.RegistrationRequest;
+import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationRequest;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;

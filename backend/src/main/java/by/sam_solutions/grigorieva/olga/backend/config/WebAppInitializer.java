@@ -5,12 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-//TODO - сделать этот CRUD на фронте
-//TODO - подключить Spring Security c jwt токеном
-//TODO - реализовать  логин, регистрацию
-//TODO - реализовать всю авторизацию на фронте
-//TODO - создание сущности "Поставки" и "Отчёт", наладить связи между ними
-
 @Configuration
 @EnableWebMvc
 @ComponentScan("by.sam_solutions.grigorieva.olga.backend")
