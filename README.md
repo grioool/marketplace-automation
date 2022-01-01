@@ -21,7 +21,7 @@
 5. Front: user CRUD.
 6. Front: purchase CRUD.
 
-## Third week(31.12.21 - 06.01.22)
+## Third week(31.12.21 - 02.01.22)
 
 /exam preparing/
 
@@ -30,7 +30,10 @@
 3. Start of work with Jwt.
 4. Test login and registration controllers were made.
 5. Security config.
-6. Auth controller was made.
+6. Auth and register controller was made.
 7. Structure update.
 8. Autowired change.
-9. 
+9. Web config for front.
+10. Country, Town entities, repositories were added.
+11. Supply, Report entities, repositories, services, controllers were added.
+12. Subscription, Storage entities, repositories were added.
