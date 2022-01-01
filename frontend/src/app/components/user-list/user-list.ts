@@ -1,15 +1,16 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {User} from './user';
-import {UserService} from './user.service';
-import {Role} from "./role";
-import {isPresent} from "../util";
+import {User} from '../../classes/user';
+import {UserService} from '../../services/user.service';
+import {Role} from "../../classes/role";
+import {isPresent} from "../../../util";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'users-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.css']
 })
-export class AppComponent implements OnInit {
+
+export class UserList implements OnInit {
   title = 'frontend';
 
 

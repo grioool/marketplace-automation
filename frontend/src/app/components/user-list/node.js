@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 db.connect(function(err, client){
   if(err) return console.log(err);
   dbClient = client;
-  app.locals.collection = client.db("usersdb").collection("users");
+  app.locals.collection = client.db("marketplace").collection("user");
   app.listen(3000, function(){
     console.log("Сервер ожидает подключения...");
   });

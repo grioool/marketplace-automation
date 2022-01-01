@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 db.connect(function(err, client){
   if(err) return console.log(err);
   dbClient = client;
-  app.locals.collection = client.db("usersdb").collection("users");
+  app.locals.collection = client.db("marketplace").collection("purchase");
   app.listen(3000, function(){
     console.log("Сервер ожидает подключения...");
   });
@@ -29,10 +29,10 @@ db.connect(function(err, client){
 app.get("/purchases", function(req, res){
 
   const collection = req.app.locals.collection;
-  collection.find({}).toArray(function(err, users){
+  collection.find({}).toArray(function(err, purchases){
 
     if(err) return console.log(err);
-    res.send(users)
+    res.send(purchases)
   });
 
 });
@@ -40,10 +40,10 @@ app.get("/purchase:id", function(req, res){
 
   const id = new objectId(req.params.id);
   const collection = req.app.locals.collection;
-  collection.findOne({_id: id}, function(err, user){
+  collection.findOne({_id: id}, function(err, purchase){
 
     if(err) return console.log(err);
-    res.send(user);
+    res.send(purchase);
   });
 });
 
@@ -51,23 +51,24 @@ app.post("/purchase", jsonParser, function (req, res) {
 
   if(!req.body) return res.sendStatus(400);
 
-  const userName = req.body.name;
-  const userEmail = req.body.email;
-  const userPassword = req.body.password;
-  const userWBKey = req.body.wbKey;
-  const userOzonKey = req.body.ozonKey;
-  const userIsSubscribe = req.body.isSubscribe;
-  const userIsBlocked = req.body.isBlocked;
-  const userRole = req.body.role;
+  const date = req.body.date;
+  const productName = req.body.productName;
+  const priceForOne = req.body.priceForOne;
+  const amount = req.body.amount;
+  const purchasePrice = req.body.purchase;
+  const logistics = req.body.logistics;
+  const costPrice = req.body.costPrice;
+  const batchPrice = req.body.batchPrice;
+  const extra = req.body.extra;
 
-  const user = {name: userName, email: userEmail, password: userPassword, wbKey: userWBKey,
-                ozonKey: userOzonKey, isSubscribe: userIsSubscribe, isBlocked: userIsBlocked, role: userRole};
+  const purchase = {date: date, productName: productName, priceForOne: priceForOne, amount: amount, purchasePrice: purchasePrice, logistics: logistics,
+                    costPrice: costPrice, batchPrice: batchPrice, extra: extra};
 
   const collection = req.app.locals.collection;
-  collection.insertOne(user, function(err, result){
+  collection.insertOne(purchase, function(err, result){
 
     if(err) return console.log(err);
-    res.send(user);
+    res.send(purchase);
   });
 });
 
@@ -78,8 +79,8 @@ app.delete("/purchase", function(req, res){
   collection.findOneAndDelete({_id: id}, function(err, result){
 
     if(err) return console.log(err);
-    let user = result.value;
-    res.send(user);
+    let purchase = result.value;
+    res.send(purchase);
   });
 });
 
@@ -87,24 +88,25 @@ app.put("/purchase", jsonParser, function(req, res){
 
   if(!req.body) return res.sendStatus(400);
   const id = new objectId(req.body._id);
-  const userName = req.body.name;
-  const userEmail = req.body.email;
-  const userPassword = req.body.password;
-  const userWBKey = req.body.wbKey;
-  const userOzonKey = req.body.ozonKey;
-  const userIsSubscribe = req.body.isSubscribe;
-  const userIsBlocked = req.body.isBlocked;
-  const userRole = req.body.role;
+  const date = req.body.date;
+  const productName = req.body.productName;
+  const priceForOne = req.body.priceForOne;
+  const amount = req.body.amount;
+  const purchasePrice = req.body.purchase;
+  const logistics = req.body.logistics;
+  const costPrice = req.body.costPrice;
+  const batchPrice = req.body.batchPrice;
+  const extra = req.body.extra;
 
 
   const collection = req.app.locals.collection;
-  collection.findOneAndUpdate({_id: id}, { $set: {name: userName, email: userEmail, password: userPassword, wbKey: userWBKey,
-        ozonKey: userOzonKey, isSubscribe: userIsSubscribe, isBlocked: userIsBlocked, role: userRole}},
+  collection.findOneAndUpdate({_id: id}, { $set: {date: date, productName: productName, priceForOne: priceForOne, amount: amount, purchasePrice: purchasePrice, logistics: logistics,
+        costPrice: costPrice, batchPrice: batchPrice, extra: extra}},
     {returnOriginal: false },function(err, result){
 
       if(err) return console.log(err);
-      const user = result.value;
-      res.send(user);
+      const purchase = result.value;
+      res.send(purchase);
     });
 });
 
