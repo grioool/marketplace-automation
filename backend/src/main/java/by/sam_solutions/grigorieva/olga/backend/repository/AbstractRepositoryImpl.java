@@ -1,5 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.repository;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -9,7 +11,8 @@ import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class AbstractRepositoryImpl<Entity>{
+@Repository
+public abstract class AbstractRepositoryImpl<Entity> implements AbstractRepository<Entity> {
 
     @PersistenceContext
     protected EntityManager entityManager;

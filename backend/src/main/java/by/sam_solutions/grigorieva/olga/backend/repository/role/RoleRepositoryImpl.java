@@ -2,7 +2,9 @@ package by.sam_solutions.grigorieva.olga.backend.repository.role;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepositoryImpl;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class RoleRepositoryImpl extends AbstractRepositoryImpl<Role> implements RoleRepository {
 
     public Role findByName(Role.Name name) {

@@ -1,22 +1,11 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
+import by.sam_solutions.grigorieva.olga.backend.service.AbstractService;
 
-import java.util.List;
-
-public interface UserService {
-
-    User create(User user);
-
-    User update(User user);
+public interface UserService extends AbstractService<User> {
 
     User register(User user);
-
-    List<User> findAll();
-
-    User getById(int id);
-
-    void delete(int id);
 
     User getByUsername(String username);
 

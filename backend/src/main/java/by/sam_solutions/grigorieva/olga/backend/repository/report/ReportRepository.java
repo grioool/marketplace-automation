@@ -1,0 +1,7 @@
+package by.sam_solutions.grigorieva.olga.backend.repository.report;
+
+import by.sam_solutions.grigorieva.olga.backend.entity.Report;
+import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
+
+public interface ReportRepository extends AbstractRepository<Report> {
+}
