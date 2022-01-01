@@ -1,30 +1,23 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Arrays;
 
-@Entity
-@Getter
-@Table(name = "role")
-public enum Role {
 
-    USER(1), ADMIN(2), UNAUTHORIZED(3);
+@Entity
+@Table(name = "role")
+@Getter
+@Setter
+public class Role extends AbstractEntity {
 
     @Column(name = "role_name")
-    private String roleName;
+    @Enumerated(value = EnumType.STRING)
+    private Name roleName;
 
-    @Id
-    private Integer id;
-
-    Role(Integer id) {
-        this.id = id;
-    }
-
-    Role() {
+    public enum Name {
+        USER, ADMIN, UNAUTHORIZED
     }
 }

@@ -2,8 +2,8 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private JwtProvider jwtProvider;
+    private final UserService userService;
+
+    private final JwtProvider jwtProvider;
 
     @PostMapping("/register")
     public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
-        User userEntity = userService.findByUsernameAndPassword(request.getLogin(), request.getPassword());
+        User userEntity = userService.getByUsernameAndPassword(request.getLogin(), request.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUsername());
         return new AuthResponse(token);
     }

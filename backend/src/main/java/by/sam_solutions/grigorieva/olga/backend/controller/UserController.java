@@ -3,19 +3,17 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import java.util.List;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    UserController() {}
+    private final UserService userService;
 
     @RequestMapping(value = "/users",
             method = RequestMethod.GET,
@@ -23,7 +21,7 @@ public class UserController {
 
 
     public List<User> getUsers() {
-        return userService.getAll();
+        return userService.findAll();
     }
 
     @RequestMapping(value = "users/{userId}",
@@ -31,14 +29,14 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public User getUser(@PathVariable("userId") Integer id) {
-        return userService.findById(id);
+        return userService.getById(id);
     }
 
     @RequestMapping(value = "/user",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public User add(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         return userService.create(user);
     }
 

@@ -1,24 +1,51 @@
 package by.sam_solutions.grigorieva.olga.backend.repository;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 public abstract class AbstractRepositoryImpl<Entity>{
 
     @PersistenceContext
-    private EntityManager entityManger;
+    protected EntityManager entityManager;
 
-    @Transactional
+    private final Class<Entity> parametrizedType;
+
+    @SuppressWarnings("unchecked")
+    public AbstractRepositoryImpl() {
+        this.parametrizedType = ((Class<Entity>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0]);
+    }
+
     public Entity create(Entity entity) {
-        entityManger.persist(entity);
+        entityManager.persist(entity);
         return entity;
     }
 
-    @Transactional
     public Entity update(Entity entity) {
-        entityManger.merge(entity);
+        entityManager.merge(entity);
         return entity;
+    }
+
+    public void delete(int id) {
+        entityManager.remove(getById(id));
+    }
+
+    public Entity getById(int id) {
+        return entityManager.find(parametrizedType, id);
+    }
+
+    public List<Entity> getAll() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Entity> cq = cb.createQuery(parametrizedType);
+        Root<Entity> rootEntry = cq.from(parametrizedType);
+        CriteriaQuery<Entity> all = cq.select(rootEntry);
+        TypedQuery<Entity> allQuery = entityManager.createQuery(all);
+        return allQuery.getResultList();
     }
 }
