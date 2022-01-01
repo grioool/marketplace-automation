@@ -2,13 +2,15 @@ package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @Entity
 @Table(name = "`user`")
-@Data
 public class User extends AbstractEntity {
 
     @Column(name = "email")

@@ -23,7 +23,7 @@ public class Purchase extends AbstractEntity {
     @Column(name = "amount")
     private Integer amount;
 
-    @Column(name = "purchase")
+    @Column(name = "purchase_price")
     private Integer purchase;
 
     @Column(name = "logistics")
