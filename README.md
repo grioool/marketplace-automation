@@ -23,7 +23,7 @@
 
 ## Third week(31.12.21 - 02.01.22)
 
-/exam preparing/
+/exam preparing from 03.01.22 to 06.01.22/
 
 1. Spring security introduction .
 2. Start of work with Spring security.
