@@ -1,0 +1,104 @@
+<router-outlet></router-outlet>
+
+<h1>Отчет о продажах</h1>
+<input type="button" value="Добавить" class="btn btn-default" (click)="addReport()">
+<table class="table table-striped">
+  <thead>
+<tr>
+  <td>Id</td>
+  <td>Номер заказа</td>
+  <td>Id поставки</td>
+  <td>Наименование</td>
+  <td>Цена заказа</td>
+  <td>Логистика</td>
+  <td>Себестоимость</td>
+  <td>Комиссия</td>
+  <td>Прибыль</td>
+  <td>Комиссия %</td>
+  <td>НДС комиссии</td>
+  <td>Дата заказа</td>
+  <td>Дата продажи</td>
+  </tr>
+</thead>
+  <tbody>
+  <tr *ngFor="let report of reports">
+    <ng-container *ngIf="isReadOnly(report)">
+      <td>{{report._id}}</td>
+      <td>{{report.supply}}</td>
+      <td>{{report.orderNumber}}</td>
+      <td>{{report.name}}</td>
+      <td>{{report.orderPrice}}</td>
+      <td>{{report.proceeds}}</td>
+      <td>{{report.logistics}}</td>
+      <td>{{report.costPrice}}</td>
+      <td>{{report.commission}}</td>
+      <td>{{report.profit}}</td>
+      <td>{{report.commissionPerCent}}</td>
+      <td>{{report.commissionVAT}}</td>
+      <td>{{report.dateSale}}</td>
+      <td>{{report.dateOrder}}</td>
+      <td>
+        <input type="button" value="Изменить" class="btn btn-default" (click)="editReport(report)">
+      </td>
+      <td>
+        <input type="button" value="Удалить" (click)="deleteReport(report._id)" class="btn btn-danger">
+      </td>
+    </ng-container>
+    <ng-container *ngIf="isEditable(report)">
+      <td>
+        <input type="number" [(ngModel)]="editedReport._id" readonly disabled class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.orderNumber" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.supply" class="form-control">
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="editedReport.name" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.orderPrice" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.proceeds" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.logistics" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.costPrice" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.commission" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.profit" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.commissionPerCent" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedReport.commissionVAT" class="form-control">
+      </td>
+      <td>
+        <input type="date" [(ngModel)]="editedReport.dateSale" class="form-control">
+      </td>
+      <td>
+        <input type="date" [(ngModel)]="editedReport.dateOrder" class="form-control">
+      </td>
+      <td>
+        <input type="button" value="Сохранить" (click)="saveReport()" class="btn btn-success">
+      </td>
+      <td>
+        <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning">
+      </td>
+    </ng-container>
+    <ng-template [ngTemplateOutlet]="loadTemplate(report)"
+                             [ngTemplateOutletContext]="{ $implicit: report}">
+    </ng-template>
+  </tr>
+</tbody>
+</table>
+<div>{{statusMessage}}</div>
+

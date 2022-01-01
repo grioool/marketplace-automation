@@ -7,10 +7,12 @@ import { PurchaseList } from "./components/purchase-list/purchase-list.component
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./components/app.component";
 import { AppRoutingModule } from './app-routing.module';
+import {ReportList} from "./components/report-list/report-list.component";
+import {SupplyList} from "./components/supply-list/supply-list.component";
 
 @NgModule({
   declarations: [
-    AppComponent, PurchaseList, UserList
+    AppComponent, PurchaseList, UserList, ReportList, SupplyList
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule

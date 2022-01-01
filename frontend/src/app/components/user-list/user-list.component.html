@@ -11,7 +11,6 @@
   <td>Ozon ключ</td>
   <td>Подписка</td>
   <td>Блок</td>
-  <td>Роль</td>
   </tr>
 </thead>
   <tbody>
@@ -25,7 +24,6 @@
       <td>{{user.ozonKey}}</td>
       <td>{{user.isSubscribed}}</td>
       <td>{{user.isBlocked}}</td>
-      <td>{{user.role}}</td>
       <td>
         <input type="button" value="Изменить" class="btn btn-default" (click)="editUser(user)">
       </td>
@@ -57,9 +55,6 @@
       </td>
       <td>
         <input type="checkbox" [(ngModel)]="editedUser.isSubscribed" class="form-control">
-      </td>
-      <td>
-        <input type="checkbox" [(ngModel)]="editedUser.role" class="form-control">
       </td>
 
       <td>

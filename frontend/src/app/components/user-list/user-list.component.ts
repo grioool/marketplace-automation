@@ -1,7 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {User} from '../../classes/user';
 import {UserService} from '../../services/user.service';
-import {Role} from "../../classes/role";
 import {isPresent} from "../../../util";
 
 @Component({
@@ -37,13 +36,13 @@ export class UserList implements OnInit {
   }
 
   addUser() {
-    this.editedUser = new User(-1,"", "","","","", Role.USER, false, false);
+    this.editedUser = new User(-1,"", "","","","", false, false);
     this.users.push(this.editedUser);
     this.isNewRecord = true;
   }
 
   editUser(user: User) {
-    this.editedUser = new User(user._id, user.name, user.email, user.password, user.wildBerriesKeys, user.ozonKey, user.role, user.isBlocked, user.isSubscribed);
+    this.editedUser = new User(user._id, user.name, user.email, user.password, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
   }
 
   loadTemplate(user: User) {

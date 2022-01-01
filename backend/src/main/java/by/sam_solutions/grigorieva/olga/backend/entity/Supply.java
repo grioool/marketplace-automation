@@ -16,6 +16,10 @@ public class Supply extends AbstractEntity {
     @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "storage_id")
+    private Storage storage;
+
     @Column(name = "date")
     private Timestamp date;
 
