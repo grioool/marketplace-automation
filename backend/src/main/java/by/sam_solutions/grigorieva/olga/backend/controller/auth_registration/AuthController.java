@@ -1,7 +1,6 @@
-package by.sam_solutions.grigorieva.olga.backend.controller.auth;
+package by.sam_solutions.grigorieva.olga.backend.controller.auth_registration;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
-import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationRequest;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class AuthController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public String register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         User user = new User();
         user.setPassword(registrationRequest.getPassword());
         user.setUsername(registrationRequest.getLogin());
