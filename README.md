@@ -39,3 +39,4 @@
 12. Subscription, Storage entities, repositories were added.
 13. Front: supply CRUD.
 14. Front: report CRUD.
+15. Front and back dependency was done.
