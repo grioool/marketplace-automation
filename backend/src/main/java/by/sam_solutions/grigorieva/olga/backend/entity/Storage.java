@@ -21,7 +21,4 @@ public class Storage extends AbstractEntity {
     @JoinColumn(name = "town_id")
     private Town town;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supply_id")
-    private Supply supply;
 }
