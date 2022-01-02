@@ -7,6 +7,7 @@ import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.role.RoleRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,18 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //@RequiredArgsConstructor TODO
 public class UserServiceImpl extends AbstractServiceImpl<User> implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    private final RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(AbstractRepository<User> abstractRepository, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        super(abstractRepository);
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     public User register(User user) {

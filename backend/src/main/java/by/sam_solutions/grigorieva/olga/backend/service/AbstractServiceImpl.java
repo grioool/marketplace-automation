@@ -2,14 +2,15 @@ package by.sam_solutions.grigorieva.olga.backend.service;
 
 import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public abstract class AbstractServiceImpl<Entity> implements AbstractService<Entity> {
 
-    private final AbstractRepository<Entity> abstractRepository;
+    @Autowired
+    private AbstractRepository<Entity> abstractRepository;
 
     @Transactional
     public Entity create(Entity entity) {

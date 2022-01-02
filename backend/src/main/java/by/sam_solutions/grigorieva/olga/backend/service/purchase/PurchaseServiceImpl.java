@@ -10,7 +10,4 @@ import org.springframework.stereotype.Service;
 //@RequiredArgsConstructor TODO
 public class PurchaseServiceImpl extends AbstractServiceImpl<Purchase> implements PurchaseService {
 
-    public PurchaseServiceImpl(AbstractRepository<Purchase> abstractRepository) {
-        super(abstractRepository);
-    }
 }

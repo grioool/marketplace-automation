@@ -8,9 +8,4 @@ import org.springframework.stereotype.Service;
 @Service
 //@RequiredArgsConstructor TODO
 public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements SupplyService {
-
-    public SupplyServiceImpl(AbstractRepository<Supply> abstractRepository) {
-        super(abstractRepository);
-    }
-
 }
