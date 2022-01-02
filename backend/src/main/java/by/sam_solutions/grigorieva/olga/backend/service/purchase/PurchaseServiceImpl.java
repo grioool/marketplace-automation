@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-//@RequiredArgsConstructor TODO
 public class PurchaseServiceImpl extends AbstractServiceImpl<Purchase> implements PurchaseService {
 
 }

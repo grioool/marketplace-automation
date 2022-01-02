@@ -3,6 +3,7 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import by.sam_solutions.grigorieva.olga.backend.service.report.ReportService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequiredArgsConstructor
 public class ReportController {
 
-    private final ReportService reportService;
+    @Autowired
+    private ReportService reportService;
 
     @RequestMapping(value = "/reports",
             method = RequestMethod.GET,

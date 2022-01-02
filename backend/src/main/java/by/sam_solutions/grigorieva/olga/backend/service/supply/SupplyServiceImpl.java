@@ -6,6 +6,5 @@ import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-//@RequiredArgsConstructor TODO
 public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements SupplyService {
 }

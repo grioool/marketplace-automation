@@ -3,6 +3,7 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequiredArgsConstructor
 public class SupplyController {
 
-    private final SupplyService supplyService;
+    @Autowired
+    private SupplyService supplyService;
 
     @RequestMapping(value = "/supplies",
             method = RequestMethod.GET,

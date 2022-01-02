@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Service
-//@RequiredArgsConstructor TODO
 public class UserServiceImpl extends AbstractServiceImpl<User> implements UserService {
 
     @Autowired

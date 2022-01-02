@@ -4,6 +4,7 @@ import by.sam_solutions.grigorieva.olga.backend.config.custom_user.CustomUserDet
 import by.sam_solutions.grigorieva.olga.backend.config.custom_user.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +22,13 @@ import static org.springframework.util.StringUtils.hasText;
 
 @Component
 @Log
-@RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {
 
-    private final JwtProvider jwtProvider;
+    @Autowired
+    private JwtProvider jwtProvider;
 
-    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

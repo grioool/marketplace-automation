@@ -5,15 +5,16 @@ import java.util.List;
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.service.purchase.PurchaseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class PurchaseController {
 
-    private final PurchaseService purchaseService;
+    @Autowired
+    private PurchaseService purchaseService;
 
     @RequestMapping(value = "/purchases",
             method = RequestMethod.GET,
