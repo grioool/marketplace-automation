@@ -1,7 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.config.jwt;
 
-import by.sam_solutions.grigorieva.olga.backend.config.custom.user.CustomUserDetails;
-import by.sam_solutions.grigorieva.olga.backend.config.custom.user.CustomUserDetailsService;
+import by.sam_solutions.grigorieva.olga.backend.config.custom_user.CustomUserDetails;
+import by.sam_solutions.grigorieva.olga.backend.config.custom_user.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpHeaders;

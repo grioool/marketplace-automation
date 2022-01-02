@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.config.custom.user;
+package by.sam_solutions.grigorieva.olga.backend.config.custom_user;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
