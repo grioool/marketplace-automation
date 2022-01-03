@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Setter
 public class Report extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supply_id")
     private Supply supply;
 
