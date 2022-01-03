@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class PurchaseController {
 
-    @Autowired
-    private PurchaseService purchaseService;
+    private final PurchaseService purchaseService;
 
     @RequestMapping(value = "/purchases",
             method = RequestMethod.GET,

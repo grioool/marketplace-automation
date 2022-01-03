@@ -1,0 +1,85 @@
+<router-outlet></router-outlet>
+
+<h1>Список заказов</h1>
+<input type="button" value="Добавить" class="btn btn-default" (click)="addPurchase()">
+<table class="table table-striped">
+  <thead>
+<tr>
+  <td>Id</td>
+  <td>Дата отгрузки от поставщика</td>
+  <td>Наименование товара</td>
+  <td>Цена за штуку</td>
+  <td>Количество</td>
+  <td>Закупка</td>
+  <td>Логистика</td>
+  <td>Доп расходы</td>
+  <td>Себестоимость</td>
+  <td>Цена партии</td>
+  </tr>
+</thead>
+  <tbody>
+  <tr *ngFor="let purchase of purchases">
+    <ng-container *ngIf="isReadOnly(purchase)">
+      <td>{{purchase._id}}</td>
+      <td>{{purchase.date}}</td>
+      <td>{{purchase.productName}}</td>
+      <td>{{purchase.priceForOne}}</td>
+      <td>{{purchase.amount}}</td>
+      <td>{{purchase.purchasePrice}}</td>
+      <td>{{purchase.logistics}}</td>
+      <td>{{purchase.extra}}</td>
+      <td>{{purchase.costPrice}}</td>
+      <td>{{purchase.batchPrice}}</td>
+      <td>
+        <input type="button" value="Изменить" class="btn btn-default" (click)="editPurchase(purchase)">
+      </td>
+      <td>
+        <input type="button" value="Удалить" (click)="deletePurchase(purchase._id)" class="btn btn-danger">
+      </td>
+    </ng-container>
+    <ng-container *ngIf="isEditable(purchase)">
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase._id" readonly disabled class="form-control">
+      </td>
+      <td>
+        <input type="date" [(ngModel)]="editedPurchase.date" class="form-control">
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="editedPurchase.productName" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.priceForOne" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.amount" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.purchasePrice" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.logistics" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.extra" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.costPrice" class="form-control">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="editedPurchase.batchPrice" class="form-control">
+      </td>
+      <td>
+        <input type="button" value="Сохранить" (click)="savePurchase()" class="btn btn-success">
+      </td>
+      <td>
+        <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning">
+      </td>
+    </ng-container>
+    <ng-template [ngTemplateOutlet]="loadTemplate(purchase)"
+                             [ngTemplateOutletContext]="{ $implicit: purchase}">
+    </ng-template>
+  </tr>
+</tbody>
+</table>
+<div>{{statusMessage}}</div>
+

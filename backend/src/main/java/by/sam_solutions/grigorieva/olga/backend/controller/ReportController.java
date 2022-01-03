@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class ReportController {
 
-    @Autowired
-    private ReportService reportService;
+    private final ReportService reportService;
 
     @RequestMapping(value = "/reports",
             method = RequestMethod.GET,
