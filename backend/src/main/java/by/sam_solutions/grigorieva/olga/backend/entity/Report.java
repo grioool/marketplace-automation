@@ -43,7 +43,7 @@ public class Report extends AbstractEntity {
     @Column(name = "commission_per_cent")
     private Double commissionPerCent;
 
-    @Column(name = "commission_VAT")
+    @Column(name = "commission_vat")
     private Double commissionVAT;
 
     @Column(name = "date_sale")
