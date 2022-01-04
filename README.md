@@ -42,3 +42,4 @@
 15. Front and back dependency was done.
 16. Main page was made with CSS from design.
 17. Registration page was made with CSS from design.
+18. Login page was made with CSS from design.
