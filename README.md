@@ -21,7 +21,7 @@
 5. Front: user CRUD.
 6. Front: purchase CRUD.
 
-## Third week(31.12.21 - 02.01.22)
+## Third week(31.12.21 - 07.01.22)
 
 /exam preparing from 03.01.22 to 06.01.22/
 
@@ -40,3 +40,4 @@
 13. Front: supply CRUD.
 14. Front: report CRUD.
 15. Front and back dependency was done.
+16. Main page was made with CSS.

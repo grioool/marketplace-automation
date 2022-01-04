@@ -4,6 +4,8 @@ import { PurchaseList } from "./components/purchase-list/purchase-list.component
 import { UserList } from "./components/user-list/user-list.component";
 import {SupplyList} from "./components/supply-list/supply-list.component";
 import {ReportList} from "./components/report-list/report-list.component";
+import {HeaderComponent} from "./components/header/header.component";
+import {MainComponent} from "./components/main/main.component";
 
 
 const routes: Routes = [
@@ -11,6 +13,8 @@ const routes: Routes = [
   {path: "purchases", component: PurchaseList},
   {path: "supplies", component: SupplyList},
   {path: "reports", component: ReportList},
+  {path: "header", component: HeaderComponent},
+  {path: "main", component: MainComponent}
 ];
 
 @NgModule({

@@ -9,10 +9,15 @@ import { AppComponent } from "./components/app.component";
 import { AppRoutingModule } from './app-routing.module';
 import {ReportList} from "./components/report-list/report-list.component";
 import {SupplyList} from "./components/supply-list/supply-list.component";
+import { HeaderComponent } from './components/header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
-    AppComponent, PurchaseList, UserList, ReportList, SupplyList
+    AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule
