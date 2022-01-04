@@ -1,13 +1,17 @@
-<h1>Отчет о продажах</h1>
-<input type="button" value="Добавить" class="btn btn-default" (click)="addReport()">
+<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
+<p>Назад</p>
+<h1 class="reportClass">Отчет о продажах</h1>
+<button (click)="addReport()" class="button">Добавить товар</button>
+
 <table class="table table-striped">
   <thead>
-<tr>
+  <tr class="tableTop">
   <td>Id</td>
   <td>Номер заказа</td>
   <td>Id поставки</td>
   <td>Наименование</td>
   <td>Цена заказа</td>
+    <td>Выручка</td>
   <td>Логистика</td>
   <td>Себестоимость</td>
   <td>Комиссия</td>
@@ -18,12 +22,12 @@
   <td>Дата продажи</td>
   </tr>
 </thead>
-  <tbody>
+  <tbody class="tableBody">
   <tr *ngFor="let report of reports">
     <ng-container *ngIf="isReadOnly(report)">
       <td>{{report._id}}</td>
-      <td>{{report.supply}}</td>
       <td>{{report.orderNumber}}</td>
+      <td>{{report.supply}}</td>
       <td>{{report.name}}</td>
       <td>{{report.orderPrice}}</td>
       <td>{{report.proceeds}}</td>

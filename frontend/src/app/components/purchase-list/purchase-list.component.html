@@ -1,9 +1,11 @@
+<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
+<p>Назад</p>
+<h1 class="purchaseClass">Закупки</h1>
+<button (click)="addPurchase()" class="button">Добавить товар</button>
 
-<h1>Список заказов</h1>
-<input type="button" value="Добавить" class="btn btn-default" (click)="addPurchase()">
-<table class="table table-striped">
+  <table class="table table-striped">
   <thead>
-<tr>
+<tr class="tableTop">
   <td>Id</td>
   <td>Дата отгрузки от поставщика</td>
   <td>Наименование товара</td>
@@ -16,7 +18,7 @@
   <td>Цена партии</td>
   </tr>
 </thead>
-  <tbody>
+  <tbody class="tableBody">
   <tr *ngFor="let purchase of purchases">
     <ng-container *ngIf="isReadOnly(purchase)">
       <td>{{purchase._id}}</td>
