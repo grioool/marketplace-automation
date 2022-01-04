@@ -14,10 +14,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MainComponent } from './components/main/main.component';
+import { InformationComponent } from './components/information/information.component';
 
 @NgModule({
   declarations: [
-    AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent
+    AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule

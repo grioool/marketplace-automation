@@ -34,16 +34,12 @@ p {
   color: #000000;
 }
 
-/* Left arrow */
-
 .img {
   position: absolute;
   left: 33.33%;
   right: 33.33%;
   top: 20.83%;
   bottom: 20.83%;
-
-  /* Text/Secondary Text */
   background: #7B8E98;
 }
 
