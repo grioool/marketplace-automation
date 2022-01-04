@@ -43,3 +43,4 @@
 16. Main page was made with CSS from design.
 17. Registration page was made with CSS from design.
 18. Login page was made with CSS from design.
+19. Purchase, report, supply, user pages were made with CSS from design.
