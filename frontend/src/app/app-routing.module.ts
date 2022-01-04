@@ -6,6 +6,8 @@ import {SupplyList} from "./components/supply-list/supply-list.component";
 import {ReportList} from "./components/report-list/report-list.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {MainComponent} from "./components/main/main.component";
+import {RegistrationComponent} from "./components/registration/registration.component";
+import {LoginComponent} from "./components/login/login.component";
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: "supplies", component: SupplyList},
   {path: "reports", component: ReportList},
   {path: "header", component: HeaderComponent},
-  {path: "main", component: MainComponent}
+  {path: "main", component: MainComponent},
+  {path: "registration", component: RegistrationComponent},
+  {path: "login", component: LoginComponent}
 ];
 
 @NgModule({

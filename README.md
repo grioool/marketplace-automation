@@ -40,4 +40,5 @@
 13. Front: supply CRUD.
 14. Front: report CRUD.
 15. Front and back dependency was done.
-16. Main page was made with CSS.
+16. Main page was made with CSS from design.
+17. Registration page was made with CSS from design.
