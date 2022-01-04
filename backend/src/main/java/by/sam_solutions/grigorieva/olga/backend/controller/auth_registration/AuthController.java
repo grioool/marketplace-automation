@@ -20,7 +20,7 @@ public class AuthController {
     @Autowired
     private JwtProvider jwtProvider;
 
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public String register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         User user = new User();
         user.setPassword(registrationRequest.getPassword());
@@ -29,7 +29,7 @@ public class AuthController {
         return "OK";
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public AuthResponse auth(@RequestBody AuthRequest request) {
         User userEntity = userService.getByUsernameAndPassword(request.getLogin(), request.getPassword());
         String token = jwtProvider.generateToken(userEntity.getUsername());
