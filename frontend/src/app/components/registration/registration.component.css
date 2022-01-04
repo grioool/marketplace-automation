@@ -29,12 +29,12 @@ input[type=text], input[type=password] {
   border-radius: 12px;
 }
 
-h1 {
+.register {
   margin-top: 100px;
-  width: 202px;
-  left: calc(50% - 202px/2 - 71.5px);
-  top: 2.43%;
-  bottom: 88.92%;
+  width: 356px;
+  height: 42px;
+  left: calc(50% - 356px/2 - 0.5px);
+  top: calc(50% - 42px/2 + 184px);
 
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
@@ -80,8 +80,7 @@ p {
 
 .loginbtn {
   margin-top: 10px;
-  display: flex;
-  flex-direction: row;
+  display: block;
   background: #FFFFFF;
   color: #1A1A1A;
   font-family: 'Montserrat', sans-serif;
