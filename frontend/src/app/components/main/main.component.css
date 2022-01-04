@@ -1,0 +1,43 @@
+.name {
+  width: 850px;
+  height: 182px;
+  margin-top:133px;
+  margin-left: 110px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 56px;
+
+  vertical-align: center;
+
+  color: #000000;
+}
+
+.row {
+  display: flex;
+  margin-left: 110px;
+  margin-bottom: 50px;
+}
+
+.rectangle p {
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.rectangle span {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.rectangle {
+  display: inline-block;
+  margin-right: 52px;
+  width: 490px;
+  height: 234px;
+  background: linear-gradient(110deg, #9588E1, #FF87DD);
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 23.6449px;
+  padding: 35px;
+}
