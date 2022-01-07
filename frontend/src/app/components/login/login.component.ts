@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {MainComponent} from "../main/main.component";
+import {RegistrationComponent} from "../registration/registration.component";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import {MainComponent} from "../main/main.component";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email = '';
+  username = '';
   password = '';
   uri = 'http://localhost:8080';
 
@@ -17,11 +18,15 @@ export class LoginComponent implements OnInit {
   }
 
   OnLogin() {
-    this.login(this.email, this.password);
+    this.login(this.username, this.password);
   }
 
-  login(email: string, password: string) {
-    this.http.post(this.uri + '/login', {email: email, password: password})
+  OnRegister() {
+    this.router.navigate([{routes: RegistrationComponent}]);
+  }
+
+  login(username: string, password: string) {
+    this.http.post(this.uri + '/login', {username: username, password: password})
       .subscribe((resp: any) => {
 
         this.router.navigate([{routes: MainComponent}]);

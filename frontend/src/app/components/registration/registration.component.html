@@ -1,20 +1,22 @@
  <div class="container">
     <h1 class="register">Регистрация</h1>
 
-    <input type="text" placeholder="Email" name="email" required>
+    <input type="text" placeholder="Username" name="username" [(ngModel)]="username" required>
 
-    <input type="password" placeholder="Пароль" name="psw" required>
+    <input type="text" placeholder="Email" name="email" [(ngModel)]="email" required>
 
-    <input type="password" placeholder="Повторите пароль" name="psw-repeat" required>
+    <input type="password" placeholder="Пароль" name="psw" [(ngModel)]="password" required>
 
-   <input type="text" placeholder="Название юридического лица" name="nameC" required>
+    <input type="password" placeholder="Повторите пароль" name="psw-repeat" [(ngModel)]="passwordRep" required>
 
-   <input type="text" placeholder="Ключ от WB" name="wb" required>
+   <input type="text" placeholder="Название юридического лица" name="nameC" [(ngModel)]="nameC" required>
 
-   <input type="text" placeholder="Ключ от Ozon" name="ozon" required>
+   <input type="text" placeholder="Ключ от WB" name="wb" [(ngModel)]="wbKey" required>
+
+   <input type="text" placeholder="Ключ от Ozon" name="ozon" [(ngModel)]="ozonKey" required>
 
     <p>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
-    <button type="submit" class="registerbtn">Зарегистрироваться</button>
-    <button type="submit" class="loginbtn">Войти</button>
+    <button type="submit"(click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
+    <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
   </div>
 

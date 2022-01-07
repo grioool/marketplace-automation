@@ -22,6 +22,7 @@ public class AuthController {
         user.setPassword(registrationRequest.getPassword());
         user.setUsername(registrationRequest.getUsername());
         user.setEmail(registrationRequest.getEmail());
+        user.setNameCompany(registrationRequest.getNameCompany());
         user.setWildBerriesKeys(registrationRequest.getWbKey());
         user.setOzonKey(registrationRequest.getOzonKey());
         user.setIsBlocked(registrationRequest.getIsBlocked());

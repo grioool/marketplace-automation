@@ -17,6 +17,9 @@ public class RegistrationRequest {
     private String email;
 
     @NotEmpty
+    private String nameCompany;
+
+    @NotEmpty
     private String wbKey;
 
     @NotEmpty

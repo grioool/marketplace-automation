@@ -27,6 +27,9 @@ public class User extends AbstractEntity {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "name_company")
+    private String nameCompany;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;

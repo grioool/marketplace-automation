@@ -1,13 +1,13 @@
 <div class="container">
   <h1 class="login">Вход</h1>
 
-  <input type="text" placeholder="Email" name="email" [(ngModel)]="email" required>
+  <input type="text" placeholder="Username" name="username" [(ngModel)]="username" required>
 
   <input type="password" placeholder="Пароль" name="psw" [(ngModel)]="password" required>
 
   <a href="">Восстановить пароль</a>
 
   <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
-  <button type="submit" class="registerbtn">Зарегистрироваться</button>
+  <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
 </div>
 
