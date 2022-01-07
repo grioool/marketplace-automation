@@ -8,8 +8,23 @@ import javax.validation.constraints.NotEmpty;
 public class RegistrationRequest {
 
     @NotEmpty
-    private String login;
+    private String username;
 
     @NotEmpty
     private String password;
+
+    @NotEmpty
+    private String email;
+
+    @NotEmpty
+    private String wbKey;
+
+    @NotEmpty
+    private String ozonKey;
+
+    @NotEmpty
+    private Boolean isBlocked;
+
+    @NotEmpty
+    private Boolean isSubscribed;
 }

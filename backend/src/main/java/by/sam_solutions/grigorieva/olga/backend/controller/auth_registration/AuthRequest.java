@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 public class AuthRequest {
 
     @NotEmpty
-    private String login;
+    private String username;
 
     @NotEmpty
     private String password;

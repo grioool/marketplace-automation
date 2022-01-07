@@ -6,7 +6,13 @@
 
         <class>by.sam_solutions.grigorieva.olga.backend.entity.role.Role</class>
         <class>by.sam_solutions.grigorieva.olga.backend.entity.Purchase</class>
-        <class>by.sam_solutions.grigorieva.olga.backend.entity.Purchase</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.Report</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.Supply</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.User</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.Storage</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.Subscription</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.country.Country</class>
+        <class>by.sam_solutions.grigorieva.olga.backend.entity.town.Town</class>
 
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>

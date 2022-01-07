@@ -3,7 +3,6 @@ package by.sam_solutions.grigorieva.olga.backend.controller.auth_registration;
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,22 +16,22 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private JwtProvider jwtProvider;
-
     @PostMapping("/registration")
     public String register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         User user = new User();
         user.setPassword(registrationRequest.getPassword());
-        user.setUsername(registrationRequest.getLogin());
-        userService.create(user);
+        user.setUsername(registrationRequest.getUsername());
+        user.setEmail(registrationRequest.getEmail());
+        user.setWildBerriesKeys(registrationRequest.getWbKey());
+        user.setOzonKey(registrationRequest.getOzonKey());
+        user.setIsBlocked(registrationRequest.getIsBlocked());
+        user.setIsSubscribed(registrationRequest.getIsSubscribed());
+        userService.register(user);
         return "OK";
     }
 
     @PostMapping("/login")
     public AuthResponse auth(@RequestBody AuthRequest request) {
-        User userEntity = userService.getByUsernameAndPassword(request.getLogin(), request.getPassword());
-        String token = jwtProvider.generateToken(userEntity.getUsername());
-        return new AuthResponse(token);
+        return new AuthResponse(userService.authenticate(request.getUsername(), request.getPassword()));
     }
 }

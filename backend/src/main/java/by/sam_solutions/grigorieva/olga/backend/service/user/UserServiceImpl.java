@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
+import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.entity.role.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.entity.role.RoleName;
@@ -24,6 +25,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     private final PasswordEncoder passwordEncoder;
 
+    private final JwtProvider jwtProvider;
+
     @Transactional
     public User register(User user) {
         user.setRole(roleRepository.findByName(RoleName.USER));
@@ -37,11 +40,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Transactional
-    public User getByUsernameAndPassword(String username, String password) {
+    public String authenticate(String username, String password) {
         User user = getByUsername(username);
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return user;
+                return jwtProvider.generateToken(user.getUsername());
             }
         }
         return null;

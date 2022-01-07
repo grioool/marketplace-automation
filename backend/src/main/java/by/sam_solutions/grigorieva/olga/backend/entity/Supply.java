@@ -16,7 +16,7 @@ public class Supply extends AbstractEntity {
     @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)//TODO
     @JoinColumn(name = "storage_id")
     private Storage storage;
 

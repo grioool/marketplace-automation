@@ -9,7 +9,7 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User> implements 
 
     public User findByUsername(String username) {
         return entityManager.createQuery(
-                        "SELECT u from User u WHERE u.username = :username", User.class
+                        "SELECT u from User u INNER JOIN u.role WHERE u.username = :username", User.class
                 )
                 .setParameter("username", username)
                 .getSingleResult();

@@ -9,5 +9,5 @@ public interface UserService extends AbstractService<User> {
 
     User getByUsername(String username);
 
-    User getByUsernameAndPassword(String username, String password);
+    String authenticate(String username, String password);
 }
