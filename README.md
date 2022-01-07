@@ -45,4 +45,5 @@
 18. Login page was made with CSS from design.
 19. Purchase, report, supply, user pages were made with CSS from design. 
 20. Profile page was made with CSS from design.
-20. Information page was made with CSS from design.
+21. Information page was made with CSS from design.
+22. Spring Security was fixed.
