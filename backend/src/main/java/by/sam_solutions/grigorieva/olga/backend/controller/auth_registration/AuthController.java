@@ -17,7 +17,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/registration")
-    public String register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public void register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         User user = new User();
         user.setPassword(registrationRequest.getPassword());
         user.setUsername(registrationRequest.getUsername());
@@ -26,7 +26,6 @@ public class AuthController {
         user.setWildBerriesKeys(registrationRequest.getWbKey());
         user.setOzonKey(registrationRequest.getOzonKey());
         userService.register(user);
-        return "OK";
     }
 
     @PostMapping("/login")

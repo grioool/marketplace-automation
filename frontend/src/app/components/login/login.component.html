@@ -1,13 +1,35 @@
-<div class="container">
-  <h1 class="login">Вход</h1>
+<form [formGroup]="loginForm" novalidate>
+  <div class="container">
+    <h1 class="login">Вход</h1>
 
-  <input type="text" placeholder="Username" name="username" [(ngModel)]="username" required>
+    <input type="text" formControlName="usernameForm" placeholder="Username" [(ngModel)]="username">
 
-  <input type="password" placeholder="Пароль" name="psw" [(ngModel)]="password" required>
+    <div
+      *ngIf="_username.invalid && (_username.touched || _username.dirty)"
+    >
+      <span *ngIf="_username.errors?.['required']"
+      >Поле должно быть заполнено.</span
+      >
+    </div>
 
-  <a href="">Восстановить пароль</a>
+    <input type="password" formControlName="passwordForm" placeholder="Пароль" [(ngModel)]="password">
 
-  <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
-  <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
-</div>
+    <div
+      *ngIf="_password.invalid && (_password.touched || _password.dirty)"
+    >
+      <span *ngIf="_password.errors?.['required']"
+      >Поле должно быть заполнено.</span
+      >
+<!--      <span-->
+<!--        *ngIf="_password.errors?.pattern?['^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}']"-->
+<!--      >Разрешаются только цифры</span-->
+      >
+    </div>
 
+
+    <a href="">Восстановить пароль</a>
+
+    <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
+    <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
+  </div>
+</form>

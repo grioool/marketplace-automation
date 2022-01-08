@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserList } from './components/user-list/user-list.component';
 import { PurchaseList } from "./components/purchase-list/purchase-list.component";
@@ -20,9 +20,9 @@ import { InformationComponent } from './components/information/information.compo
   declarations: [
     AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent
   ],
-  imports: [
-    BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule
-  ],
+    imports: [
+        BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule, ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
