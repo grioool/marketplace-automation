@@ -47,4 +47,5 @@
 20. Profile page was made with CSS from design.
 21. Information page was made with CSS from design.
 22. Spring Security was fixed.
-23. Front: Auth was made
+23. Front: Auth was made.
+24. Front: Registration was made.
