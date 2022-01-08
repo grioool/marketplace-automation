@@ -9,14 +9,14 @@
 
     <input type="password" placeholder="Повторите пароль" name="psw-repeat" [(ngModel)]="passwordRep" required>
 
-   <input type="text" placeholder="Название юридического лица" name="nameC" [(ngModel)]="nameC" required>
+   <input type="text" placeholder="Название юридического лица" name="nameC" [(ngModel)]="nameCompany" required>
 
    <input type="text" placeholder="Ключ от WB" name="wb" [(ngModel)]="wbKey" required>
 
    <input type="text" placeholder="Ключ от Ozon" name="ozon" [(ngModel)]="ozonKey" required>
 
     <p>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
-    <button type="submit"(click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
+    <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
     <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
   </div>
 

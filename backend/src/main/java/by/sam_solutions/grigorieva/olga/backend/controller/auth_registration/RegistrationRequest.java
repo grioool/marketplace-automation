@@ -24,10 +24,4 @@ public class RegistrationRequest {
 
     @NotEmpty
     private String ozonKey;
-
-    @NotEmpty
-    private Boolean isBlocked;
-
-    @NotEmpty
-    private Boolean isSubscribed;
 }

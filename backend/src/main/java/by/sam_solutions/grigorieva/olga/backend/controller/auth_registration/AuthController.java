@@ -25,8 +25,6 @@ public class AuthController {
         user.setNameCompany(registrationRequest.getNameCompany());
         user.setWildBerriesKeys(registrationRequest.getWbKey());
         user.setOzonKey(registrationRequest.getOzonKey());
-        user.setIsBlocked(registrationRequest.getIsBlocked());
-        user.setIsSubscribed(registrationRequest.getIsSubscribed());
         userService.register(user);
         return "OK";
     }
