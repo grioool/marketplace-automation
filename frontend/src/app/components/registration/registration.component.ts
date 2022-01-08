@@ -35,7 +35,6 @@ export class RegistrationComponent implements OnInit {
       .subscribe((resp: any) => {
 
         this.router.navigate([this.loginPath]).then();
-        localStorage.setItem('auth_token', resp.token);
       })
   }
 
