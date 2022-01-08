@@ -13,28 +13,30 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
   uri = 'http://localhost:8080';
+  path = 'registration';
+  mainPath = 'main';
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  OnLogin() {
+  public OnLogin() {
     this.login(this.username, this.password);
   }
 
-  OnRegister() {
-    this.router.navigate([{routes: RegistrationComponent}]);
+  public OnRegister() {
+    this.router.navigate([this.path]).then();
   }
 
-  login(username: string, password: string) {
+  public login(username: string, password: string) {
     this.http.post(this.uri + '/login', {username: username, password: password})
       .subscribe((resp: any) => {
 
-        this.router.navigate([{routes: MainComponent}]);
+        this.router.navigate([this.mainPath]).then();
         localStorage.setItem('auth_token', resp.token);
       })
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('token');
   }
 
