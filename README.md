@@ -55,3 +55,6 @@
 /exam preparing from 07.01.22 to 11.01.22/
 
 1. Front: Validation was made.
+2. Dto was made.
+3. Hibernate Configuration was changed.
+4. Spring Security was changed.
