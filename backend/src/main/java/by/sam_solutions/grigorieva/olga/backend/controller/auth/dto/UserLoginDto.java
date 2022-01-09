@@ -1,11 +1,11 @@
-package by.sam_solutions.grigorieva.olga.backend.controller.auth_registration;
+package by.sam_solutions.grigorieva.olga.backend.controller.auth.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class AuthRequest {
+public class UserLoginDto {
 
     @NotEmpty
     private String username;

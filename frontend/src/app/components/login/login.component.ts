@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -8,13 +8,12 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  username = '';
-  password = '';
-  uri = 'http://localhost:8080';
-  path = 'registration';
-  mainPath = 'main';
-  loginForm: FormGroup;
+export class LoginComponent {
+
+  private uri = 'http://localhost:8080';
+  private registrationPath = 'registration';
+  private mainPath = 'main';
+  public loginForm: FormGroup;
 
   constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
     this.createForm();
@@ -22,31 +21,25 @@ export class LoginComponent implements OnInit {
 
   private createForm() {
     this.loginForm = this.fb.group({
-      usernameForm: ['', [Validators.required]],
-      passwordForm: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/),
-        ],
-      ],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     })
   }
 
-  get _username() {
+  public get username() {
     return this.loginForm.get('username');
   }
 
-  get _password() {
+  public get password() {
     return this.loginForm.get('password');
   }
 
   public OnLogin() {
-    this.login(this.username, this.password);
+    this.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
   }
 
   public OnRegister() {
-    this.router.navigate([this.path]).then();
+    this.router.navigate([this.registrationPath]).then();
   }
 
   public login(username: string, password: string) {
@@ -65,7 +58,5 @@ export class LoginComponent implements OnInit {
   public get logIn(): boolean {
     return (localStorage.getItem('token') !== null);
   }
-
-  ngOnInit() { }
 }
 

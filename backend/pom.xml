@@ -8,7 +8,9 @@
     <name>backend</name>
     <description>backend</description>
     <packaging>war</packaging>
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
         <spring.version>4.3.16.RELEASE</spring.version>
         <hb.manager>5.6.2.Final</hb.manager>

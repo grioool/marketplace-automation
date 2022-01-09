@@ -1,22 +1,72 @@
- <div class="container">
-    <h1 class="register">Регистрация</h1>
+<form [formGroup]="registrationForm" novalidate>
+   <div class="container">
+     <h1 class="register">Регистрация</h1>
 
-    <input type="text" placeholder="Username" name="username" [(ngModel)]="username" required>
+     <input type="text" formControlName="username" placeholder="Username" name="username" required>
 
-    <input type="text" placeholder="Email" name="email" [(ngModel)]="email" required>
+     <div *ngIf="username.invalid && (username.touched || username.dirty)">
+       <span *ngIf="username.errors['required']">Поле должно быть заполнено.</span>
+       <span *ngIf="username.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
 
-    <input type="password" placeholder="Пароль" name="psw" [(ngModel)]="password" required>
+     <input type="text" formControlName="email" placeholder="Email" name="email" required>
 
-    <input type="password" placeholder="Повторите пароль" name="psw-repeat" [(ngModel)]="passwordRep" required>
+     <div *ngIf="email.invalid && (email.touched || email.dirty )">
+       <span *ngIf="email.errors['required']">Некорректный email.</span>
+       <span *ngIf="email.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
 
-   <input type="text" placeholder="Название юридического лица" name="nameC" [(ngModel)]="nameCompany" required>
+     <input type="password" formControlName="password" placeholder="Пароль" name="psw" required>
 
-   <input type="text" placeholder="Ключ от WB" name="wb" [(ngModel)]="wbKey" required>
+     <div *ngIf="password.invalid && (password.touched || password.dirty)">
+       <span *ngIf="password.errors['required']">Пароль должен содержать от 6 до 20 цифр, содержать одну цифру, одну большую букву.</span>
+       <span *ngIf="password.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
 
-   <input type="text" placeholder="Ключ от Ozon" name="ozon" [(ngModel)]="ozonKey" required>
+     <input type="password" formControlName="passwordRep" placeholder="Повторите пароль" name="psw-repeat" required>
 
-    <p>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
-    <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
-    <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
-  </div>
+     <div *ngIf="passwordRep.invalid && (passwordRep.touched || passwordRep.dirty ||
+            registrationForm.get('password').value != registrationForm.get('passwordRep').value)">
+       <span *ngIf="passwordRep.errors['required']">Пароли не совпадают.
+      </span>
+     </div>
 
+     <input type="text" formControlName="nameCompany" placeholder="Название юридического лица" name="nameC" required>
+
+     <div *ngIf="nameCompany.invalid && (nameCompany.touched || nameCompany.dirty)">
+       <span *ngIf="nameCompany.errors['required']">Поле должно содержать только буквы.</span>
+       <span *ngIf="nameCompany.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
+
+     <input type="text" formControlName="wbKey" placeholder="Ключ от WB" name="wb" required>
+
+     <div *ngIf="wbKey.invalid && (wbKey.touched || wbKey.dirty)">
+       <span *ngIf="wbKey.errors['required']">Поле должно содержать только цифры.</span>
+       <span *ngIf="wbKey.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
+
+     <input type="text" formControlName="ozonKey" placeholder="Ключ от Ozon" name="ozon" required>
+
+     <div *ngIf="ozonKey.invalid && (ozonKey.touched || ozonKey.dirty)">
+       <span *ngIf="ozonKey.errors['required']">Поле должно содержать только цифры.</span>
+       <span *ngIf="ozonKey.errors['pattern']">
+        Правила пароля
+      </span>
+     </div>
+
+     <p>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
+     <button type="submit" (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>
+     <button type (click)="OnLogin()" class="loginbtn">Войти</button>
+
+   </div>
+ </form>

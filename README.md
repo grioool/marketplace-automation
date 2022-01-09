@@ -49,3 +49,9 @@
 22. Spring Security was fixed.
 23. Front: Auth was made.
 24. Front: Registration was made.
+
+## Forth week(10.01.22 - 17.01.22)
+
+/exam preparing from 07.01.22 to 11.01.22/
+
+1. Front: Validation was made.
