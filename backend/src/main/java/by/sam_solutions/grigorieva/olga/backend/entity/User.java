@@ -39,14 +39,14 @@ public class User extends AbstractEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles = new ArrayList<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "role_id")
-//    private Role role;
-
     @Column(name = "is_blocked")
     private Boolean isBlocked;
 
     @Column(name = "is_subscribed")
+    private Boolean isSubscribed;
+
+    @Column(name = "test")
+    private Integer test;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
