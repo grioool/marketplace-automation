@@ -37,5 +37,9 @@ public class Purchase extends AbstractEntity {
 
     @Column(name = "extra")
     private Double extra;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 

@@ -1,12 +1,14 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
+import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -19,14 +21,14 @@ public class SupplyController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public List<Supply> getSupplies() {
-        return supplyService.getAll();
+    public List<Supply> getSupplies(Principal principal) {
+        return null;
+        //return supplyService.getByUser((User) principal);
     }
 
     @RequestMapping(value = "/supplies/{supplyId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
     public Supply getSupply(@PathVariable("supplyId") int id) {
         return supplyService.getById(id);
     }

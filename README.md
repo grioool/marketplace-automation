@@ -58,3 +58,6 @@
 2. Dto was made.
 3. Hibernate Configuration was changed.
 4. Spring Security was changed.
+5. New Jwt filters were added.
+6. User structure was changed.
+7. Role structure was changed.

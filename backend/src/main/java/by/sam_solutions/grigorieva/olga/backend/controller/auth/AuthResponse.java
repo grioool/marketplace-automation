@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.auth;
 
+import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,5 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthResponse {
 
-    private String token;
+    private TokenAuthentication token;
 }

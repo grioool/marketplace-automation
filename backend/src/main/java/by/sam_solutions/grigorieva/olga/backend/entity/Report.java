@@ -52,4 +52,8 @@ public class Report extends AbstractEntity {
     @Column(name = "date_order")
     private Timestamp dateOrder;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import by.sam_solutions.grigorieva.olga.backend.entity.role.Role;
 import lombok.Getter;
 import lombok.Setter;
 

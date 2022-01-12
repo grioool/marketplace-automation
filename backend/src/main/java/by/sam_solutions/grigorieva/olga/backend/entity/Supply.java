@@ -41,4 +41,9 @@ public class Supply extends AbstractEntity {
     @Column(name = "cost_price")
     private Double costPrice;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
 }
