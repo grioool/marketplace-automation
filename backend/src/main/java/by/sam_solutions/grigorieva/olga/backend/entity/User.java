@@ -45,9 +45,6 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "is_subscribed")
     private Boolean isSubscribed;
 
-    @Column(name = "test")
-    private Integer test;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

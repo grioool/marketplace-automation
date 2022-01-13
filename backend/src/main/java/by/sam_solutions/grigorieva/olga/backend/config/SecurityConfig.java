@@ -43,10 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(POST, "/user/save/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
 
 
 //        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), jwtProvider);
@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authorizeRequests()
 //                .antMatchers("/login/**", "/token/refresh/**").permitAll()
 //                .antMatchers(GET, "/user/**").hasAnyAuthority("USER")
-//                .antMatchers(POST, "/user/save/**").hasAnyAuthority("ADMIN")
+//                .antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN")
 //                .anyRequest().authenticated();
 //        http
 //                .addFilter(customAuthenticationFilter)
