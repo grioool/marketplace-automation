@@ -1,7 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
+declare type AuthenticationResponse = {accessToken: string; refreshToken: string};
+
+const refreshTokenKey: string = "refresh_token";
+const accessTokenKey: string = "access_token";
 
 @Component({
   selector: 'app-login',
@@ -43,20 +48,21 @@ export class LoginComponent {
   }
 
   public login(username: string, password: string) {
-    this.http.post(this.uri + '/login', {username: username, password: password})
+    const params: HttpParams = new HttpParams()
+      .set('username', username)
+      .set('password', password);
+    this.http.post<any>(this.uri + '/login', {}, {params, responseType: "json", observe: "body"})
       .subscribe((resp: any) => {
 
         this.router.navigate([this.mainPath]).then();
-        localStorage.setItem('auth_token', resp.token);
+        localStorage.setItem('access_token', resp.accessToken);
+        localStorage.setItem('refresh_token', resp.refreshToken);
       })
   }
 
   public logout() {
-    localStorage.removeItem('token');
-  }
-
-  public get logIn(): boolean {
-    return (localStorage.getItem('token') !== null);
+    localStorage.removeItem(accessTokenKey);
+    localStorage.removeItem(refreshTokenKey);
   }
 }
 

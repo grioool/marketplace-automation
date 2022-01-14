@@ -22,11 +22,10 @@ public class SupplyController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public List<Supply> getSupplies(Principal principal) {
-        return null;
-        //return supplyService.getByUser((User) principal);
+        return supplyService.getByUser((User) principal);
     }
 
-    @RequestMapping(value = "/supplies/{supplyId}",
+    @RequestMapping(value = "/supply/{supplyId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Supply getSupply(@PathVariable("supplyId") int id) {

@@ -7,6 +7,7 @@ import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyReposito
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

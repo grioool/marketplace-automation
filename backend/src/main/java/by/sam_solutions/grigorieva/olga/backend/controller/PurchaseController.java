@@ -15,15 +15,13 @@ public class PurchaseController {
 
     private final PurchaseService purchaseService;
 
-    @RequestMapping(value = "/purchases",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/purchases")
 
     public List<Purchase> getPurchases() {
         return purchaseService.getAll();
     }
 
-    @RequestMapping(value = "/purchases/{purchaseId}",
+    @RequestMapping(value = "/purchase/{purchaseId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 

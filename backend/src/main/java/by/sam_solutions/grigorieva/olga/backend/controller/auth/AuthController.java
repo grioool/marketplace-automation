@@ -2,9 +2,10 @@ package by.sam_solutions.grigorieva.olga.backend.controller.auth;
 
 import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.UserLoginDto;
 import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.UserRegistrationDto;
+import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/registration")
     public void register(@RequestBody @Valid UserRegistrationDto userDto) {
@@ -29,8 +30,8 @@ public class AuthController {
         userService.register(user);
     }
 
-    @PostMapping("/login")
-    public AuthResponse auth(@RequestBody UserLoginDto userDto) {
-        return new AuthResponse(userService.authenticate(userDto.getUsername(), userDto.getPassword()));
-    }
+//    @PostMapping("/login")
+//    public TokenAuthentication auth(@RequestBody UserLoginDto userDto) {
+//        return userService.authenticate(userDto.getUsername(), userDto.getPassword());
+//    }
 }

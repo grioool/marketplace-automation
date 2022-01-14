@@ -23,7 +23,7 @@ public class ReportController {
         return reportService.getAll();
     }
 
-    @RequestMapping(value = "/reports/{reportId}",
+    @RequestMapping(value = "/report/{reportId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
 

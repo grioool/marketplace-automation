@@ -61,3 +61,6 @@
 5. New Jwt filters were added.
 6. User structure was changed.
 7. Role structure was changed.
+8. Spring Security filters were fixed.
+9. Sales, Orders services were done.
+10. Sales, Orders dto were done.
