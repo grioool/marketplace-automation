@@ -37,33 +37,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), jwtProvider);
-        customAuthenticationFilter.setFilterProcessesUrl("/login");
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
-
-
 //        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), jwtProvider);
 //        customAuthenticationFilter.setFilterProcessesUrl("/login");
-//        http
-//                .csrf().disable()
-//                .cors().disable()
-//                .sessionManagement().sessionCreationPolicy(STATELESS)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/login/**", "/token/refresh/**").permitAll()
-//                .antMatchers(GET, "/user/**").hasAnyAuthority("USER")
-//                .antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN")
-//                .anyRequest().authenticated();
-//        http
-//                .addFilter(customAuthenticationFilter)
-//                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.csrf().disable();
+//        http.sessionManagement().sessionCreationPolicy(STATELESS);
+//        http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**").permitAll();
+//        http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("USER");
+//        http.authorizeRequests().antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN");
+//        http.authorizeRequests().anyRequest().authenticated();
+//        http.addFilter(customAuthenticationFilter);
+//        http.addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
+
+
+        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), jwtProvider);
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
+        http
+                .csrf().disable()
+                .cors().disable()
+                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/login", "/token/refresh", "/registration").permitAll()
+                .antMatchers(GET, "/user/**").hasAnyAuthority("USER")
+                .antMatchers(POST, "/user/create/**").hasAnyAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(customAuthenticationFilter)
+                .addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
     }
 
     @Bean
