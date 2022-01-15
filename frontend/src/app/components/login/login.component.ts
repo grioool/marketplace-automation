@@ -51,8 +51,8 @@ export class LoginComponent {
     const params: HttpParams = new HttpParams()
       .set('username', username)
       .set('password', password);
-    this.http.post<any>(this.uri + '/login', {}, {params, responseType: "json", observe: "body"})
-      .subscribe((resp: any) => {
+    this.http.post<AuthenticationResponse>(this.uri + '/login', {}, {params})
+      .subscribe((resp: AuthenticationResponse) => {
 
         this.router.navigate([this.mainPath]).then();
         localStorage.setItem('access_token', resp.accessToken);

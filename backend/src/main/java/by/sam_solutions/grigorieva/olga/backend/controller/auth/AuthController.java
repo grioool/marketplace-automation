@@ -29,9 +29,4 @@ public class AuthController {
         user.setOzonKey(userDto.getOzonKey());
         userService.register(user);
     }
-
-//    @PostMapping("/login")
-//    public TokenAuthentication auth(@RequestBody UserLoginDto userDto) {
-//        return userService.authenticate(userDto.getUsername(), userDto.getPassword());
-//    }
 }
