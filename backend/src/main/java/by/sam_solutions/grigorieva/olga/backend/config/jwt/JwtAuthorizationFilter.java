@@ -1,10 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.config.jwt;
 
+import by.sam_solutions.grigorieva.olga.backend.entity.User;
+import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,10 +34,13 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
+
+    private final UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -55,9 +61,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                     stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
 
+                    User user = userService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authenticationToken =
-                            new UsernamePasswordAuthenticationToken(username, null, authorities);
+                            new UsernamePasswordAuthenticationToken(user, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
                     filterChain.doFilter(request, response);
 
                 } catch (Exception exception) {

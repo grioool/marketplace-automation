@@ -1,7 +1,9 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+@Data
 public class SaleWBDto {
 
     @JsonProperty("number")

@@ -5,8 +5,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 declare type AuthenticationResponse = {accessToken: string; refreshToken: string};
 
-const refreshTokenKey: string = "refresh_token";
-const accessTokenKey: string = "access_token";
+export const refreshTokenKey: string = "refresh_token";
+export const accessTokenKey: string = "access_token";
 
 @Component({
   selector: 'app-login',

@@ -18,4 +18,6 @@ public interface UserService extends AbstractService<User> {
     void addRoleToUser(String username, String roleName);
 
     User createUser(User user);
+
+    User loadUserByUsername(String username);
 }

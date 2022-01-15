@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UserList } from './components/user-list/user-list.component';
 import { PurchaseList } from "./components/purchase-list/purchase-list.component";
 import { RouterModule } from "@angular/router";
@@ -15,6 +15,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ProfileComponent } from './components/profile/profile.component';
 import { MainComponent } from './components/main/main.component';
 import { InformationComponent } from './components/information/information.component';
+import {AuthenticationInterceptor} from "./http-interceptor/authentication-interceptor";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,13 @@ import { InformationComponent } from './components/information/information.compo
     imports: [
         BrowserModule, FormsModule, HttpClientModule, RouterModule, AppRoutingModule, ReactiveFormsModule
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 
