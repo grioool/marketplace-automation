@@ -1,8 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.auth;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.UserLoginDto;
-import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.UserRegistrationDto;
-import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;

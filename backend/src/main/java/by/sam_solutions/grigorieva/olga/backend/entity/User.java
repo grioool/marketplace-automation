@@ -16,6 +16,13 @@ import java.util.Collection;
 public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "email")
+    //уникальный(регистрация проверка)
+
+    //фронт crud
+    //exception handler
+    //логи(в файл, консоль)
+    //4.. ошибки
+    //тесты(интеграционный, юнит)
     private String email;
 
     @Column(name = "password")

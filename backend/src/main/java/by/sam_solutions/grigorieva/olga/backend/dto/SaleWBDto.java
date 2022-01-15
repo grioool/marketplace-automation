@@ -1,10 +1,10 @@
-package by.sam_solutions.grigorieva.olga.backend.controller.auth.dto;
+package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class OrderWBDto {
+public class SaleWBDto {
 
     @JsonProperty("number")
     private String number;
@@ -33,17 +33,50 @@ public class OrderWBDto {
     @JsonProperty("discountPercent")
     private String discountPercent;
 
+    @JsonProperty("isSupply")
+    private String isSupply;
+
+    @JsonProperty("isRealization")
+    private String isRealization;
+
+    @JsonProperty("orderId")
+    private String orderId;
+
+    @JsonProperty("promoCodeDiscount")
+    private String promoCodeDiscount;
+
     @JsonProperty("warehouseName")
     private String warehouseName;
 
-    @JsonProperty("oblast")
-    private String oblast;
+    @JsonProperty("countryName")
+    private String countryName;
+
+    @JsonProperty("oblastOkrugName")
+    private String oblastOkrugName;
+
+    @JsonProperty("regionName")
+    private String regionName;
 
     @JsonProperty("incomeID")
     private String incomeID;
 
+    @JsonProperty("saleID")
+    private String saleID;
+
     @JsonProperty("odid")
     private String odid;
+
+    @JsonProperty("spp")
+    private String spp;
+
+    @JsonProperty("forPay")
+    private String forPay;
+
+    @JsonProperty("finishedPrice")
+    private String finishedPrice;
+
+    @JsonProperty("priceWithDisc")
+    private String priceWithDisc;
 
     @JsonProperty("nmId")
     private String nmId;
@@ -57,11 +90,8 @@ public class OrderWBDto {
     @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("isCancel")
-    private String isCancel;
-
-    @JsonProperty("cancel_dt")
-    private String cancel_dt;
+    @JsonProperty("IsStorno")
+    private String IsStorno;
 
     @JsonProperty("gNumber")
     private String gNumber;

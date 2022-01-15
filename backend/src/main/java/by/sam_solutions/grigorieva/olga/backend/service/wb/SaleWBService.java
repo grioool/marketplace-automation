@@ -1,13 +1,10 @@
 package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.SaleWBDto;
-import com.sun.net.httpserver.HttpsParameters;
-import org.springframework.core.ParameterizedTypeReference;
+import by.sam_solutions.grigorieva.olga.backend.dto.SaleWBDto;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +23,9 @@ public class SaleWBService {
         RestTemplate restTemplate = new RestTemplate();
 
         String urlTemplateSales = UriComponentsBuilder.fromHttpUrl(urlSales)
-                .queryParam("dateFrom", "{2017-03-25T21%3A00%3A00.000Z}")
-                .queryParam("flag", "{0}")
-                .queryParam("key", "{N2IwNWY3M2MtYjBhYy00YWJiLWFlNmYtZjZmZTU2YWRlMDc3}")
+                .queryParam("dateFrom", "2017-03-25T21%3A00%3A00.000Z")
+                .queryParam("flag", "0")
+                .queryParam("key", "N2IwNWY3M2MtYjBhYy00YWJiLWFlNmYtZjZmZTU2YWRlMDc3")
                 .toUriString();
 
         Map<String, String> params = new HashMap<>();

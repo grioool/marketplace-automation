@@ -1,14 +1,10 @@
 package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.auth.dto.OrderWBDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.OrderWBDto;
 import org.springframework.http.*;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +19,7 @@ public class OrderWBService {
     public OrderWBDto getOrders() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.ACCEPT, MediaType.ALL_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.set(HttpHeaders.ACCEPT_ENCODING, "gzip, deflate, br");
         headers.set(HttpHeaders.CONNECTION, "keep-alive");
         HttpEntity<String> entity = new HttpEntity<>("", headers);
@@ -46,7 +42,8 @@ public class OrderWBService {
                 urlTemplateSales,
                 HttpMethod.GET,
                 entity,
-                OrderWBDto.class);
+                OrderWBDto.class,
+                params);
 
         return responseOrders.getBody();
     }

@@ -13,8 +13,8 @@ public class PurchaseRepositoryImpl extends AbstractRepositoryImpl<Purchase> imp
 
     @Override
     public List<Purchase> getByUser(User user) {
-        return entityManager.createQuery("SELECT s FROM Purchase s WHERE s.user = :user_id")
-                .setParameter("user_id", user.getId())
+        return entityManager.createQuery("SELECT s FROM Purchase s WHERE s.user = :user")
+                .setParameter("user", user)
                 .getResultList();
     }
 }

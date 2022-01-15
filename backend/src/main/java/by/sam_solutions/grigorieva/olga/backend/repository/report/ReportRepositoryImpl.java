@@ -13,8 +13,8 @@ public class ReportRepositoryImpl extends AbstractRepositoryImpl<Report> impleme
 
     @Override
     public List<Report> getByUser(User user) {
-        return entityManager.createQuery("SELECT s FROM Report s WHERE s.user = :user_id")
-                .setParameter("user_id", user.getId())
+        return entityManager.createQuery("SELECT s FROM Report s WHERE s.user = :user")
+                .setParameter("user", user)
                 .getResultList();
     }
 }

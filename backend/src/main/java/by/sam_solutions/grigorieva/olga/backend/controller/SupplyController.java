@@ -6,6 +6,7 @@ import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,7 +23,7 @@ public class SupplyController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public List<Supply> getSupplies(Principal principal) {
-        return supplyService.getByUser((User) principal);
+        return supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
     }
 
     @RequestMapping(value = "/supply/{supplyId}",

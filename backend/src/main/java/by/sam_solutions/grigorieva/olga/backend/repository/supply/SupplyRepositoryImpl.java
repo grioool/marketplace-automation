@@ -12,8 +12,8 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
 
     @Override
     public List<Supply> getByUser(User user) {
-        return entityManager.createQuery("SELECT s FROM Supply s WHERE s.user = :user_id")
-                .setParameter("user_id", user.getId())
+        return entityManager.createQuery("SELECT s FROM Supply s WHERE s.user = :user")
+                .setParameter("user", user)
                 .getResultList();
     }
 }

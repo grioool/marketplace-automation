@@ -35,7 +35,7 @@ export class SupplyList implements OnInit {
   }
 
   addSupply() {
-   // this.editedSupply = new Supply(-1, 0,0,"", 0, 0, 0,0,0); TODO
+   // this.editedSupply = new Supply(-1, 0,0,"", 0, 0, 0,0,0);
     this.supplies.push(this.editedSupply);
     this.isNewRecord = true;
   }

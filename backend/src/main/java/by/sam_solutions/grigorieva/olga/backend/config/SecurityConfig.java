@@ -4,6 +4,7 @@ import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtAuthenticationFilt
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtAuthorizationFilter;
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
 
 
-        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean(), jwtProvider);
+        AuthenticationManager authenticationManager = authenticationManagerBean();
+        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtProvider);
         customAuthenticationFilter.setFilterProcessesUrl("/login");
         http
                 .cors().configurationSource(configurationSource())

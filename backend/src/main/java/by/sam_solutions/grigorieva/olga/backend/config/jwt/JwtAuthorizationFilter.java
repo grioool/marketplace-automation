@@ -11,9 +11,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -40,7 +44,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    private final UserService userService;
+    private final UserDetailsService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -61,9 +65,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                     stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
 
-                    User user = userService.loadUserByUsername(username);
+                    UserDetails user = userService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authenticationToken =
-                            new UsernamePasswordAuthenticationToken(user, null, authorities);
+                            new UsernamePasswordAuthenticationToken(user, null, authorities)                              ;
+                    authenticationToken.setDetails(user);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
                     filterChain.doFilter(request, response);
