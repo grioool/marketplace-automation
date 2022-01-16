@@ -1,4 +1,44 @@
-# SaM Solutions Spring internship report 
+# Мануал по запуску программы
+
+## Сервер
+
+1. Для запуска необходимо установить Apache Tomcat версии 9.0.55. Загрузить можно, используя ссылку https://tomcat.apache.org/download-90.cgi#9.0.56.
+2. В файле pom.xml есть зависимость, отвечающая за соединение Tomcat с базой:
+\<dependency>
+   \<groupId>org.apache.tomcat\</groupId>
+   \<artifactId>tomcat-dbcp\</artifactId>
+   \<version>10.0.14\</version>
+\</dependency>
+3. Сборка проекта должна происходить в формат war: \<packaging>war\</packaging>.
+4. В меню Maven Project (правая панель Intellij IDEA) выбираем clean | install для сборки проекта в war файл, который мы будем деплоить на сервер.
+5. После этого в корне проекта появится папка target, в ней будет лежать war архив.
+6. Для конфигурации необходимо добавить Tomcat Server – Local на панели Run/Debug Configurations, далее вводим имя и нажимаем Configure, выбрав расположение скачанного и распакованного Tomcat.
+7. Далее переходим на вкладку Deployment, нажимаем плюс и выбираем Artifact:war.
+8. После настройки проект можно запустить в двух режимах: обычный и Debug режим для отлова ошибок.
+
+## База данных
+
+1. В проекте используется база данных PostgreSQL. Установить можно, используя ссылку https://www.postgresql.org/.
+2. В файл pom.xml есть зависимость, отвечающая за PostgreSQL:
+\<dependency>
+   \<groupId>org.postgresql\</groupId>
+   \<artifactId>postgresql\/artifactId>
+   \<version>42.3.1\</version>
+\</dependency>
+3. Необходимо добавить базу(предварительно создав ее), используя вкладку Database на правой панели Intellij IDEA.
+4. Для загрузки базы необходимо изменить db.url на имя созданной базы, а также db.username и
+   db.password на пароль и имя созданной базы в application.properties в папке resources.
+5. По нажатию на кнопку обновления базы все поля будут загружены.
+
+## Пользовательский интерфейс
+
+1. Для взаимодействия с программой через GUI необходимо установить Angular CLI Server.
+2. Нужно перейти на вкладку Terminal (на нижней панели Intellij IDEA).
+3. Перейти в папку модуля frontend(в которой находится файл package.json), используя команду cd.
+4. Добавить зависимости с помощью команды npm install.
+5. Запустить сервер с помощью npm serve(доступ осуществляется по http://localhost:4200).
+
+# SaM Solutions Spring internship report
 
 ## First week (13.12.21 - 19.12.21)
 
