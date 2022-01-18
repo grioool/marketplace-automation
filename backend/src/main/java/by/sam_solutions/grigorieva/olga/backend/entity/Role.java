@@ -20,4 +20,5 @@ public class Role extends AbstractEntity implements GrantedAuthority {
     public String getAuthority() {
         return roleName;
     }
+
 }

@@ -15,5 +15,4 @@ public class Country extends AbstractEntity {
     @Column(name = "country_name")
     @Enumerated(value = EnumType.STRING)
     private CountryName countryName;
-
 }

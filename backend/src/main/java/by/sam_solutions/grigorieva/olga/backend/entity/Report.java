@@ -56,4 +56,5 @@ public class Report extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+
 }

@@ -15,4 +15,5 @@ public abstract class AbstractEntity implements Serializable {
     @GeneratedValue
     @Column(name = "id")
     private int id;
+
 }

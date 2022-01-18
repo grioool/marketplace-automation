@@ -18,4 +18,5 @@ public class Storage extends AbstractEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "town_id")
     private Town town;
+
 }

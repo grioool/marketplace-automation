@@ -45,5 +45,4 @@ public class Supply extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-
 }

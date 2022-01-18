@@ -24,4 +24,5 @@ public class CountryDto {
     private Integer id;
 
     private CountryName countryName;
+
 }

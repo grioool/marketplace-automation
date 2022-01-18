@@ -16,4 +16,5 @@ public class Town extends AbstractEntity {
     @Enumerated(value = EnumType.STRING)
     private TownName townName;
 
+
 }
