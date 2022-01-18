@@ -97,4 +97,5 @@ export class RegistrationComponent {
 
   ngOnInit(): void {
   }
+
 }

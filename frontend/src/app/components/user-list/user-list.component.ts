@@ -92,4 +92,5 @@ export class UserList implements OnInit {
   public isEditable(user: User): boolean {
     return isPresent(this.editedUser) && this.editedUser.id === user.id;
   }
+
 }
