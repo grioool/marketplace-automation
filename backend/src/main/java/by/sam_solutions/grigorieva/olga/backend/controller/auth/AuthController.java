@@ -27,4 +27,5 @@ public class AuthController {
         user.setOzonKey(userDto.getOzonKey());
         userService.register(user);
     }
+
 }

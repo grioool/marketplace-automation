@@ -63,4 +63,5 @@ public class SupplyController {
         supplyService.delete(id);
     }
 
+
 }

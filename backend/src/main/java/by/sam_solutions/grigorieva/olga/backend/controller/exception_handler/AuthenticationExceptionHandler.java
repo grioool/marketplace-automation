@@ -17,4 +17,5 @@ public class AuthenticationExceptionHandler {
                 .badRequest()
                 .body(exception.getErrors());
     }
+
 }

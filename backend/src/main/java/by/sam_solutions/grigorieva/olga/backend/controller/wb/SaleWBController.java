@@ -19,4 +19,5 @@ public class SaleWBController {
     public ResponseEntity<List<SaleWBDto>> getSales() {
         return ResponseEntity.ok().body(salesService.getSales());
     }
+
 }

@@ -60,7 +60,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                     UserDetails user = userService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authenticationToken =
-                            new UsernamePasswordAuthenticationToken(user, null, authorities)                              ;
+                            new UsernamePasswordAuthenticationToken(user, null, authorities);
                     authenticationToken.setDetails(user);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
@@ -68,7 +68,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                 } catch (Exception exception) {
 
-                   // log.error("Error logging in: {}", exception.getMessage());
+                    // log.error("Error logging in: {}", exception.getMessage());
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
                     response.sendError(FORBIDDEN.value());
