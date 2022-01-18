@@ -27,4 +27,5 @@ public class StorageDto {
     private CountryDto country;
 
     private TownDto town;
+
 }

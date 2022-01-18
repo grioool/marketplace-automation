@@ -12,4 +12,5 @@ public class UserLoginDto {
 
     @NotEmpty
     private String password;
+
 }

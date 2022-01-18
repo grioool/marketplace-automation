@@ -24,4 +24,5 @@ public class TownDto {
     private Integer id;
 
     private TownName townName;
+
 }

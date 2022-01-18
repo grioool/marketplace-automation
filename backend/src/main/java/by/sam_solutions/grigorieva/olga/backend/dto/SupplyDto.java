@@ -74,4 +74,5 @@ public class SupplyDto {
     @Pattern(regexp="^[0-9]{2,15}")
     @NotEmpty
     private Double costPrice;
+
 }
