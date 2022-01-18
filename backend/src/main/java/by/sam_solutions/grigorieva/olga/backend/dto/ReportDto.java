@@ -13,6 +13,8 @@ public class ReportDto {
 
     public static Report toEntity(ReportDto dto) {
         Report report = new Report();
+        report.setId(dto.getId());
+        report.setSupply(dto.getSupply());
         report.setName(dto.getName());
         report.setCommission(dto.getCommission());
         report.setCommissionPerCent(dto.getCommissionPerCent());
@@ -30,6 +32,8 @@ public class ReportDto {
 
     public static ReportDto toDto(Report report) {
         ReportDto reportDto = new ReportDto();
+        reportDto.setId(report.getId());
+        reportDto.setSupply(report.getSupply());
         reportDto.setName(report.getName());
         reportDto.setCommission(report.getCommission());
         reportDto.setCommissionPerCent(report.getCommissionPerCent());

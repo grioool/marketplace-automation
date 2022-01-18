@@ -51,7 +51,7 @@ export class SupplyList implements OnInit {
     }
 
     public addSupply() {
-        this.editedSupply = new Supply(-1, null, null, 0, "", 0, 0, 0, 0, 0);
+        this.editedSupply = new Supply(0, null, null, 0, "", 0, 0, 0, 0, 0);
         this.supplies.push(this.editedSupply);
         this.isNewRecord = true;
     }

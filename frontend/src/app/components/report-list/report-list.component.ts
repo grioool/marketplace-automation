@@ -44,7 +44,7 @@ export class ReportList implements OnInit {
   }
 
   public addReport() {
-    this.editedReport = new Report(-1,0,"",0, 0, 0, 0,0,0, 0, 0,0,0, null);
+    this.editedReport = new Report(0,0,"",0, 0, 0, 0,0,0, 0, 0,0,0, null);
     this.reports.push(this.editedReport);
     this.isNewRecord = true;
   }
@@ -63,7 +63,7 @@ export class ReportList implements OnInit {
 
   public saveReport() {
     if (this.isNewRecord) {
-      this.serv.createReport(this.editedReport as Report).subscribe(data => {
+      this.serv.createReport(this.editedReport).subscribe(data => {
         this.statusMessage = 'Данные успешно добавлены';
           this.loadReports();
       });

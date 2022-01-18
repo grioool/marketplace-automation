@@ -34,7 +34,7 @@ export class PurchaseList implements OnInit {
   }
 
   addPurchase() {
-    this.editedPurchase = new Purchase(-1, 0,"",0, 0, 0, 0,0,0, 0);
+    this.editedPurchase = new Purchase(0, 0,"",0, 0, 0, 0,0,0, 0);
     this.purchases.push(this.editedPurchase);
     this.isNewRecord = true;
   }
