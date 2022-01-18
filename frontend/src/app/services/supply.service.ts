@@ -42,4 +42,5 @@ export class SupplyService {
         return this.http.get<Supply[]>(this.url + '/supplies')
             .pipe(tap(supplies => this.loadedSupplies.next(supplies)));
     }
+
 }

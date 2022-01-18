@@ -11,19 +11,20 @@ export class ReportService {
   private url = environment.apiHost;
   constructor(private http: HttpClient){ }
 
-  getReports(){
+  public getReports(){
     return this.http.get<Array<Report>>(this.url + '/reports');
   }
 
-  createReport(report: Report){
+  public createReport(report: Report){
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.post<Report>(this.url + '/report', JSON.stringify(report), {headers: myHeaders});
   }
-  updateReport(report: Report) {
+  public updateReport(report: Report) {
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.put<Report>(this.url + '/report', JSON.stringify(report), {headers:myHeaders});
   }
-  deleteReport(id: number){
+  public deleteReport(id: number){
     return this.http.delete<Report>(this.url + '/report/' + id);
   }
+
 }

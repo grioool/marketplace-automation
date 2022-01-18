@@ -41,4 +41,5 @@ export class PurchaseService {
     public deletePurchase(id: number) {
         return this.http.delete<Purchase>(this.url + '/purchase/' + id);
     }
+
 }

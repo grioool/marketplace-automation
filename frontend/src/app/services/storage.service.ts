@@ -30,4 +30,5 @@ export class StorageService {
         return this.http.get<Storage[]>(this.url + '/storages')
             .pipe(tap(storages => this.loadedStorages.next(storages)));
     }
+
 }

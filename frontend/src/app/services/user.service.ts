@@ -32,4 +32,5 @@ export class UserService{
   public deleteUser(id: number){
     return this.http.delete<User>(this.url + '/user/' + id);
   }
+
 }

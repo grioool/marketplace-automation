@@ -59,5 +59,4 @@ export class AuthService {
         const token: string = localStorage.getItem(accessTokenKey);
         return of(isPresent(token) && !this.jwtHelper.isTokenExpired(token));
     }
-
 }

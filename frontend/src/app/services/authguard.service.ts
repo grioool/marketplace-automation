@@ -33,5 +33,4 @@ export class AuthGuardService implements CanActivate {
     private requireAuthentication(url: string): boolean {
         return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN].includes(url as never);
     }
-
 }
