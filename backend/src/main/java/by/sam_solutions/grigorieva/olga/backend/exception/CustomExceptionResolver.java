@@ -26,4 +26,5 @@ public class CustomExceptionResolver extends AbstractHandlerExceptionResolver {
         return modelAndView;
     }
 
+
 }

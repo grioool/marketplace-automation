@@ -16,4 +16,5 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
                 .setParameter("user", user)
                 .getResultList();
     }
+
 }

@@ -7,4 +7,5 @@ public class ResponseStatusException extends Exception {
     public ResponseStatusException(HttpStatus internalServerError, String responseStatusException) {
         super(internalServerError.name());
     }
+
 }

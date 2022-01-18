@@ -22,4 +22,5 @@ public interface UserService extends AbstractService<User> {
     User loadUserByUsername(String username);
 
     User getByEmail(String email);
+
 }

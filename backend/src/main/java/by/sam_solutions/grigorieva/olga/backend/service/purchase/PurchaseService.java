@@ -9,4 +9,5 @@ import java.util.List;
 public interface PurchaseService extends AbstractService<Purchase> {
 
     List<Purchase> getByUser(User user);
+
 }

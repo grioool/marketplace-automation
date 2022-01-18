@@ -16,6 +16,7 @@ export class HeaderComponent {
   ) {
   }
 
+
     public OnLogout() {
         this.authService.logout();
     }

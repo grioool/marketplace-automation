@@ -19,4 +19,5 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     public List<Supply> getByUser(User user) {
         return supplyRepository.getByUser(user);
     }
+
 }

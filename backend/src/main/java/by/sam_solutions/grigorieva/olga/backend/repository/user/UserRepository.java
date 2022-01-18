@@ -8,4 +8,5 @@ public interface UserRepository extends AbstractRepository<User> {
     User findByUsername(String username);
 
     User findByEmail(String email);
+
 }

@@ -23,4 +23,5 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User> implements 
                 .getSingleResult();
     }
 
+
 }

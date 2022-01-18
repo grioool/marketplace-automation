@@ -14,4 +14,5 @@ export class MainComponent {
   public routeTo(path: string) {
     this.router.navigate([path]).then();
   }
+
 }

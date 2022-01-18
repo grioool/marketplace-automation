@@ -9,4 +9,5 @@ import java.util.List;
 public interface SupplyRepository extends AbstractRepository<Supply> {
 
     List<Supply> getByUser(User user);
+
 }

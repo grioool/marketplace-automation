@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ReportRepository extends AbstractRepository<Report> {
     List<Report> getByUser(User user);
+
 }

@@ -35,4 +35,5 @@ public abstract class AbstractServiceImpl<Entity> implements AbstractService<Ent
     public void delete(int id) {
         abstractRepository.delete(id);
     }
+
 }

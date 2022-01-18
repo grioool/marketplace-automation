@@ -13,4 +13,5 @@ public interface AbstractRepository<Entity> {
     Entity getById(int id);
 
     List<Entity> getAll();
+
 }

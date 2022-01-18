@@ -43,5 +43,6 @@ export class LoginComponent {
   public OnRegister() {
     this.router.navigate([NavigationPath.REGISTRATION]).then();
   }
+
 }
 

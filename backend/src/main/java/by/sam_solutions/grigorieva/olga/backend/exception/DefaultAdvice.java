@@ -12,4 +12,5 @@ public class DefaultAdvice {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 }

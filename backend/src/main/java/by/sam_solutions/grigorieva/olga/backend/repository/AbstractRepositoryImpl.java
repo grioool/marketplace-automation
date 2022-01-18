@@ -51,4 +51,5 @@ public abstract class AbstractRepositoryImpl<Entity> implements AbstractReposito
         TypedQuery<Entity> allQuery = entityManager.createQuery(all);
         return allQuery.getResultList();
     }
+
 }

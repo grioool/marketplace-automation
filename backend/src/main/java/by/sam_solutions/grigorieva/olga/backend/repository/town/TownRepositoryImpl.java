@@ -15,4 +15,5 @@ public class TownRepositoryImpl extends AbstractRepositoryImpl<Town> implements 
                 .setParameter("townName", name)
                 .getSingleResult();
     }
+
 }

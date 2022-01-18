@@ -7,7 +7,5 @@ export const enum NavigationPath {
     PURCHASES = "/purchases",
     REPORTS = "/reports",
     USERS = "/users",
-    PROFILE = "/profile",
-    INFORMATION = "/information"
-
+    PROFILE = "/profile"
 }

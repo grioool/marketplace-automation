@@ -15,4 +15,5 @@ public class CountryRepositoryImpl extends AbstractRepositoryImpl<Country> imple
                 .setParameter("countryName", name)
                 .getSingleResult();
     }
+
 }
