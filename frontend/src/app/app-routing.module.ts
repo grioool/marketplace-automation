@@ -12,7 +12,6 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {InformationComponent} from "./components/information/information.component";
 import {AuthGuardService} from "./services/authguard.service";
 
-
 const routes: Routes = [{
     path: '', canActivate: [AuthGuardService], children: [
         {path: "users", component: UserList},
