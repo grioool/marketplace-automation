@@ -1,32 +1,26 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
-import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
+import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-//import by.sam_solutions.grigorieva.olga.backend.entity.role.RoleName;
 import by.sam_solutions.grigorieva.olga.backend.repository.role.RoleRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class UserServiceImpl extends AbstractServiceImpl<User> implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
@@ -39,6 +33,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     @Override
     public User register(User user) {
+        List<String> errors = new ArrayList<>();
         user.setRoles(List.of(roleRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.create(user);
@@ -72,8 +67,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
             // log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
         }
-        // log.info("User found in the database: {}", username);
+//         log.info("User found in the database: {}", username);
         return user;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Transactional

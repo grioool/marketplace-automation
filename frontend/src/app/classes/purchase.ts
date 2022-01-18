@@ -1,6 +1,6 @@
 export class Purchase {
   constructor(
-    public _id: number,
+    public id: number,
     public date: number,
     public productName: string,
     public priceForOne: number,

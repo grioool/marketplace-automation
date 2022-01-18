@@ -12,11 +12,11 @@ import java.sql.Timestamp;
 @Setter
 public class Supply extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)//TODO
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
@@ -36,7 +36,7 @@ public class Supply extends AbstractEntity {
     private Double purchasePrice;
 
     @Column(name = "fulfillment")
-    private Double fulfilment;
+    private Double fulfillment;
 
     @Column(name = "cost_price")
     private Double costPrice;

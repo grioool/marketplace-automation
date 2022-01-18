@@ -1,99 +1,70 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class SaleWBDto {
 
-    @JsonProperty("number")
     private String number;
 
-    @JsonProperty("date")
-    private String date;
+    private Date date;
 
-    @JsonProperty("lastChangeDate")
-    private String lastChangeDate;
+    private Date lastChangeDate;
 
-    @JsonProperty("supplierArticle")
     private String supplierArticle;
 
-    @JsonProperty("techSize")
     private String techSize;
 
-    @JsonProperty("barcode")
     private String barcode;
 
-    @JsonProperty("quantity")
-    private String quantity;
+    private Long quantity;
 
-    @JsonProperty("totalPrice")
-    private String totalPrice;
+    private Long totalPrice;
 
-    @JsonProperty("discountPercent")
-    private String discountPercent;
+    private Long discountPercent;
 
-    @JsonProperty("isSupply")
-    private String isSupply;
+    private Boolean isSupply;
 
-    @JsonProperty("isRealization")
-    private String isRealization;
+    private Boolean isRealization;
 
-    @JsonProperty("orderId")
-    private String orderId;
+    private Long orderId;
 
-    @JsonProperty("promoCodeDiscount")
-    private String promoCodeDiscount;
+    private Long promoCodeDiscount;
 
-    @JsonProperty("warehouseName")
     private String warehouseName;
 
-    @JsonProperty("countryName")
     private String countryName;
 
-    @JsonProperty("oblastOkrugName")
     private String oblastOkrugName;
 
-    @JsonProperty("regionName")
     private String regionName;
 
-    @JsonProperty("incomeID")
-    private String incomeID;
+    private Long incomeID;
 
-    @JsonProperty("saleID")
     private String saleID;
 
-    @JsonProperty("odid")
-    private String odid;
+    private Long odid;
 
-    @JsonProperty("spp")
-    private String spp;
+    private Long spp;
 
-    @JsonProperty("forPay")
-    private String forPay;
+    private Double forPay;
 
-    @JsonProperty("finishedPrice")
-    private String finishedPrice;
+    private Double finishedPrice;
 
-    @JsonProperty("priceWithDisc")
-    private String priceWithDisc;
+    private Long priceWithDisc;
 
-    @JsonProperty("nmId")
-    private String nmId;
+    private Long nmId;
 
-    @JsonProperty("subject")
     private String subject;
 
-    @JsonProperty("category")
     private String category;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("IsStorno")
-    private String IsStorno;
+    private Long IsStorno;
 
-    @JsonProperty("gNumber")
     private String gNumber;
 
 }

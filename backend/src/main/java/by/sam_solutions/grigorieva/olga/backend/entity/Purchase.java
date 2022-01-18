@@ -1,15 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "purchase")
-@Getter
-@Setter
+@Data
 public class Purchase extends AbstractEntity {
     @Column(name = "date")
     private Timestamp date;
@@ -24,7 +22,7 @@ public class Purchase extends AbstractEntity {
     private Integer amount;
 
     @Column(name = "purchase_price")
-    private Integer purchase;
+    private Integer purchasePrice;
 
     @Column(name = "logistics")
     private Double logistics;

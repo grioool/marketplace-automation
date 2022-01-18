@@ -2,7 +2,7 @@ import {Supply} from "./supply";
 
 export class Report {
   constructor(
-    public _id: number,
+    public id: number,
     public orderNumber: number,
     public name: string,
     public orderPrice: number,

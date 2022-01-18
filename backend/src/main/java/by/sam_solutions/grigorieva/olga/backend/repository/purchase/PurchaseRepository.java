@@ -1,7 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.repository.purchase;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
-import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 

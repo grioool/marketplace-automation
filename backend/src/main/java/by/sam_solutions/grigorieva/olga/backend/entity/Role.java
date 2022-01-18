@@ -14,10 +14,6 @@ import java.util.Arrays;
 @AllArgsConstructor
 public class Role extends AbstractEntity implements GrantedAuthority {
 
-//    @Column(name = "role_name")
-//    @Enumerated(value = EnumType.STRING)
- //   private RoleName roleName;
-
     @Column(name = "role_name")
     private String roleName;
 

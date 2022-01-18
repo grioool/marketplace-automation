@@ -19,7 +19,7 @@
   <tbody class="tableBody">
   <tr *ngFor="let user of users">
     <ng-container *ngIf="isReadOnly(user)">
-      <td>{{user._id}}</td>
+      <td>{{user.id}}</td>
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.password}}</td>
@@ -31,12 +31,12 @@
         <input type="button" value="Изменить" class="btn btn-default" (click)="editUser(user)">
       </td>
       <td>
-        <input type="button" value="Удалить" (click)="deleteUser(user._id)" class="btn btn-danger">
+        <input type="button" value="Удалить" (click)="deleteUser(user.id)" class="btn btn-danger">
       </td>
     </ng-container>
     <ng-container *ngIf="isEditable(user)">
       <td>
-        <input type="number" [(ngModel)]="editedUser._id" readonly disabled class="form-control">
+        <input type="number" [(ngModel)]="editedUser.id" readonly disabled class="form-control">
       </td>
       <td>
         <input type="text" [(ngModel)]="editedUser.name" class="form-control">

@@ -3,6 +3,7 @@ import {Report} from '../../classes/report';
 import {ReportService} from '../../services/report.service';
 import {isPresent} from "../../../util";
 import {Supply} from "../../classes/supply";
+import {SupplyService} from "../../services/supply.service";
 
 @Component({
   selector: 'purchase-root',
@@ -16,12 +17,20 @@ export class ReportList implements OnInit {
   @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>|undefined;
 
   editedReport: Report = null;
+
   reports: Array<Report>;
+
   isNewRecord: boolean = false;
+
   statusMessage: string = "";
 
-  constructor(private serv: ReportService) {
+    public supplies: Supply[] = [];
+
+  constructor(private serv: ReportService,
+              public supplyService: SupplyService) {
     this.reports = new Array<Report>();
+      this.supplyService.getLoadedSupplies()
+          .subscribe((supplies: Supply[]) => this.supplies = supplies);
   }
 
   ngOnInit() {
@@ -34,25 +43,25 @@ export class ReportList implements OnInit {
     });
   }
 
-  addReport() {
-  //  this.editedReport = new Report(-1,0,"",0, 0, 0, 0,0,0, 0, 0,0,0,Supply); TODO
+  public addReport() {
+    this.editedReport = new Report(-1,0,"",0, 0, 0, 0,0,0, 0, 0,0,0, null);
     this.reports.push(this.editedReport);
     this.isNewRecord = true;
   }
 
-  editReport(report: Report) {
-    this.editedReport = new Report(report._id, report.orderNumber, report.name, report.orderPrice, report.proceeds, report.logistics, report.costPrice, report.commission, report.profit, report.commissionPerCent, report.commissionVAT, report.dateSale, report.dateOrder, report.supply);
+  public editReport(report: Report) {
+    this.editedReport = new Report(report.id, report.orderNumber, report.name, report.orderPrice, report.proceeds, report.logistics, report.costPrice, report.commission, report.profit, report.commissionPerCent, report.commissionVAT, report.dateSale, report.dateOrder, report.supply);
   }
 
-  loadTemplate(report: Report) {
-    if (this.editedReport && this.editedReport._id === report._id) {
+  public loadTemplate(report: Report) {
+    if (this.editedReport && this.editedReport.id === report.id) {
       return this.editTemplate;
     } else {
       return this.readOnlyTemplate;
     }
   }
 
-  saveReport() {
+  public saveReport() {
     if (this.isNewRecord) {
       this.serv.createReport(this.editedReport as Report).subscribe(data => {
         this.statusMessage = 'Данные успешно добавлены';
@@ -69,7 +78,7 @@ export class ReportList implements OnInit {
     }
   }
 
-  cancel() {
+  public cancel() {
     if (this.isNewRecord) {
       this.reports.pop();
       this.isNewRecord = false;
@@ -77,7 +86,7 @@ export class ReportList implements OnInit {
     this.editedReport = null;
   }
 
-  deleteReport(id: number) {
+  public deleteReport(id: number) {
     this.serv.deleteReport(id).subscribe(data => {
       this.statusMessage = 'Данные успешно удалены';
         this.loadReports();
@@ -89,6 +98,6 @@ export class ReportList implements OnInit {
   }
 
   public isEditable(report: Report): boolean {
-    return isPresent(this.editedReport) && this.editedReport._id === report._id;
+    return isPresent(this.editedReport) && this.editedReport.id === report.id;
   }
 }

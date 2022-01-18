@@ -2,22 +2,20 @@ package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.country.Country;
 import by.sam_solutions.grigorieva.olga.backend.entity.town.Town;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "storage")
-@Getter
-@Setter
+@Data
 public class Storage extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "town_id")
     private Town town;
 }

@@ -1,28 +1,44 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Purchase} from '../classes/purchase';
+import {BehaviorSubject, Observable, ReplaySubject, Subject, tap} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class PurchaseService {
 
-  private url = "http://localhost:8080";
-  constructor(private http: HttpClient){ }
+    private url = environment.apiHost;
 
-  getPurchases(){
-    return this.http.get<Array<Purchase>>(this.url + '/purchases');
-  }
+    private isLoaded: boolean = false;
 
-  createPurchase(purchase: Purchase){
-    const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.post<Purchase>(this.url + '/purchase', JSON.stringify(purchase), {headers: myHeaders});
-  }
-  updatePurchase(purchase: Purchase) {
-    const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
-    return this.http.put<Purchase>(this.url + '/purchase', JSON.stringify(purchase), {headers:myHeaders});
-  }
-  deletePurchase(id: number){
-    return this.http.delete<Purchase>(this.url + '/purchase/' + id);
-  }
+    private loadedPurchases: Subject<Purchase[]> = new ReplaySubject<Purchase[]>(1);
+
+    constructor(private http: HttpClient) {
+        this.loadedPurchases.subscribe(() => this.isLoaded = true);
+    }
+
+    public getLoadedPurchases(): Observable<Purchase[]> {
+        if(!this.isLoaded)
+            this.getPurchases().subscribe();
+        return this.loadedPurchases.asObservable();
+    }
+
+    public getPurchases(): Observable<Purchase[]> {
+        return this.http.get<Purchase[]>(this.url + '/purchases')
+            .pipe(tap(purchases => this.loadedPurchases.next(purchases)));
+    }
+
+    public createPurchase(purchase: Purchase) {
+        return this.http.post<Purchase>(this.url + '/purchase', purchase);
+    }
+
+    public updatePurchase(purchase: Purchase) {
+        return this.http.put<Purchase>(this.url + '/purchase', purchase);
+    }
+
+    public deletePurchase(id: number) {
+        return this.http.delete<Purchase>(this.url + '/purchase/' + id);
+    }
 }

@@ -1,34 +1,35 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../classes/user';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService{
 
-  private url = "http://localhost:8080";
+  private url = environment.apiHost;
   constructor(private http: HttpClient){ }
 
-  getUsers(){
+  public getUsers(){
     return this.http.get<Array<User>>(this.url + '/users');
   }
 
-  getUser(id: string){
+  public getUser(id: string){
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.get<User>(this.url + '/user' + id);
   }
 
-  createUser(user: User){
+  public createUser(user: User){
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.post<User>(this.url + '/user', JSON.stringify(user), {headers: myHeaders});
   }
-  updateUser(user: User) {
+  public updateUser(user: User) {
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.put<User>(this.url + '/user', JSON.stringify(user), {headers:myHeaders});
   }
 
-  deleteUser(id: number){
+  public deleteUser(id: number){
     return this.http.delete<User>(this.url + '/user/' + id);
   }
 }

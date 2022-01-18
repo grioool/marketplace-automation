@@ -1,8 +1,9 @@
 import {Purchase} from "./purchase";
+import {Storage} from "./storage";
 
 export class Supply {
   constructor(
-    public _id: number,
+    public id: number,
     public purchase: Purchase,
     public storage: Storage,
     public date: number,

@@ -1,69 +1,50 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class OrderWBDto {
 
-    @JsonProperty("number")
-    private String number;
+    private Long number;
 
-    @JsonProperty("date")
-    private String date;
+    private Date date;
 
-    @JsonProperty("lastChangeDate")
-    private String lastChangeDate;
+    private Date lastChangeDate;
 
-    @JsonProperty("supplierArticle")
     private String supplierArticle;
 
-    @JsonProperty("techSize")
     private String techSize;
 
-    @JsonProperty("barcode")
     private String barcode;
 
-    @JsonProperty("quantity")
-    private String quantity;
+    private Long quantity;
 
-    @JsonProperty("totalPrice")
-    private String totalPrice;
+    private Long totalPrice;
 
-    @JsonProperty("discountPercent")
-    private String discountPercent;
+    private Long discountPercent;
 
-    @JsonProperty("warehouseName")
     private String warehouseName;
 
-    @JsonProperty("oblast")
     private String oblast;
 
-    @JsonProperty("incomeID")
-    private String incomeID;
+    private Long incomeID;
 
-    @JsonProperty("odid")
-    private String odid;
+    private Long odid;
 
-    @JsonProperty("nmId")
-    private String nmId;
+    private Long nmId;
 
-    @JsonProperty("subject")
     private String subject;
 
-    @JsonProperty("category")
     private String category;
 
-    @JsonProperty("brand")
     private String brand;
 
-    @JsonProperty("isCancel")
-    private String isCancel;
+    private Boolean isCancel;
 
-    @JsonProperty("cancel_dt")
     private String cancel_dt;
 
-    @JsonProperty("gNumber")
     private String gNumber;
 
 }

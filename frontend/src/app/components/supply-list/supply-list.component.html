@@ -21,9 +21,9 @@
   <tbody class="tableBody">
   <tr *ngFor="let supply of supplies">
     <ng-container *ngIf="isReadOnly(supply)">
-      <td>{{supply._id}}</td>
-      <td>{{supply.purchase}}</td>
-      <td>{{supply.storage}}</td>
+      <td>{{supply.id}}</td>
+      <td>{{supply.purchase.id}}</td>
+      <td>{{supply.storage.id}}</td>
       <td>{{supply.date}}</td>
       <td>{{supply.product}}</td>
       <td>{{supply.amount}}</td>
@@ -35,24 +35,30 @@
         <input type="button" value="Изменить" class="btn btn-default" (click)="editSupply(supply)">
       </td>
       <td>
-        <input type="button" value="Удалить" (click)="deletePurchase(supply._id)" class="btn btn-danger">
+        <input type="button" value="Удалить" (click)="deletePurchase(supply.id)" class="btn btn-danger">
       </td>
     </ng-container>
     <ng-container *ngIf="isEditable(supply)">
       <td>
-        <input type="number" [(ngModel)]="editedSupply._id" readonly disabled class="form-control">
+        <input type="number" [(ngModel)]="editedSupply.id" readonly disabled class="form-control">
       </td>
       <td>
-        <input type="text" [(ngModel)]="editedSupply.purchase" class="form-control">
+        <select [(ngModel)]="editedSupply.purchase" class="form-control">
+          <option *ngFor="let purchase of purchases" [ngValue]="purchase">
+              {{purchase.id + ", " + purchase.productName}}</option>
+        </select>
       </td>
       <td>
-        <input type="text" [(ngModel)]="editedSupply.storage" class="form-control">
+          <select [(ngModel)]="editedSupply.storage" class="form-control">
+              <option *ngFor="let storage of storages" [ngValue]="storage">
+                  {{storage.id + ", " + storage.country.countryName + ", " + storage.town.townName}}</option>
+          </select>
       </td>
       <td>
         <input type="number" [(ngModel)]="editedSupply.date" class="form-control">
       </td>
       <td>
-        <input type="number" [(ngModel)]="editedSupply.product" class="form-control">
+        <input type="text" [(ngModel)]="editedSupply.product" class="form-control">
       </td>
       <td>
         <input type="number" [(ngModel)]="editedSupply.amount" class="form-control">

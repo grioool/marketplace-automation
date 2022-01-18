@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +16,10 @@ export class RegistrationComponent {
 
   public registrationForm: FormGroup;
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private router: Router,
+              private fb: FormBuilder) {
     this.createForm();
   }
 
@@ -23,11 +27,12 @@ export class RegistrationComponent {
     this.registrationForm = this.fb.group({
       username: ['', [
         Validators.required,
-        Validators.pattern(/^[(\w)-]{4,20}/)
+        Validators.pattern(/^[(\w)-]{3,20}/)
       ]],
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+/)
+        Validators.email,
+        // Validators.pattern(/^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+/)
       ]],
       nameCompany: ['', [
         Validators.required,
@@ -48,7 +53,7 @@ export class RegistrationComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/)
+          Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,10}/)
         ],
       ],
     })
@@ -59,15 +64,7 @@ export class RegistrationComponent {
   }
 
   public OnRegister() {
-    this.register(this.registrationForm.get("username").value, this.registrationForm.get("email").value, this.registrationForm.get("password").value, this.registrationForm.get("nameCompany").value, this.registrationForm.get("wbKey").value, this.registrationForm.get("ozonKey").value);
-  }
-
-  public register(username: string, email: string, password: string, nameCompany: string, wbKey: string, ozonKey: string) {
-    this.http.post(this.uri + '/registration', {username: username, password: password, email: email,  nameCompany: nameCompany, wbKey: wbKey, ozonKey: ozonKey})
-      .subscribe((resp: any) => {
-
-        this.router.navigate([this.loginPath]).then();
-      })
+    this.authService.register(this.registrationForm.get("username").value, this.registrationForm.get("email").value, this.registrationForm.get("password").value, this.registrationForm.get("nameCompany").value, this.registrationForm.get("wbKey").value, this.registrationForm.get("ozonKey").value);
   }
 
   public get username() {

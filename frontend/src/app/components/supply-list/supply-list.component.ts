@@ -3,92 +3,108 @@ import {Supply} from '../../classes/supply';
 import {isPresent} from "../../../util";
 import {SupplyService} from "../../services/supply.service";
 import {Purchase} from "../../classes/purchase";
+import {PurchaseService} from "../../services/purchase.service";
+import {Storage} from "../../classes/storage";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
-  selector: 'supply-root',
-  templateUrl: './supply-list.component.html',
-  styleUrls: ['./supply-list.component.css']
+    selector: 'supply-root',
+    templateUrl: './supply-list.component.html',
+    styleUrls: ['./supply-list.component.css']
 })
 export class SupplyList implements OnInit {
-  title = 'frontend';
+    title = 'frontend';
 
-  @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any>|undefined;
-  @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>|undefined;
+    @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any> | undefined;
+    @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any> | undefined;
 
-  editedSupply: Supply = null;
-  supplies: Array<Supply>;
-  isNewRecord: boolean = false;
-  statusMessage: string = "";
+    public editedSupply: Supply = null;
 
-  constructor(private serv: SupplyService) {
-    this.supplies = new Array<Supply>();
-  }
+    public supplies: Supply[];
 
-  ngOnInit() {
-    this.loadSupplies();
-  }
+    public isNewRecord: boolean = false;
 
-  private loadSupplies() {
-    this.serv.getSupplies().subscribe((data: Array<Supply>) => {
-      this.supplies = data;
-    });
-  }
+    public statusMessage: string = "";
 
-  addSupply() {
-   // this.editedSupply = new Supply(-1, 0,0,"", 0, 0, 0,0,0);
-    this.supplies.push(this.editedSupply);
-    this.isNewRecord = true;
-  }
+    public purchases: Purchase[] = [];
 
-  editSupply(supply: Supply) {
-    this.editedSupply = new Supply(supply._id, supply.purchase, supply.storage, supply.date, supply.product, supply.amount, supply.logistics, supply.purchasePrice, supply.fulfillment, supply.costPrice);
-  }
+    public storages: Storage[] = [];
 
-  loadTemplate(supply: Supply) {
-    if (this.editedSupply && this.editedSupply._id === supply._id) {
-      return this.editTemplate;
-    } else {
-      return this.readOnlyTemplate;
+    constructor(private serv: SupplyService,
+                public purchaseService: PurchaseService,
+                public storageService: StorageService) {
+        this.supplies = new Array<Supply>();
+        this.purchaseService.getLoadedPurchases()
+            .subscribe((purchases: Purchase[]) => this.purchases = purchases);
+        this.storageService.getLoadedStorages()
+            .subscribe((storages: Storage[]) => this.storages = storages);
     }
-  }
 
-  saveSupply() {
-    if (this.isNewRecord) {
-      this.serv.createSupply(this.editedSupply as Supply).subscribe(data => {
-        this.statusMessage = 'Данные успешно добавлены';
-          this.loadSupplies();
-      });
-      this.isNewRecord = false;
-      this.editedSupply = null;
-    } else {
-      this.serv.updateSupply(this.editedSupply as Supply).subscribe(data => {
-        this.statusMessage = 'Данные успешно обновлены';
-          this.loadSupplies();
-      });
-      this.editedSupply = null;
-    }
-  }
-
-  cancel() {
-    if (this.isNewRecord) {
-      this.supplies.pop();
-      this.isNewRecord = false;
-    }
-    this.editedSupply = null;
-  }
-
-  deletePurchase(id: number) {
-    this.serv.deleteSupply(id).subscribe(data => {
-      this.statusMessage = 'Данные успешно удалены';
+    ngOnInit() {
         this.loadSupplies();
-    });
-  }
+    }
 
-  public isReadOnly(supply: Supply): boolean {
-    return !this.isEditable(supply);
-  }
+    private loadSupplies() {
+        this.serv.getSupplies().subscribe((data: Array<Supply>) => {
+            this.supplies = data;
+        });
+    }
 
-  public isEditable(supply: Supply): boolean {
-    return isPresent(this.editedSupply) && this.editedSupply._id === supply._id;
-  }
+    public addSupply() {
+        this.editedSupply = new Supply(-1, null, null, 0, "", 0, 0, 0, 0, 0);
+        this.supplies.push(this.editedSupply);
+        this.isNewRecord = true;
+    }
+
+    public editSupply(supply: Supply) {
+        this.editedSupply = new Supply(supply.id, supply.purchase, supply.storage, supply.date, supply.product, supply.amount, supply.logistics, supply.purchasePrice, supply.fulfillment, supply.costPrice);
+    }
+
+    public loadTemplate(supply: Supply) {
+        if (this.editedSupply && this.editedSupply.id === supply.id) {
+            return this.editTemplate;
+        } else {
+            return this.readOnlyTemplate;
+        }
+    }
+
+    public saveSupply() {
+        if (this.isNewRecord) {
+            this.serv.createSupply(this.editedSupply).subscribe(data => {
+                this.statusMessage = 'Данные успешно добавлены';
+                this.loadSupplies();
+            });
+            this.isNewRecord = false;
+            this.editedSupply = null;
+        } else {
+            this.serv.updateSupply(this.editedSupply).subscribe(data => {
+                this.statusMessage = 'Данные успешно обновлены';
+                this.loadSupplies();
+            });
+            this.editedSupply = null;
+        }
+    }
+
+    public cancel() {
+        if (this.isNewRecord) {
+            this.supplies.pop();
+            this.isNewRecord = false;
+        }
+        this.editedSupply = null;
+    }
+
+    public deletePurchase(id: number) {
+        this.serv.deleteSupply(id).subscribe(data => {
+            this.statusMessage = 'Данные успешно удалены';
+            this.loadSupplies();
+        });
+    }
+
+    public isReadOnly(supply: Supply): boolean {
+        return !this.isEditable(supply);
+    }
+
+    public isEditable(supply: Supply): boolean {
+        return isPresent(this.editedSupply) && this.editedSupply.id === supply.id;
+    }
 }

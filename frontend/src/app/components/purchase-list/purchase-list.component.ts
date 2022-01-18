@@ -34,17 +34,17 @@ export class PurchaseList implements OnInit {
   }
 
   addPurchase() {
-    this.editedPurchase = new Purchase(-1,0,"",0, 0, 0, 0,0,0, 0);
+    this.editedPurchase = new Purchase(-1, 0,"",0, 0, 0, 0,0,0, 0);
     this.purchases.push(this.editedPurchase);
     this.isNewRecord = true;
   }
 
   editPurchase(purchase: Purchase) {
-    this.editedPurchase = new Purchase(purchase._id, purchase.date, purchase.productName, purchase.priceForOne, purchase.amount, purchase.purchasePrice, purchase.logistics, purchase.costPrice, purchase.batchPrice, purchase.extra);
+    this.editedPurchase = new Purchase(purchase.id, purchase.date, purchase.productName, purchase.priceForOne, purchase.amount, purchase.purchasePrice, purchase.logistics, purchase.costPrice, purchase.batchPrice, purchase.extra);
   }
 
   loadTemplate(purchase: Purchase) {
-    if (this.editedPurchase && this.editedPurchase._id === purchase._id) {
+    if (this.editedPurchase && this.editedPurchase.id === purchase.id) {
       return this.editTemplate;
     } else {
       return this.readOnlyTemplate;
@@ -53,7 +53,7 @@ export class PurchaseList implements OnInit {
 
   savePurchase() {
     if (this.isNewRecord) {
-      this.serv.createPurchase(this.editedPurchase as Purchase).subscribe(data => {
+      this.serv.createPurchase(this.editedPurchase).subscribe(data => {
         this.statusMessage = 'Данные успешно добавлены';
           this.loadPurchases();
       });
@@ -88,6 +88,6 @@ export class PurchaseList implements OnInit {
   }
 
   public isEditable(purchase: Purchase): boolean {
-    return isPresent(this.editedPurchase) && this.editedPurchase._id === purchase._id;
+    return isPresent(this.editedPurchase) && this.editedPurchase.id === purchase.id;
   }
 }

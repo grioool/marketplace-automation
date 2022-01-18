@@ -21,7 +21,7 @@
   <tbody class="tableBody">
   <tr *ngFor="let purchase of purchases">
     <ng-container *ngIf="isReadOnly(purchase)">
-      <td>{{purchase._id}}</td>
+      <td>{{purchase.id}}</td>
       <td>{{purchase.date}}</td>
       <td>{{purchase.productName}}</td>
       <td>{{purchase.priceForOne}}</td>
@@ -35,12 +35,12 @@
         <input type="button" value="Изменить" class="btn btn-default" (click)="editPurchase(purchase)">
       </td>
       <td>
-        <input type="button" value="Удалить" (click)="deletePurchase(purchase._id)" class="btn btn-danger">
+        <input type="button" value="Удалить" (click)="deletePurchase(purchase.id)" class="btn btn-danger">
       </td>
     </ng-container>
     <ng-container *ngIf="isEditable(purchase)">
       <td>
-        <input type="number" [(ngModel)]="editedPurchase._id" readonly disabled class="form-control">
+        <input type="number" [(ngModel)]="editedPurchase.id" readonly disabled class="form-control">
       </td>
       <td>
         <input type="date" [(ngModel)]="editedPurchase.date" class="form-control">

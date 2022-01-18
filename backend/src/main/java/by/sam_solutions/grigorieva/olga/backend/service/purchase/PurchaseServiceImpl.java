@@ -1,9 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.service.purchase;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
-import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.purchase.PurchaseRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;

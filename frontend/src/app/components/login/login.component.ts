@@ -1,12 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {Component} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-
-declare type AuthenticationResponse = {accessToken: string; refreshToken: string};
-
-export const refreshTokenKey: string = "refresh_token";
-export const accessTokenKey: string = "access_token";
+import {AuthService} from "../../services/auth.service";
+import {NavigationPath} from "../../classes/navigation-path";
 
 @Component({
   selector: 'app-login',
@@ -15,12 +12,12 @@ export const accessTokenKey: string = "access_token";
 })
 export class LoginComponent {
 
-  private uri = 'http://localhost:8080';
-  private registrationPath = 'registration';
-  private mainPath = 'main';
   public loginForm: FormGroup;
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private router: Router,
+              private fb: FormBuilder) {
     this.createForm();
   }
 
@@ -40,29 +37,11 @@ export class LoginComponent {
   }
 
   public OnLogin() {
-    this.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
+    this.authService.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
   }
 
   public OnRegister() {
-    this.router.navigate([this.registrationPath]).then();
-  }
-
-  public login(username: string, password: string) {
-    const params: HttpParams = new HttpParams()
-      .set('username', username)
-      .set('password', password);
-    this.http.post<AuthenticationResponse>(this.uri + '/login', {}, {params})
-      .subscribe((resp: AuthenticationResponse) => {
-
-        this.router.navigate([this.mainPath]).then();
-        localStorage.setItem('access_token', resp.accessToken);
-        localStorage.setItem('refresh_token', resp.refreshToken);
-      })
-  }
-
-  public logout() {
-    localStorage.removeItem(accessTokenKey);
-    localStorage.removeItem(refreshTokenKey);
+    this.router.navigate([NavigationPath.REGISTRATION]).then();
   }
 }
 

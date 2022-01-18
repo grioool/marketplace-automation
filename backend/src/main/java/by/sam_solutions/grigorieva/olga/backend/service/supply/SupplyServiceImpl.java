@@ -2,12 +2,10 @@ package by.sam_solutions.grigorieva.olga.backend.service.supply;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

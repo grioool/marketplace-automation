@@ -42,11 +42,11 @@ export class UserList implements OnInit {
   }
 
   editUser(user: User) {
-    this.editedUser = new User(user._id, user.name, user.email, user.password, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
+    this.editedUser = new User(user.id, user.name, user.email, user.password, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
   }
 
   loadTemplate(user: User) {
-    if (this.editedUser && this.editedUser._id === user._id) {
+    if (this.editedUser && this.editedUser.id === user.id) {
       return this.editTemplate;
     } else {
       return this.readOnlyTemplate;
@@ -90,6 +90,6 @@ export class UserList implements OnInit {
   }
 
   public isEditable(user: User): boolean {
-    return isPresent(this.editedUser) && this.editedUser._id === user._id;
+    return isPresent(this.editedUser) && this.editedUser.id === user.id;
   }
 }

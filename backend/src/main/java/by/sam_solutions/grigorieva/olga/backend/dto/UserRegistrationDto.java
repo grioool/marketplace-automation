@@ -1,12 +1,10 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import lombok.Data;
-import org.springframework.security.access.method.P;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Data
 public class UserRegistrationDto {
