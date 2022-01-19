@@ -1,23 +1,23 @@
 <header class="header">
     <div id="headerText">
-        <span class="grioool">
-          <a href="http://localhost:4200/main">GRIOOOL</a>
+        <span class="grioool" (click)="routeTo(navigationPath.MAIN)">
+          AutoMarket
         </span>
         <ul class="menu" *ngIf="isMenuActive()">
-            <li>
-                <a href="http://localhost:4200/information">Профиль</a>
+            <li  (click)="routeTo(navigationPath.PROFILE)" >
+                Профиль
             </li>
-            <li>
-                <a href="http://localhost:4200/supplies">Поставки</a>
+            <li  (click)="routeTo(navigationPath.SUPPLIES)" >
+                Поставки
             </li>
-            <li>
-                <a href="http://localhost:4200/purchases">Закупки</a>
+            <li  (click)="routeTo(navigationPath.PURCHASES)" >
+                Закупки
             </li>
-            <li>
-                <a href="http://localhost:4200/reports">Отчет о продажах</a>
+            <li  (click)="routeTo(navigationPath.REPORTS)" >
+                Отчет о продажах
             </li>
             <li (click)="OnLogout()">
-                <a>Выйти</a>
+                Выйти
             </li>
         </ul>
     </div>

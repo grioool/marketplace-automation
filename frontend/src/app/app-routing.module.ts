@@ -11,6 +11,8 @@ import {LoginComponent} from "./components/login/login.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {InformationComponent} from "./components/information/information.component";
 import {AuthGuardService} from "./services/authguard.service";
+import {SaleListComponent} from "./components/sale-list/sale-list.component";
+import {OrderListComponent} from "./components/order-list/order-list.component";
 
 const routes: Routes = [{
     path: '', canActivate: [AuthGuardService], children: [
@@ -23,7 +25,10 @@ const routes: Routes = [{
         {path: "registration", component: RegistrationComponent},
         {path: "login", component: LoginComponent},
         {path: "profile", component: ProfileComponent},
-        {path: "information", component: InformationComponent}
+        {path: "information", component: InformationComponent},
+        {path: "sales", component: SaleListComponent},
+        {path: "orders", component: OrderListComponent},
+        {path: "**", redirectTo: "main"}
     ]
 }];
 

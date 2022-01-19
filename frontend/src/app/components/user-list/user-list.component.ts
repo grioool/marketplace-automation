@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {User} from '../../classes/user';
 import {UserService} from '../../services/user.service';
 import {isPresent} from "../../../util";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'users-list',
@@ -21,7 +22,8 @@ export class UserList implements OnInit {
   isNewRecord: boolean = false;
   statusMessage: string = "";
 
-  constructor(private serv: UserService) {
+  constructor(private serv: UserService,
+              private location: Location) {
     this.users = new Array<User>();
   }
 
@@ -92,5 +94,9 @@ export class UserList implements OnInit {
   public isEditable(user: User): boolean {
     return isPresent(this.editedUser) && this.editedUser.id === user.id;
   }
+
+    public back(): void {
+        this.location.back();
+    }
 
 }

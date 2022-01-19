@@ -1,12 +1,15 @@
-<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
-<p>Назад</p>
+<div (click)="back()" class="back-panel">
+    <img src="../../../assets/leftArrow.png" alt="Back"/>
+    <span class="back-text">Назад</span>
+</div>
+
 <h1 class="profileClass">Профиль</h1>
 
 <ul class="menu">
-  <li>
-    <a href="http://localhost:4200/information">Личная информация</a>
+  <li (click)="routeTo(navigationPath.INFORMATION)" >
+    Личная информация
   </li>
-  <li>
-    <a href="http://localhost:4200/users">Пользователи</a>
+  <li (click)="routeTo(navigationPath.USERS)">
+    Пользователи
   </li>
 </ul>

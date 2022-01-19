@@ -4,6 +4,7 @@ import {ReportService} from '../../services/report.service';
 import {isPresent} from "../../../util";
 import {Supply} from "../../classes/supply";
 import {SupplyService} from "../../services/supply.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'purchase-root',
@@ -27,7 +28,8 @@ export class ReportList implements OnInit {
     public supplies: Supply[] = [];
 
   constructor(private serv: ReportService,
-              public supplyService: SupplyService) {
+              public supplyService: SupplyService,
+              private location: Location) {
     this.reports = new Array<Report>();
       this.supplyService.getLoadedSupplies()
           .subscribe((supplies: Supply[]) => this.supplies = supplies);
@@ -100,4 +102,8 @@ export class ReportList implements OnInit {
   public isEditable(report: Report): boolean {
     return isPresent(this.editedReport) && this.editedReport.id === report.id;
   }
+
+    public back(): void {
+        this.location.back();
+    }
 }

@@ -1,5 +1,9 @@
-<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
-<p>Назад</p>
+<div (click)="back()" class="back-panel">
+    <img src="../../../assets/leftArrow.png" alt="Back"/>
+    <span class="back-text">Назад</span>
+</div>
+
+
 <h1 class="reportClass">Отчет о продажах</h1>
 <button (click)="addReport()" class="button">Добавить отчет</button>
 
@@ -39,11 +43,11 @@
             <td>{{report.commissionVAT}}</td>
             <td>{{report.dateSale}}</td>
             <td>{{report.dateOrder}}</td>
-            <td>
-                <input type="button" value="Изменить" class="btn btn-default" (click)="editReport(report)">
+            <td class="table-btn" (click)="editReport(report)">
+                Изменить
             </td>
-            <td>
-                <input type="button" value="Удалить" (click)="deleteReport(report.id)" class="btn btn-danger">
+            <td class="table-btn" (click)="deleteReport(report.id)">
+                Удалить
             </td>
         </ng-container>
         <ng-container *ngIf="isEditable(report)">
@@ -92,11 +96,11 @@
             <td>
                 <input type="date" [(ngModel)]="editedReport.dateOrder" class="form-control">
             </td>
-            <td>
-                <input type="button" value="Сохранить" (click)="saveReport()" class="btn btn-success">
+            <td class="table-btn" (click)="saveReport()">
+                Сохранить
             </td>
-            <td>
-                <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning">
+            <td class="table-btn" (click)="cancel()">
+                Отмена
             </td>
         </ng-container>
         <ng-template [ngTemplateOutlet]="loadTemplate(report)"

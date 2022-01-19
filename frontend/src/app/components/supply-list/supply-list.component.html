@@ -1,5 +1,8 @@
-<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
-<p>Назад</p>
+<div (click)="back()" class="back-panel">
+    <img src="../../../assets/leftArrow.png" alt="Back"/>
+    <span class="back-text">Назад</span>
+</div>
+
 <h1 class="supplyClass">Поставки</h1>
 <button (click)="addSupply()" class="button">Добавить поставку</button>
 
@@ -31,11 +34,11 @@
       <td>{{supply.purchasePrice}}</td>
       <td>{{supply.fulfillment}}</td>
       <td>{{supply.costPrice}}</td>
-      <td>
-        <input type="button" value="Изменить" class="btn btn-default" (click)="editSupply(supply)">
+      <td class="table-btn" (click)="editSupply(supply)">
+        Изменить
       </td>
-      <td>
-        <input type="button" value="Удалить" (click)="deletePurchase(supply.id)" class="btn btn-danger">
+      <td class="table-btn" (click)="deleteSupply(supply.id)">
+        Удалить
       </td>
     </ng-container>
     <ng-container *ngIf="isEditable(supply)">
@@ -75,11 +78,11 @@
       <td>
         <input type="number" [(ngModel)]="editedSupply.costPrice" class="form-control">
       </td>
-      <td>
-        <input type="button" value="Сохранить" (click)="saveSupply()" class="btn btn-success">
+      <td class="table-btn" (click)="saveSupply()">
+          Сохранить
       </td>
-      <td>
-        <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning">
+      <td class="table-btn" (click)="cancel()">
+        Отмена
       </td>
     </ng-container>
     <ng-template [ngTemplateOutlet]="loadTemplate(supply)"

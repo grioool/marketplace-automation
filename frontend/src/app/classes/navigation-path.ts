@@ -1,4 +1,4 @@
-export const enum NavigationPath {
+export enum NavigationPath {
 
     LOGIN = "/login",
     REGISTRATION = "/registration",
@@ -7,5 +7,8 @@ export const enum NavigationPath {
     PURCHASES = "/purchases",
     REPORTS = "/reports",
     USERS = "/users",
-    PROFILE = "/profile"
+    PROFILE = "/profile",
+    INFORMATION = "/information",
+    SALES = "/sales",
+    ORDERS = "/orders",
 }

@@ -2,6 +2,8 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Purchase} from '../../classes/purchase';
 import {PurchaseService} from '../../services/purchase.service';
 import {isPresent} from "../../../util";
+import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'purchase-root',
@@ -19,7 +21,8 @@ export class PurchaseList implements OnInit {
   isNewRecord: boolean = false;
   statusMessage: string = "";
 
-  constructor(private serv: PurchaseService) {
+  constructor(private serv: PurchaseService,
+              private location: Location) {
     this.purchases = new Array<Purchase>();
   }
 
@@ -33,17 +36,17 @@ export class PurchaseList implements OnInit {
     });
   }
 
-  addPurchase() {
+  public addPurchase() {
     this.editedPurchase = new Purchase(0, 0,"",0, 0, 0, 0,0,0, 0);
     this.purchases.push(this.editedPurchase);
     this.isNewRecord = true;
   }
 
-  editPurchase(purchase: Purchase) {
+  public editPurchase(purchase: Purchase) {
     this.editedPurchase = new Purchase(purchase.id, purchase.date, purchase.productName, purchase.priceForOne, purchase.amount, purchase.purchasePrice, purchase.logistics, purchase.costPrice, purchase.batchPrice, purchase.extra);
   }
 
-  loadTemplate(purchase: Purchase) {
+  public loadTemplate(purchase: Purchase) {
     if (this.editedPurchase && this.editedPurchase.id === purchase.id) {
       return this.editTemplate;
     } else {
@@ -51,7 +54,7 @@ export class PurchaseList implements OnInit {
     }
   }
 
-  savePurchase() {
+  public savePurchase() {
     if (this.isNewRecord) {
       this.serv.createPurchase(this.editedPurchase).subscribe(data => {
         this.statusMessage = 'Данные успешно добавлены';
@@ -68,7 +71,7 @@ export class PurchaseList implements OnInit {
     }
   }
 
-  cancel() {
+  public cancel() {
     if (this.isNewRecord) {
       this.purchases.pop();
       this.isNewRecord = false;
@@ -76,7 +79,7 @@ export class PurchaseList implements OnInit {
     this.editedPurchase = null;
   }
 
-  deletePurchase(id: number) {
+  public deletePurchase(id: number) {
     this.serv.deletePurchase(id).subscribe(data => {
       this.statusMessage = 'Данные успешно удалены';
         this.loadPurchases();
@@ -89,5 +92,9 @@ export class PurchaseList implements OnInit {
 
   public isEditable(purchase: Purchase): boolean {
     return isPresent(this.editedPurchase) && this.editedPurchase.id === purchase.id;
+  }
+
+  public back(): void {
+      this.location.back();
   }
 }

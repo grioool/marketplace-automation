@@ -16,14 +16,14 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {MainComponent} from './components/main/main.component';
 import {InformationComponent} from './components/information/information.component';
 import {AuthenticationInterceptor} from "./http-interceptor/authentication-interceptor";
-import {SaleComponent} from './components/sale-list/sale.component';
-import {OrderComponent} from './components/order-list/order.component';
+import {SaleListComponent} from './components/sale-list/sale-list.component';
+import {OrderListComponent} from './components/order-list/order-list.component';
 import {JwtModule} from "@auth0/angular-jwt";
 import {accessTokenKey} from "./services/auth.service";
 
 @NgModule({
     declarations: [
-        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleComponent, OrderComponent
+        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent
     ],
     imports: [
         BrowserModule,

@@ -1,5 +1,8 @@
-<link rel="icon" type="image/x-icon" href="icons/leftArrow.png">
-<p>Назад</p>
+<div (click)="back()" class="back-panel">
+    <img src="../../../assets/leftArrow.png" alt="Back"/>
+    <span class="back-text">Назад</span>
+</div>
+
 <h1 class="userClass">Пользователи</h1>
 <button (click)="addUser()" class="button">Добавить пользователя</button>
 
@@ -27,12 +30,12 @@
       <td>{{user.ozonKey}}</td>
       <td>{{user.isSubscribed}}</td>
       <td>{{user.isBlocked}}</td>
-      <td>
-        <input type="button" value="Изменить" class="btn btn-default" (click)="editUser(user)">
-      </td>
-      <td>
-        <input type="button" value="Удалить" (click)="deleteUser(user.id)" class="btn btn-danger">
-      </td>
+        <td class="table-btn" (click)="editUser(user)">
+            Изменить
+        </td>
+        <td class="table-btn" (click)="deleteUser(user.id)">
+            Удалить
+        </td>
     </ng-container>
     <ng-container *ngIf="isEditable(user)">
       <td>
@@ -60,12 +63,13 @@
         <input type="checkbox" [(ngModel)]="editedUser.isSubscribed" class="form-control">
       </td>
 
-      <td>
-        <input type="button" value="Сохранить" (click)="saveUser()" class="btn btn-success">
-      </td>
-      <td>
-        <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning">
-      </td>
+        <td class="table-btn" (click)="saveUser()">
+            Сохранить
+        </td>
+        <td class="table-btn" (click)="cancel()">
+            Отмена
+        </td>
+
     </ng-container>
     <ng-template [ngTemplateOutlet]="loadTemplate(user)"
                              [ngTemplateOutletContext]="{ $implicit: user}">

@@ -6,6 +6,7 @@ import {Purchase} from "../../classes/purchase";
 import {PurchaseService} from "../../services/purchase.service";
 import {Storage} from "../../classes/storage";
 import {StorageService} from "../../services/storage.service";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'supply-root',
@@ -32,7 +33,8 @@ export class SupplyList implements OnInit {
 
     constructor(private serv: SupplyService,
                 public purchaseService: PurchaseService,
-                public storageService: StorageService) {
+                public storageService: StorageService,
+                private location: Location) {
         this.supplies = new Array<Supply>();
         this.purchaseService.getLoadedPurchases()
             .subscribe((purchases: Purchase[]) => this.purchases = purchases);
@@ -93,7 +95,7 @@ export class SupplyList implements OnInit {
         this.editedSupply = null;
     }
 
-    public deletePurchase(id: number) {
+    public deleteSupply(id: number) {
         this.serv.deleteSupply(id).subscribe(data => {
             this.statusMessage = 'Данные успешно удалены';
             this.loadSupplies();
@@ -106,5 +108,9 @@ export class SupplyList implements OnInit {
 
     public isEditable(supply: Supply): boolean {
         return isPresent(this.editedSupply) && this.editedSupply.id === supply.id;
+    }
+
+    public back(): void {
+        this.location.back();
     }
 }

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {NavigationPath} from "../../classes/navigation-path";
 
 @Component({
   selector: 'app-registration',
@@ -10,9 +11,6 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-
-  private uri = 'http://localhost:8080';
-  private loginPath = 'login';
 
   public registrationForm: FormGroup;
 
@@ -32,7 +30,6 @@ export class RegistrationComponent {
       email: ['', [
         Validators.required,
         Validators.email,
-        // Validators.pattern(/^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+/)
       ]],
       nameCompany: ['', [
         Validators.required,
@@ -60,7 +57,7 @@ export class RegistrationComponent {
   }
 
   public OnLogin() {
-    this.router.navigate([this.loginPath]).then();
+    this.router.navigate([NavigationPath.LOGIN]).then();
   }
 
   public OnRegister() {
