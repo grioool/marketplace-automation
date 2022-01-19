@@ -14,5 +14,4 @@ public class RoleRepositoryImpl extends AbstractRepositoryImpl<Role> implements 
                 .setParameter("roleName", name)
                 .getSingleResult();
     }
-
 }

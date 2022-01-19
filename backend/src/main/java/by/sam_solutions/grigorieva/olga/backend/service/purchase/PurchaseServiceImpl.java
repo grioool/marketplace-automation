@@ -19,5 +19,4 @@ public class PurchaseServiceImpl extends AbstractServiceImpl<Purchase> implement
     public List<Purchase> getByUser(User user) {
         return purchaseRepository.getByUser(user);
     }
-
 }

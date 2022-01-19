@@ -1,5 +1,4 @@
 export class Purchase {
-
   constructor(
     public id: number,
     public date: number,
@@ -12,5 +11,4 @@ export class Purchase {
     public batchPrice: number,
     public extra: number
     ) { }
-
 }

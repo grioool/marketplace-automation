@@ -68,7 +68,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                 } catch (Exception exception) {
 
-                    // log.error("Error logging in: {}", exception.getMessage());
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
                     response.sendError(FORBIDDEN.value());

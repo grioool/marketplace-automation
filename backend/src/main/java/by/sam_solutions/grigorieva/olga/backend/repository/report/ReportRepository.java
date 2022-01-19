@@ -7,6 +7,6 @@ import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import java.util.List;
 
 public interface ReportRepository extends AbstractRepository<Report> {
-    List<Report> getByUser(User user);
 
+    List<Report> getByUser(User user);
 }

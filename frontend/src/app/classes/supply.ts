@@ -2,7 +2,6 @@ import {Purchase} from "./purchase";
 import {Storage} from "./storage";
 
 export class Supply {
-
   constructor(
     public id: number,
     public purchase: Purchase,
@@ -15,5 +14,4 @@ export class Supply {
     public fulfillment: number,
     public costPrice: number
   ) { }
-
 }

@@ -4,7 +4,6 @@ import {HttpClient} from "@angular/common/http";
 import {Storage} from "../classes/storage";
 import {environment} from "../../environments/environment";
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -30,5 +29,4 @@ export class StorageService {
         return this.http.get<Storage[]>(this.url + '/storages')
             .pipe(tap(storages => this.loadedStorages.next(storages)));
     }
-
 }

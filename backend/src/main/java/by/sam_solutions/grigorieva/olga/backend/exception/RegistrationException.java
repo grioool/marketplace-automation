@@ -13,5 +13,4 @@ public class RegistrationException extends Exception {
         super(message);
         this.errors = errors;
     }
-
 }

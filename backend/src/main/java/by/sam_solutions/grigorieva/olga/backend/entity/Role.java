@@ -1,11 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import by.sam_solutions.grigorieva.olga.backend.entity.AbstractEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
-import java.util.Arrays;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "role")

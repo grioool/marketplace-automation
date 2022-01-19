@@ -99,6 +99,4 @@ public class ReportDto {
 
     @NotEmpty
     private Timestamp dateOrder;
-
-
 }

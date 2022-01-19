@@ -9,5 +9,4 @@ import java.util.List;
 public interface SupplyService extends AbstractService<Supply> {
 
     List<Supply> getByUser(User user);
-
 }

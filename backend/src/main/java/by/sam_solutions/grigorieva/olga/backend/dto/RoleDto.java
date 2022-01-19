@@ -2,7 +2,6 @@ package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import lombok.Data;
-
 import javax.validation.constraints.NotEmpty;
 
 @Data

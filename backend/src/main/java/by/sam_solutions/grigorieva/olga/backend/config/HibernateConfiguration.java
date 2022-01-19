@@ -76,7 +76,6 @@ public class HibernateConfiguration {
         return new Hibernate5Module();
     }
 
-
     @Bean
     public Properties getHibernateProperties() {
         Properties properties = new Properties();

@@ -16,5 +16,4 @@ public class ReportRepositoryImpl extends AbstractRepositoryImpl<Report> impleme
                 .setParameter("user", user)
                 .getResultList();
     }
-
 }

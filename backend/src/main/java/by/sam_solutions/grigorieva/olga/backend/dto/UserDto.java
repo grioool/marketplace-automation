@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
-import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import lombok.Data;
 

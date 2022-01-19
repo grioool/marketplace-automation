@@ -1,12 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.service;
 
+import by.sam_solutions.grigorieva.olga.backend.entity.AbstractEntity;
 import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public abstract class AbstractServiceImpl<Entity> implements AbstractService<Entity> {
+public abstract class AbstractServiceImpl<Entity extends AbstractEntity> implements AbstractService<Entity> {
 
     @Autowired
     private AbstractRepository<Entity> abstractRepository;
@@ -35,5 +36,4 @@ public abstract class AbstractServiceImpl<Entity> implements AbstractService<Ent
     public void delete(int id) {
         abstractRepository.delete(id);
     }
-
 }

@@ -1,8 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.dto.RoleDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -63,8 +63,8 @@ public class UserController {
     }
 
     @PostMapping("/role/addtouser")
-    public UserRoleDto addRoleToUser(@RequestBody UserRoleDto dto) {
-        return userService.addRoleToUser(dto.getUsername(), dto.getRoleName());
+    public ResponseEntity<?> addRoleToUser(@RequestBody UserRoleDto dto) {
+        return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
     @GetMapping( "user/{userId}")
@@ -109,7 +109,6 @@ public class UserController {
                                 .build());
 
             } catch (Exception exception) {
-
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());
                 response.sendError(FORBIDDEN.value());
@@ -117,7 +116,6 @@ public class UserController {
                 error.put("error_message", exception.getMessage());
                 response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), error);
-
             }
         } else {
             throw new RuntimeException("Refresh token is missing");

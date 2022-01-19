@@ -13,6 +13,4 @@ public interface AbstractService<Entity> {
     Entity getById(int id);
 
     void delete(int id);
-
-
 }

@@ -1,18 +1,16 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import by.sam_solutions.grigorieva.olga.backend.dto.PurchaseDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.exception.ServiceException;
 import by.sam_solutions.grigorieva.olga.backend.service.purchase.PurchaseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,5 +49,4 @@ public class PurchaseController {
     public void delete(@PathVariable("purchaseId") int id) {
        purchaseService.delete(id);
     }
-
 }

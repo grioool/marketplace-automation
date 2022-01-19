@@ -2,7 +2,6 @@ package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -33,7 +31,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     private final JwtProvider jwtProvider;
 
     @Override
-    public User register(UserRegistrationDto userDto) {
+    public void register(UserRegistrationDto userDto) {
 
         User user = new User();
         user.setPassword(userDto.getPassword());
@@ -45,39 +43,33 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
         user.setRoles(List.of(roleRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.create(user);
+        userRepository.create(user);
     }
 
     @Override
     public User createUser(User user) {
-        // log.info("Saving new user {} to the database", user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.create(user);
     }
 
     @Override
     public Role createRole(Role role) {
-        //  log.info("Saving new role {} to the database", role.getName());
         return roleRepository.create(role);
     }
 
     @Override
-    public UserRoleDto addRoleToUser(String username, String roleName) {
-        //  log.info("Adding role {} to user {}", roleName, username);
+    public boolean addRoleToUser(String username, String roleName) {
         User user = userRepository.findByUsername(username);
         Role role = roleRepository.findByName(roleName);
-        user.getRoles().add(role);
-        return null;
+        return user.getRoles().add(role);
     }
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            // log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
         }
-//         log.info("User found in the database: {}", username);
         return user;
     }
 
@@ -101,6 +93,4 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         }
         return null;
     }
-
-
 }

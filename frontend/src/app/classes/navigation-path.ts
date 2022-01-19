@@ -1,5 +1,4 @@
 export enum NavigationPath {
-
     LOGIN = "/login",
     REGISTRATION = "/registration",
     MAIN = "/main",

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {map, Observable, tap} from "rxjs";
+import {map, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
 import {NavigationPath} from "../classes/navigation-path";
 
@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
                        state: RouterStateSnapshot): Observable<boolean> {
         return this.authService.isAuthenticated()
             .pipe(map(authenticated => {
-                if (this.requireAuthentication(state.url)) {
+                if (AuthGuardService.requireAuthentication(state.url)) {
                     if (authenticated) return true;
                     this._router.navigate([NavigationPath.LOGIN]).then();
                     return false;
@@ -30,7 +30,7 @@ export class AuthGuardService implements CanActivate {
             }))
     }
 
-    private requireAuthentication(url: string): boolean {
+    private static requireAuthentication(url: string): boolean {
         return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN].includes(url as never);
     }
 }

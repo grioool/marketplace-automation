@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.repository;
 
+import by.sam_solutions.grigorieva.olga.backend.entity.AbstractEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @Repository
-public abstract class AbstractRepositoryImpl<Entity> implements AbstractRepository<Entity> {
+public abstract class AbstractRepositoryImpl<Entity extends AbstractEntity> implements AbstractRepository<Entity> {
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -51,5 +52,4 @@ public abstract class AbstractRepositoryImpl<Entity> implements AbstractReposito
         TypedQuery<Entity> allQuery = entityManager.createQuery(all);
         return allQuery.getResultList();
     }
-
 }

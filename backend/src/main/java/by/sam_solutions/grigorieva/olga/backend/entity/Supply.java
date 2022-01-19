@@ -1,15 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "supply")
-@Getter
-@Setter
+@Data
 public class Supply extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)

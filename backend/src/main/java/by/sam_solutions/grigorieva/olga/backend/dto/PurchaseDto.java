@@ -76,6 +76,4 @@ public class PurchaseDto {
     @Pattern(regexp="^[0-9]{2,15}")
     @NotEmpty
     private Double extra;
-
-
 }

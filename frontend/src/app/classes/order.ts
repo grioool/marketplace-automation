@@ -1,5 +1,4 @@
 export class Order {
-
     constructor(
         public gNumber: string,
         public date: number,

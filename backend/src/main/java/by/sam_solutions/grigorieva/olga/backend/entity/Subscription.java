@@ -1,15 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "subscription")
-@Getter
-@Setter
+@Data
 public class Subscription extends AbstractEntity {
 
     @Column(name = "date_start")

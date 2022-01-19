@@ -5,7 +5,6 @@ import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 

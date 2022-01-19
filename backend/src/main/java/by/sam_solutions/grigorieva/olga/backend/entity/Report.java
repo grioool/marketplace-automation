@@ -1,15 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "report")
-@Getter
-@Setter
+@Data
 public class Report extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -55,6 +53,5 @@ public class Report extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 
 }

@@ -66,6 +66,4 @@ public class SaleWBDto {
     private Long IsStorno;
 
     private String gNumber;
-
-
 }

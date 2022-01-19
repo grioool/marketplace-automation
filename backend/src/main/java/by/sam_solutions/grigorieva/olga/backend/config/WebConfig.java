@@ -30,6 +30,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         converters.add(jacksonMessageConverter());
         super.configureMessageConverters(converters);
     }
-
-
 }

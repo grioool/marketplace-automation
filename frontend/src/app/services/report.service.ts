@@ -19,10 +19,12 @@ export class ReportService {
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.post<Report>(this.url + '/report', JSON.stringify(report), {headers: myHeaders});
   }
+
   public updateReport(report: Report) {
     const myHeaders = new HttpHeaders().set("Content-Type", "application/json");
     return this.http.put<Report>(this.url + '/report', JSON.stringify(report), {headers:myHeaders});
   }
+
   public deleteReport(id: number){
     return this.http.delete<Report>(this.url + '/report/' + id);
   }

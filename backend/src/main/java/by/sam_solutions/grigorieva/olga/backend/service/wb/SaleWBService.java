@@ -39,5 +39,4 @@ public class SaleWBService {
 
             return responseSales.getBody();
     }
-
 }

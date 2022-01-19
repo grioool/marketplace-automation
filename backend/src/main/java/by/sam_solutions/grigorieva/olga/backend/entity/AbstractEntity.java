@@ -1,13 +1,14 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
@@ -15,5 +16,4 @@ public abstract class AbstractEntity implements Serializable {
     @GeneratedValue
     @Column(name = "id")
     private int id;
-
 }

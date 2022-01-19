@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class StorageRepositoryImpl extends AbstractRepositoryImpl<Storage> implements StorageRepository {
-
 }

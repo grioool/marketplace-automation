@@ -1,5 +1,4 @@
 export class User {
-
   constructor(
     public id: number,
     public name: string,
@@ -12,5 +11,4 @@ export class User {
     public isBlocked: boolean,
     public isSubscribed: boolean
     ) { }
-
 }

@@ -7,5 +7,4 @@ import by.sam_solutions.grigorieva.olga.backend.repository.AbstractRepository;
 public interface TownRepository extends AbstractRepository<Town> {
 
     Town findByName(TownName name);
-
 }

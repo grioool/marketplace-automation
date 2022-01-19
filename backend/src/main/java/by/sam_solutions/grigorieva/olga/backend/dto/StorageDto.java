@@ -3,6 +3,8 @@ package by.sam_solutions.grigorieva.olga.backend.dto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Storage;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 @Data
 public class StorageDto {
 
@@ -22,10 +24,13 @@ public class StorageDto {
         return dto;
     }
 
+    @NotEmpty
     private Integer id;
 
+    @NotEmpty
     private CountryDto country;
 
+    @NotEmpty
     private TownDto town;
 
 }

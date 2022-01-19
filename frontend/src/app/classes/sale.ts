@@ -1,5 +1,4 @@
 export class Sale {
-
     constructor(
         public gNumber: string,
         public number: string,
@@ -30,5 +29,4 @@ export class Sale {
         public category: string,
         public brand: string,
     ) { }
-
 }

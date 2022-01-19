@@ -16,5 +16,4 @@ public class PurchaseRepositoryImpl extends AbstractRepositoryImpl<Purchase> imp
                 .setParameter("user", user)
                 .getResultList();
     }
-
 }

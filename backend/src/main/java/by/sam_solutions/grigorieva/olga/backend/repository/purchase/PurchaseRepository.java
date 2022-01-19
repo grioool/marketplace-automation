@@ -9,5 +9,4 @@ import java.util.List;
 public interface PurchaseRepository extends AbstractRepository<Purchase> {
 
     List<Purchase> getByUser(User user);
-
 }

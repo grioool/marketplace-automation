@@ -22,6 +22,4 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User> implements 
                 .setParameter("email", email)
                 .getSingleResult();
     }
-
-
 }

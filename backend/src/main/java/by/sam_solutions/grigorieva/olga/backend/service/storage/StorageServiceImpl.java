@@ -6,5 +6,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StorageServiceImpl extends AbstractServiceImpl<Storage> implements StorageService {
-
 }

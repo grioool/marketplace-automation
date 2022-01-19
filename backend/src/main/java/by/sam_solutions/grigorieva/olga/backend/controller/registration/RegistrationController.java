@@ -19,5 +19,4 @@ public class RegistrationController {
     public void register(@RequestBody @Valid UserRegistrationDto userDto) {
         userService.register(userDto);
     }
-
 }

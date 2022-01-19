@@ -1,7 +1,6 @@
 import {Supply} from "./supply";
 
 export class Report {
-
   constructor(
     public id: number,
     public orderNumber: number,
@@ -18,5 +17,4 @@ export class Report {
     public dateOrder: number,
     public supply: Supply
   ) { }
-
 }

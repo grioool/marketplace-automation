@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Supply} from '../classes/supply';
 import {Observable, ReplaySubject, Subject, tap} from "rxjs";
 import {environment} from "../../environments/environment";
@@ -14,7 +14,6 @@ export class SupplyService {
     private isLoaded: boolean = false;
 
     private loadedSupplies: Subject<Supply[]> = new ReplaySubject<Supply[]>(1);
-
 
     constructor(private http: HttpClient) {
         this.loadedSupplies.subscribe(() => this.isLoaded = true);

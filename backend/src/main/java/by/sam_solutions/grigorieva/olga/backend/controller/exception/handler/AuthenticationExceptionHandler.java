@@ -1,4 +1,4 @@
-package by.sam_solutions.grigorieva.olga.backend.controller.exception_handler;
+package by.sam_solutions.grigorieva.olga.backend.controller.exception.handler;
 
 import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationController;
 import by.sam_solutions.grigorieva.olga.backend.exception.RegistrationException;
@@ -17,5 +17,4 @@ public class AuthenticationExceptionHandler {
                 .badRequest()
                 .body(exception.getErrors());
     }
-
 }

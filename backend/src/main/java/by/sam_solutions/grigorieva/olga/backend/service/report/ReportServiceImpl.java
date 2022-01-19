@@ -19,5 +19,4 @@ public class ReportServiceImpl extends AbstractServiceImpl<Report> implements Re
     public List<Report> getByUser(User user) {
         return reportRepository.getByUser(user);
     }
-
 }

@@ -4,6 +4,8 @@ import by.sam_solutions.grigorieva.olga.backend.entity.country.Country;
 import by.sam_solutions.grigorieva.olga.backend.entity.country.CountryName;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 @Data
 public class CountryDto {
 
@@ -21,8 +23,9 @@ public class CountryDto {
         return dto;
     }
 
+    @NotEmpty
     private Integer id;
 
+    @NotEmpty
     private CountryName countryName;
-
 }
