@@ -22,7 +22,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("by.sam_solutions.grigorieva.olga.backend")
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:marketplace.properties")
 @EnableJpaRepositories("by.sam_solutions.grigorieva.olga.backend")
 public class HibernateConfiguration {
 
