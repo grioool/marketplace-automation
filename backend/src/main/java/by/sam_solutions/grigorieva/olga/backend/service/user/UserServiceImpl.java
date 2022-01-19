@@ -1,6 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -14,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,8 +33,16 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     private final JwtProvider jwtProvider;
 
     @Override
-    public User register(User user) {
-        List<String> errors = new ArrayList<>();
+    public User register(UserRegistrationDto userDto) {
+
+        User user = new User();
+        user.setPassword(userDto.getPassword());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setNameCompany(userDto.getNameCompany());
+        user.setWildBerriesKeys(userDto.getWbKey());
+        user.setOzonKey(userDto.getOzonKey());
+
         user.setRoles(List.of(roleRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.create(user);
@@ -53,11 +62,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    public void addRoleToUser(String username, String roleName) {
+    public UserRoleDto addRoleToUser(String username, String roleName) {
         //  log.info("Adding role {} to user {}", roleName, username);
         User user = userRepository.findByUsername(username);
         Role role = roleRepository.findByName(roleName);
         user.getRoles().add(role);
+        return null;
     }
 
     @Override

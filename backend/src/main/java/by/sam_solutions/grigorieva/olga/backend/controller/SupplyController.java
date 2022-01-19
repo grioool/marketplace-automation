@@ -19,49 +19,35 @@ public class SupplyController {
 
     private final SupplyService supplyService;
 
-    @RequestMapping(value = "/supplies",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @GetMapping(value = "/supplies")
     public List<SupplyDto> getSupplies(Principal principal) {
         return supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(SupplyDto::toDto)
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/supply/{supplyId}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/supply/{supplyId}")
     public SupplyDto getSupply(@PathVariable("supplyId") int id) {
         return SupplyDto.toDto(supplyService.getById(id));
     }
 
-    @RequestMapping(value = "/supply",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @PostMapping(value = "/supply")
     public SupplyDto create(@RequestBody SupplyDto dto, Principal principal) {
         Supply supply = SupplyDto.toEntity(dto);
         supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return SupplyDto.toDto(supplyService.create(supply));
     }
 
-    @RequestMapping(value = "/supply",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @PutMapping(value = "/supply")
     public SupplyDto update(@RequestBody SupplyDto dto, Principal principal) {
         Supply supply = SupplyDto.toEntity(dto);
         supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return SupplyDto.toDto(supplyService.update(supply));
     }
 
-    @RequestMapping(value = "/supply/{supplyId}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/supply/{supplyId}")
     public void delete(@PathVariable("supplyId") int id) {
         supplyService.delete(id);
     }
-
 
 }

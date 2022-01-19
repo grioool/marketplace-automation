@@ -19,51 +19,35 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @RequestMapping(value = "/reports",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @GetMapping(value = "/reports")
     public List<ReportDto> getReports(Principal principal) {
         return reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(ReportDto::toDto)
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/report/{reportId}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @GetMapping(value = "/report/{reportId}")
     public ReportDto getReport(@PathVariable("reportId") int id) {
         return ReportDto.toDto(reportService.getById(id));
     }
 
-    @RequestMapping(value = "/report",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @PostMapping(value = "/report")
     public ReportDto create(@RequestBody ReportDto dto, Principal principal) {
         Report report = ReportDto.toEntity(dto);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return ReportDto.toDto(reportService.create(report));
     }
 
-    @RequestMapping(value = "/report",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @PutMapping(value = "/report")
     public ReportDto update(@RequestBody ReportDto dto, Principal principal) {
         Report report = ReportDto.toEntity(dto);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return ReportDto.toDto(reportService.update(report));
     }
 
-    @RequestMapping(value = "/report/{reportId}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @DeleteMapping(value = "/report/{reportId}")
     public void delete(@PathVariable("reportId") int id) {
         reportService.delete(id);
     }
-
 
 }

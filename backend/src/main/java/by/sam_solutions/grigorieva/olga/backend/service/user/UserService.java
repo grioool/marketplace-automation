@@ -1,5 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
@@ -7,7 +9,7 @@ import by.sam_solutions.grigorieva.olga.backend.service.AbstractService;
 
 public interface UserService extends AbstractService<User> {
 
-    User register(User user);
+    User register(UserRegistrationDto userDto);
 
     User getByUsername(String username);
 
@@ -15,7 +17,7 @@ public interface UserService extends AbstractService<User> {
 
     Role createRole(Role role);
 
-    void addRoleToUser(String username, String roleName);
+    UserRoleDto addRoleToUser(String username, String roleName);
 
     User createUser(User user);
 

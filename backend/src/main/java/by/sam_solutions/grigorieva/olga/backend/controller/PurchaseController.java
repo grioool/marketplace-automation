@@ -27,37 +27,29 @@ public class PurchaseController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/purchase/{purchaseId}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/purchase/{purchaseId}")
     public PurchaseDto getPurchase(@PathVariable("purchaseId") int id) {
         return PurchaseDto.toDto(purchaseService.getById(id));
     }
 
-    @RequestMapping(value = "/purchase",
-            method = RequestMethod.POST)
+    @PostMapping(value = "/purchase")
     public PurchaseDto create(@RequestBody PurchaseDto dto, Principal principal) {
         Purchase purchase = PurchaseDto.toEntity(dto);
         purchase.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return PurchaseDto.toDto(purchaseService.create(purchase));
     }
 
-    @RequestMapping(value = "/purchase",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/purchase")
     public PurchaseDto update(@RequestBody PurchaseDto dto, Principal principal) {
         Purchase purchase = PurchaseDto.toEntity(dto);
         purchase.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return PurchaseDto.toDto(purchaseService.update(purchase));
     }
 
-    @RequestMapping(value = "/purchase/{purchaseId}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/purchase/{purchaseId}")
 
     public void delete(@PathVariable("purchaseId") int id) {
        purchaseService.delete(id);
     }
-
 
 }

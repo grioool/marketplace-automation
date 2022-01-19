@@ -5,95 +5,104 @@ import {isPresent} from "../../../util";
 import {Location} from "@angular/common";
 
 @Component({
-  selector: 'users-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+    selector: 'users-list',
+    templateUrl: './user-list.component.html',
+    styleUrls: ['./user-list.component.css']
 })
 
 export class UserList implements OnInit {
-  title = 'frontend';
+    title = 'frontend';
 
 
-  @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any>|undefined;
-  @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>|undefined;
+    @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any> | undefined;
+    @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any> | undefined;
 
-  editedUser: User = null;
-  users: Array<User>;
-  isNewRecord: boolean = false;
-  statusMessage: string = "";
+    public editedUser: User = null;
 
-  constructor(private serv: UserService,
-              private location: Location) {
-    this.users = new Array<User>();
-  }
+    public users: User[];
 
-  ngOnInit() {
-    this.loadUsers();
-  }
+    public isNewRecord: boolean = false;
 
-  private loadUsers() {
-    this.serv.getUsers().subscribe((data: Array<User>) => {
-      this.users = data;
-    });
-  }
+    public statusMessage: string = "";
 
-  addUser() {
-    this.editedUser = new User(-1,"", "","","","", false, false);
-    this.users.push(this.editedUser);
-    this.isNewRecord = true;
-  }
-
-  editUser(user: User) {
-    this.editedUser = new User(user.id, user.name, user.email, user.password, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
-  }
-
-  loadTemplate(user: User) {
-    if (this.editedUser && this.editedUser.id === user.id) {
-      return this.editTemplate;
-    } else {
-      return this.readOnlyTemplate;
+    constructor(private userService: UserService,
+                private location: Location) {
+        this.users = new Array<User>();
+        this.userService.getLoadedUsers()
+            .subscribe((users: User[]) => this.users = users);
     }
-  }
 
-  saveUser() {
-    if (this.isNewRecord) {
-      this.serv.createUser(this.editedUser as User).subscribe(data => {
-        this.statusMessage = 'Данные успешно добавлены';
-          this.loadUsers();
-      });
-      this.isNewRecord = false;
-      this.editedUser = null;
-    } else {
-      this.serv.updateUser(this.editedUser as User).subscribe(data => {
-        this.statusMessage = 'Данные успешно обновлены';
-          this.loadUsers();
-      });
-      this.editedUser = null;
-    }
-  }
-
-  cancel() {
-    if (this.isNewRecord) {
-      this.users.pop();
-      this.isNewRecord = false;
-    }
-    this.editedUser = null;
-  }
-
-  deleteUser(id: number) {
-    this.serv.deleteUser(id).subscribe(data => {
-      this.statusMessage = 'Данные успешно удалены';
+    ngOnInit() {
         this.loadUsers();
-    });
-  }
+    }
 
-  public isReadOnly(user: User): boolean {
-    return !this.isEditable(user);
-  }
+    public loadUsers() {
+        this.userService.getUsers().subscribe((data: Array<User>) => {
+            this.users = data;
+        });
+    }
 
-  public isEditable(user: User): boolean {
-    return isPresent(this.editedUser) && this.editedUser.id === user.id;
-  }
+    public addRoleToUser() {
+
+    }
+
+    public addUser() {
+        this.editedUser = new User(0, "", "", "", "", "", "", "", false, false);
+        this.users.push(this.editedUser);
+        this.isNewRecord = true;
+    }
+
+    public editUser(user: User) {
+        this.editedUser = new User(user.id, user.name, user.email, user.password, user.username, user.nameCompany, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
+    }
+
+    public loadTemplate(user: User) {
+        if (this.editedUser && this.editedUser.id === user.id) {
+            return this.editTemplate;
+        } else {
+            return this.readOnlyTemplate;
+        }
+    }
+
+    public saveUser() {
+        if (this.isNewRecord) {
+            this.userService.createUser(this.editedUser).subscribe(data => {
+                this.statusMessage = 'Данные успешно добавлены';
+                this.loadUsers();
+            });
+            this.isNewRecord = false;
+            this.editedUser = null;
+        } else {
+            this.userService.updateUser(this.editedUser).subscribe(data => {
+                this.statusMessage = 'Данные успешно обновлены';
+                this.loadUsers();
+            });
+            this.editedUser = null;
+        }
+    }
+
+    public cancel() {
+        if (this.isNewRecord) {
+            this.users.pop();
+            this.isNewRecord = false;
+        }
+        this.editedUser = null;
+    }
+
+    public deleteUser(id: number) {
+        this.userService.deleteUser(id).subscribe(data => {
+            this.statusMessage = 'Данные успешно удалены';
+            this.loadUsers();
+        });
+    }
+
+    public isReadOnly(user: User): boolean {
+        return !this.isEditable(user);
+    }
+
+    public isEditable(user: User): boolean {
+        return isPresent(this.editedUser) && this.editedUser.id === user.id;
+    }
 
     public back(): void {
         this.location.back();

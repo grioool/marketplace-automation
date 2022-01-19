@@ -1,5 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.dto.RoleDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -9,10 +12,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -41,48 +42,43 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok().body(userService.getAll());
+    public List<UserDto> getUsers() {
+        return userService.getAll().stream()
+                .map(UserDto::toDto)
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/user/create")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/create").toUriString());
-        return ResponseEntity.created(uri).body(userService.createUser(user));
+    @PostMapping("/user")
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        User user = UserDto.toEntity(userDto);
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
+        return ResponseEntity.created(uri).body(UserDto.toDto(userService.createUser(user)));
     }
 
-    @PostMapping("/role/create")
-    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.createRole(role));
+    @PostMapping("/role")
+    public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
+        Role role = RoleDto.toEntity(roleDto);
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
+        return ResponseEntity.created(uri).body(RoleDto.toDto(userService.createRole(role)));
     }
 
     @PostMapping("/role/addtouser")
-    public ResponseEntity<?> addRoleToUser(@RequestBody NestedRole form) {
-        userService.addRoleToUser(form.getUsername(), form.getRoleName());
-        return ResponseEntity.ok().build();
+    public UserRoleDto addRoleToUser(@RequestBody UserRoleDto dto) {
+        return userService.addRoleToUser(dto.getUsername(), dto.getRoleName());
     }
 
-    @RequestMapping(value = "user/{userId}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public User getUser(@PathVariable("userId") Integer id) {
-        return userService.getById(id);
+    @GetMapping( "user/{userId}")
+    public UserDto getUser(@PathVariable("userId") Integer id) {
+        return UserDto.toDto(userService.getById(id));
     }
 
-    @RequestMapping(value = "/user",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public User update(@RequestBody User user) {
-        return userService.update(user);
+    @PutMapping(value = "/user")
+    public UserDto update(@RequestBody UserDto userDto) {
+        User user = UserDto.toEntity(userDto);
+        return UserDto.toDto(userService.update(user));
     }
 
-    @RequestMapping(value = "/user/{userId}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-
+    @DeleteMapping(value = "/user/{userId}")
     public void delete(@PathVariable("userId") int id) {
         userService.delete(id);
     }
@@ -116,7 +112,7 @@ public class UserController {
 
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());
-                //response.sendError(FORBIDDEN.value());
+                response.sendError(FORBIDDEN.value());
                 Map<String, String> error = new HashMap<>();
                 error.put("error_message", exception.getMessage());
                 response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
@@ -130,8 +126,3 @@ public class UserController {
 
 }
 
-@Data
-class NestedRole {
-    private String username;
-    private String roleName;
-}

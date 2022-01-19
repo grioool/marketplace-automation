@@ -18,13 +18,11 @@ public class StorageController {
     private final StorageService storageService;
 
     @GetMapping("/storages")
-    public ResponseEntity<List<StorageDto>> getStorages() {
-        return ResponseEntity.ok().body(
-                storageService.getAll().stream()
+    public List<StorageDto> getStorages() {
+        return storageService.getAll().stream()
                         .map(StorageDto::toDto)
-                        .collect(toList())
+                        .collect(toList()
         );
     }
-
 
 }

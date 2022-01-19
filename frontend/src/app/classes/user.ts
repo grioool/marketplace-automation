@@ -5,6 +5,8 @@ export class User {
     public name: string,
     public email: string,
     public password: string,
+    public username: string,
+    public nameCompany: string,
     public wildBerriesKeys: string,
     public ozonKey: string,
     public isBlocked: boolean,

@@ -1,6 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.exception_handler;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.auth.AuthController;
+import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationController;
 import by.sam_solutions.grigorieva.olga.backend.exception.RegistrationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.List;
 
-@ControllerAdvice(assignableTypes = {AuthController.class})
+@ControllerAdvice(assignableTypes = {RegistrationController.class})
 public class AuthenticationExceptionHandler {
 
     @ExceptionHandler(RegistrationException.class)
