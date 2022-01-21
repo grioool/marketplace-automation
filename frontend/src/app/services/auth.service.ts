@@ -3,9 +3,10 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {NavigationPath} from "../classes/navigation-path";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
-import {Observable, of} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {isPresent} from "../../util";
+import {isBlank} from "../util/util";
 
 declare type AuthenticationResponse = { accessToken: string; refreshToken: string };
 
@@ -24,17 +25,24 @@ export class AuthService {
                 private jwtHelper: JwtHelperService) {
     }
 
-    public register(username: string, email: string, password: string, nameCompany: string, wbKey: string, ozonKey: string) {
+    public register(username: string, email: string, password: string, nameCompany: string, wbKey: string) {
         this.http.post(this.uri + '/registration', {
             username: username,
             password: password,
             email: email,
             nameCompany: nameCompany,
             wbKey: wbKey,
-            ozonKey: ozonKey
-        }).subscribe((resp: any) => {
-            this.router.navigate([NavigationPath.LOGIN]).then();
-        });
+        })
+            .pipe(
+                catchError((err: string[]) => {
+                    alert(err)//TODO decoration
+                    return of(undefined);
+                })
+            )
+            .subscribe((resp: any) => {
+                if(isBlank(resp)) return;
+                this.router.navigate([NavigationPath.LOGIN]).then();
+            });
     }
 
     public login(username: string, password: string) {

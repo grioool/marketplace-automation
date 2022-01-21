@@ -37,7 +37,9 @@ export class LoginComponent {
   }
 
   public OnLogin() {
-    this.authService.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
+      this.loginForm.markAllAsTouched();
+      if (this.loginForm.valid)
+          this.authService.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
   }
 
   public OnRegister() {

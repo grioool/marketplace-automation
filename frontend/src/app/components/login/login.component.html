@@ -13,9 +13,7 @@
 
     <div *ngIf="password.invalid && (password.touched || password.dirty)">
       <span *ngIf="password.errors['required']">Поле должно быть заполнено.</span>
-      <span *ngIf="password.errors['pattern']">
-        Правила пароля
-      </span>
+      <span *ngIf="password.errors['pattern']">Поле должно быть заполнено.</span>
     </div>
 
     <a href="">Восстановить пароль</a>
