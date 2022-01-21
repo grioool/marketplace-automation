@@ -12,15 +12,11 @@ public interface UserService extends AbstractService<User> {
 
     User getByUsername(String username);
 
-    TokenAuthentication authenticate(String username, String password);
-
     Role createRole(Role role);
 
     boolean addRoleToUser(String username, String roleName);
 
     User createUser(User user);
-
-    User loadUserByUsername(String username);
 
     User getByEmail(String email);
 

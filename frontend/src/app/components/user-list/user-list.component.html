@@ -20,7 +20,6 @@
         <td>Username</td>
         <td>Название компании</td>
         <td>WB ключ</td>
-        <td>Ozon ключ</td>
         <td>Подписка</td>
         <td>Блок</td>
     </tr>
@@ -35,7 +34,6 @@
             <td>{{user.username}}</td>
             <td>{{user.nameCompany}}</td>
             <td>{{user.wildBerriesKeys}}</td>
-            <td>{{user.ozonKey}}</td>
             <td>{{user.isSubscribed}}</td>
             <td>{{user.isBlocked}}</td>
             <td class="table-btn" (click)="editUser(user)">
@@ -66,9 +64,6 @@
             </td>
             <td>
                 <input type="text" [(ngModel)]="editedUser.wildBerriesKeys" class="form-control">
-            </td>
-            <td>
-                <input type="text" [(ngModel)]="editedUser.ozonKey" class="form-control">
             </td>
             <td>
                 <input type="checkbox" [(ngModel)]="editedUser.isBlocked" class="form-control">

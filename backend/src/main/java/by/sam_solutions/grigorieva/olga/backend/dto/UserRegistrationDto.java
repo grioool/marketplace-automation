@@ -29,7 +29,4 @@ public class UserRegistrationDto {
     @Pattern(regexp="^[0-9]{2,20}")
     private String wbKey;
 
-    @NotEmpty
-    @Pattern(regexp="^[0-9]{2,20}")
-    private String ozonKey;
 }

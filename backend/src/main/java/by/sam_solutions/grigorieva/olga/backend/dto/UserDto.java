@@ -14,7 +14,6 @@ public class UserDto {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setWildBerriesKeys(dto.getWildBerriesKeys());
-        user.setOzonKey(dto.getOzonKey());
         user.setUsername(dto.getUsername());
         user.setNameCompany(dto.getNameCompany());
         user.setIsBlocked(dto.getIsBlocked());
@@ -28,7 +27,6 @@ public class UserDto {
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setWildBerriesKeys(user.getWildBerriesKeys());
-        userDto.setOzonKey(user.getOzonKey());
         userDto.setUsername(user.getUsername());
         userDto.setNameCompany(user.getNameCompany());
         userDto.setIsBlocked(user.getIsBlocked());
@@ -53,9 +51,6 @@ public class UserDto {
 
     @NotEmpty
     private String wildBerriesKeys;
-
-    @NotEmpty
-    private String ozonKey;
 
     @NotEmpty
     private Boolean isBlocked;

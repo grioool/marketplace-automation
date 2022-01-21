@@ -1,10 +1,12 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
+import by.sam_solutions.grigorieva.olga.backend.domain.errors.Errors;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
+import by.sam_solutions.grigorieva.olga.backend.exception.RegistrationException;
 import by.sam_solutions.grigorieva.olga.backend.repository.role.RoleRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
@@ -32,6 +34,10 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     @Override
     public void register(UserRegistrationDto userDto) {
+        Errors errors = new Errors();
+        if(getByUsername(userDto.getUsername()) != null) errors.add("Username is already in Database.");
+        if(getByEmail(userDto.getEmail()) != null) errors.add("Email is already in Database.");
+        if(errors.hasErrors()) throw new RegistrationException("", errors);
 
         User user = new User();
         user.setPassword(userDto.getPassword());
@@ -39,7 +45,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         user.setEmail(userDto.getEmail());
         user.setNameCompany(userDto.getNameCompany());
         user.setWildBerriesKeys(userDto.getWbKey());
-        user.setOzonKey(userDto.getOzonKey());
 
         user.setRoles(List.of(roleRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -68,7 +73,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found in the database");
+            throw new UsernameNotFoundException("User not found.");
         }
         return user;
     }
@@ -81,16 +86,5 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     @Transactional
     public User getByUsername(String username) {
         return userRepository.findByUsername(username);
-    }
-
-    @Transactional
-    public TokenAuthentication authenticate(String username, String password) {
-        User user = getByUsername(username);
-        if (user != null) {
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return jwtProvider.generateToken(user);
-            }
-        }
-        return null;
     }
 }

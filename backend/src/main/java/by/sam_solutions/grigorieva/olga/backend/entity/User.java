@@ -24,9 +24,6 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "wb_key")
     private String wildBerriesKeys;
 
-    @Column(name = "ozon_key")
-    private String ozonKey;
-
     @Column(name = "username")
     private String username;
 

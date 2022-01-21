@@ -42,18 +42,14 @@ export class UserList implements OnInit {
         });
     }
 
-    public addRoleToUser() {
-
-    }
-
     public addUser() {
-        this.editedUser = new User(0, "", "", "", "", "", "", "", false, false);
+        this.editedUser = new User(0, "", "", "", "", "", "", false, false);
         this.users.push(this.editedUser);
         this.isNewRecord = true;
     }
 
     public editUser(user: User) {
-        this.editedUser = new User(user.id, user.name, user.email, user.password, user.username, user.nameCompany, user.wildBerriesKeys, user.ozonKey, user.isBlocked, user.isSubscribed);
+        this.editedUser = new User(user.id, user.name, user.email, user.password, user.username, user.nameCompany, user.wildBerriesKeys, user.isBlocked, user.isSubscribed);
     }
 
     public loadTemplate(user: User) {
