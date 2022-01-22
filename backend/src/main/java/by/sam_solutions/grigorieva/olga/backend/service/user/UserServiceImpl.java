@@ -4,9 +4,8 @@ import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.domain.errors.Errors;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
-import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.exception.RegistrationException;
+import by.sam_solutions.grigorieva.olga.backend.exception.UserAlreadyExists;
 import by.sam_solutions.grigorieva.olga.backend.repository.role.RoleRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
@@ -37,7 +36,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         Errors errors = new Errors();
         if(getByUsername(userDto.getUsername()) != null) errors.add("Username is already in Database.");
         if(getByEmail(userDto.getEmail()) != null) errors.add("Email is already in Database.");
-        if(errors.hasErrors()) throw new RegistrationException("", errors);
+        if(errors.hasErrors()) throw new UserAlreadyExists("", errors);
 
         User user = new User();
         user.setPassword(userDto.getPassword());

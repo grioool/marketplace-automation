@@ -5,11 +5,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class RegistrationException extends Exception {
+public class UserAlreadyExists extends BusinessException {
 
     private final List<String> errors;
 
-    public RegistrationException(String message, List<String> errors) {
+    public UserAlreadyExists(String message, List<String> errors) {
         super(message);
         this.errors = errors;
     }
