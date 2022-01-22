@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationController;
 import by.sam_solutions.grigorieva.olga.backend.dto.RoleDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
@@ -13,6 +14,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
@@ -40,9 +43,12 @@ public class UserController {
     private String jwtSecret;
 
     private final UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     @GetMapping("/users")
     public List<UserDto> getUsers() {
+        logger.info("Getting users...");
         return userService.getAll().stream()
                 .map(UserDto::toDto)
                 .collect(Collectors.toList());
@@ -50,6 +56,7 @@ public class UserController {
 
     @PostMapping("/user")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        logger.info("Getting user...");
         User user = UserDto.toEntity(userDto);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(UserDto.toDto(userService.createUser(user)));
@@ -57,6 +64,7 @@ public class UserController {
 
     @PostMapping("/role")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
+        logger.info("Creating role...");
         Role role = RoleDto.toEntity(roleDto);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
         return ResponseEntity.created(uri).body(RoleDto.toDto(userService.createRole(role)));
@@ -64,23 +72,28 @@ public class UserController {
 
     @PostMapping("/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody UserRoleDto dto) {
+        logger.info("Adding role to user...");
         return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
-    @GetMapping( "user/{userId}")
+    @GetMapping( "/user/{userId}")
     public UserDto getUser(@PathVariable("userId") Integer id) {
+        logger.info("Getting user...");
         return UserDto.toDto(userService.getById(id));
     }
 
     @PutMapping(value = "/user")
     public UserDto update(@RequestBody UserDto userDto) {
+        logger.info("Updating user...");
         User user = UserDto.toEntity(userDto);
         return UserDto.toDto(userService.update(user));
     }
 
     @DeleteMapping(value = "/user/{userId}")
     public void delete(@PathVariable("userId") int id) {
+        logger.info("Deleting users...");
         userService.delete(id);
+        logger.error("Deleted.");
     }
 
     @GetMapping("/token/refresh")
@@ -113,6 +126,7 @@ public class UserController {
                 response.setStatus(FORBIDDEN.value());
                 response.sendError(FORBIDDEN.value());
                 Map<String, String> error = new HashMap<>();
+                logger.error(exception.getMessage());
                 error.put("error_message", exception.getMessage());
                 response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), error);
