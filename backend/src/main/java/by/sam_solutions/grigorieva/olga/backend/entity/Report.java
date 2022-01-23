@@ -1,6 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,6 +10,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "report")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Report extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)

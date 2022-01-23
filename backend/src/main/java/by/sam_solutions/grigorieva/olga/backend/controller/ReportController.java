@@ -7,6 +7,7 @@ import by.sam_solutions.grigorieva.olga.backend.service.report.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,35 +21,36 @@ public class ReportController {
 
     private final ReportService reportService;
     private final Logger logger = LoggerFactory.getLogger(ReportController.class);
+    private final ConversionService conversionService;
 
     @GetMapping(value = "/reports")
     public List<ReportDto> getReports(Principal principal) {
         logger.info("Getting reports...");
         return reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
-                .map(ReportDto::toDto)
+                .map(report -> conversionService.convert(report, ReportDto.class))
                 .collect(Collectors.toList());
     }
 
     @GetMapping(value = "/report/{reportId}")
     public ReportDto getReport(@PathVariable("reportId") int id) {
         logger.info("Getting report...");
-        return ReportDto.toDto(reportService.getById(id));
+        return conversionService.convert(reportService.getById(id), ReportDto.class);
     }
 
     @PostMapping(value = "/report")
-    public ReportDto create(@RequestBody ReportDto dto, Principal principal) {
+    public ReportDto create(@RequestBody ReportDto reportDto, Principal principal) {
         logger.info("Creating report...");
-        Report report = ReportDto.toEntity(dto);
+        Report report = conversionService.convert(reportDto, Report.class);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return ReportDto.toDto(reportService.create(report));
+        return conversionService.convert(reportService.create(report), ReportDto.class);
     }
 
     @PutMapping(value = "/report")
-    public ReportDto update(@RequestBody ReportDto dto, Principal principal) {
+    public ReportDto update(@RequestBody ReportDto reportDto, Principal principal) {
         logger.info("Updating report...");
-        Report report = ReportDto.toEntity(dto);
+        Report report = conversionService.convert(reportDto, Report.class);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return ReportDto.toDto(reportService.update(report));
+        return conversionService.convert(reportService.update(report), ReportDto.class);
     }
 
     @DeleteMapping(value = "/report/{reportId}")

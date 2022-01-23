@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.registration.RegistrationController;
 import by.sam_solutions.grigorieva.olga.backend.dto.RoleDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
@@ -17,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -44,30 +44,31 @@ public class UserController {
 
     private final UserService userService;
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final ConversionService conversionService;
 
 
     @GetMapping("/users")
     public List<UserDto> getUsers() {
         logger.info("Getting users...");
         return userService.getAll().stream()
-                .map(UserDto::toDto)
+                .map(user -> conversionService.convert(user, UserDto.class))
                 .collect(Collectors.toList());
     }
 
     @PostMapping("/user")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         logger.info("Getting user...");
-        User user = UserDto.toEntity(userDto);
+        User user = conversionService.convert(userDto, User.class);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
-        return ResponseEntity.created(uri).body(UserDto.toDto(userService.createUser(user)));
+        return ResponseEntity.created(uri).body(conversionService.convert(userService.createUser(user), UserDto.class));
     }
 
     @PostMapping("/role")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
         logger.info("Creating role...");
-        Role role = RoleDto.toEntity(roleDto);
+        Role role = conversionService.convert(roleDto, Role.class);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
-        return ResponseEntity.created(uri).body(RoleDto.toDto(userService.createRole(role)));
+        return ResponseEntity.created(uri).body(conversionService.convert(userService.createRole(role), RoleDto.class));
     }
 
     @PostMapping("/role/addtouser")
@@ -79,14 +80,14 @@ public class UserController {
     @GetMapping( "/user/{userId}")
     public UserDto getUser(@PathVariable("userId") Integer id) {
         logger.info("Getting user...");
-        return UserDto.toDto(userService.getById(id));
+        return conversionService.convert(userService.getById(id), UserDto.class);
     }
 
     @PutMapping(value = "/user")
     public UserDto update(@RequestBody UserDto userDto) {
         logger.info("Updating user...");
-        User user = UserDto.toEntity(userDto);
-        return UserDto.toDto(userService.update(user));
+        User user = conversionService.convert(userDto, User.class);
+        return conversionService.convert(userService.update(user), UserDto.class);
     }
 
     @DeleteMapping(value = "/user/{userId}")

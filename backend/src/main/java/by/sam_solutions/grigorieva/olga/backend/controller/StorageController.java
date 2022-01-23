@@ -1,10 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.dto.StorageDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
+import by.sam_solutions.grigorieva.olga.backend.entity.Storage;
 import by.sam_solutions.grigorieva.olga.backend.service.storage.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,14 +21,14 @@ public class StorageController {
 
     private final StorageService storageService;
     private final Logger logger = LoggerFactory.getLogger(StorageController.class);
+    private final ConversionService conversionService;
 
     @GetMapping("/storages")
     public List<StorageDto> getStorages() {
         logger.info("Getting storages...");
         return storageService.getAll().stream()
-                        .map(StorageDto::toDto)
+                        .map(storage -> conversionService.convert(storage, StorageDto.class))
                         .collect(toList()
         );
     }
-
 }
