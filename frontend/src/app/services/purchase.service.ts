@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Purchase} from '../classes/purchase';
 import {Observable, ReplaySubject, Subject, tap} from "rxjs";
 import {environment} from "../../environments/environment";
+import {TablePage} from "../classes/table-page";
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +18,13 @@ export class PurchaseService {
 
     constructor(private http: HttpClient) {
         this.loadedPurchases.subscribe(() => this.isLoaded = true);
+    }
+
+    public getByPage(shift: number, rowsPerPage: number): Observable<TablePage<Purchase>> {
+        const params = new HttpParams()
+            .set('shift', shift)
+            .set('rowsPerPage', rowsPerPage);
+        return this.http.get<TablePage<Purchase>>(this.url + '/purchasesbypage', {params});
     }
 
     public getLoadedPurchases(): Observable<Purchase[]> {

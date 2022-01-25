@@ -3,6 +3,7 @@ import {User} from '../../classes/user';
 import {UserService} from '../../services/user.service';
 import {isPresent} from "../../../util";
 import {Location} from "@angular/common";
+import {TablePage} from "../../classes/table-page";
 
 @Component({
     selector: 'users-list',
@@ -12,7 +13,6 @@ import {Location} from "@angular/common";
 
 export class UserList implements OnInit {
     title = 'frontend';
-
 
     @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any> | undefined;
     @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any> | undefined;
@@ -25,31 +25,31 @@ export class UserList implements OnInit {
 
     public statusMessage: string = "";
 
+    public totalAmount: number = 0;
+
+    public amountOnPage: number = 2;
+
     constructor(private userService: UserService,
                 private location: Location) {
         this.users = new Array<User>();
-        this.userService.getLoadedUsers()
-            .subscribe((users: User[]) => this.users = users);
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.loadUsers();
     }
 
     public loadUsers() {
-        this.userService.getUsers().subscribe((data: Array<User>) => {
-            this.users = data;
-        });
+        this.setPageSelected(0);
     }
 
     public addUser() {
-        this.editedUser = new User(0, "", "", "", "", "", "", false, false);
+        this.editedUser = new User(0, "", "", "", "", "", false, false);
         this.users.push(this.editedUser);
         this.isNewRecord = true;
     }
 
     public editUser(user: User) {
-        this.editedUser = new User(user.id, user.name, user.email, user.password, user.username, user.nameCompany, user.wildBerriesKeys, user.isBlocked, user.isSubscribed);
+        this.editedUser = new User(user.id, user.email, user.password, user.username, user.nameCompany, user.wildBerriesKeys, user.isBlocked, user.isSubscribed);
     }
 
     public loadTemplate(user: User) {
@@ -104,4 +104,11 @@ export class UserList implements OnInit {
         this.location.back();
     }
 
+    public setPageSelected(shift: number): void {
+        this.userService.getByPage(shift, this.amountOnPage)
+            .subscribe((page: TablePage<User>) => {
+                this.users = page.items;
+                this.totalAmount = page.totalCount;
+            })
+    }
 }

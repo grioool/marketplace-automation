@@ -17,7 +17,6 @@
   color: #000000;
 }
 
-
 .back-panel {
     cursor: pointer;
 }
@@ -39,7 +38,8 @@
 .img {
     background: #7B8E98;
 }
-.changebtn {
+
+.btn {
   margin-top: 40px;
   background: #B0A4FA;
   display: block;
@@ -70,7 +70,7 @@ input[type=text] {
   top: 35%;
   bottom: 35%;
 
-  margin: 30px 0 30px 110px;
+  margin: 30px 0 30px 0;
   background: #FFFFFF;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
@@ -79,4 +79,71 @@ input[type=text] {
 
   font-size: 16px;
 }
+
+p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+
+    position: static;
+    width: 356px;
+    left: calc(50% - 356px/2);
+    top: 35%;
+    bottom: 35%;
+
+    margin: 30px 0 30px 0;
+    background: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #7B8E98;
+
+    font-size: 18px;
+}
+
+.hidden {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+
+  position: static;
+  width: 356px;
+  left: calc(50% - 356px/2);
+  top: 35%;
+  bottom: 35%;
+
+  margin: 30px 0 30px 0;
+  background: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #7B8E98;
+
+  font-size: 16px;
+}
+
+.eyeButton {
+    position: absolute;
+    top: -45px;
+    left: 400px;
+    background: #B0A4FA;
+    color: #1A1A1A;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid #CFD8DC;
+    border-radius: 55px;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+
+
 

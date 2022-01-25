@@ -53,18 +53,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();
-                    String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
-                    Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-                    stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
 
                     UserDetails user = userService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authenticationToken =
-                            new UsernamePasswordAuthenticationToken(user, null, authorities);
+                            new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     authenticationToken.setDetails(user);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-                    filterChain.doFilter(request, response);
 
                 } catch (Exception exception) {
 
@@ -77,6 +71,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
 
                 }
+
+                filterChain.doFilter(request, response);
             } else {
                 filterChain.doFilter(request, response);
             }

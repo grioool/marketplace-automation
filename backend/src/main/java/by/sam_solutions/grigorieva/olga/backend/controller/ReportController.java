@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.ReportDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -29,6 +30,18 @@ public class ReportController {
         return reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(report -> conversionService.convert(report, ReportDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/reportsbypage")
+    public TablePage<ReportDto> getReportsByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+        logger.info("Getting reports by page...");
+        TablePage<Report> page = reportService.getReportsPerPage(shift, rowsPerPage);
+        return new TablePage<>(
+                page.getItems().stream()
+                        .map(report -> conversionService.convert(report, ReportDto.class))
+                        .collect(Collectors.toList()),
+                page.getTotalCount()
+        );
     }
 
     @GetMapping(value = "/report/{reportId}")

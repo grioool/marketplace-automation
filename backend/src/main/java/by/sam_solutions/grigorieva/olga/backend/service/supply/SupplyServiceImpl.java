@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.supply;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyRepository;
@@ -18,5 +19,11 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     @Override
     public List<Supply> getByUser(User user) {
         return supplyRepository.getByUser(user);
+    }
+
+    @Override
+    public TablePage<Supply> getSuppliesPerPage(int shift, int rowsPerPage) {
+        List<Supply> supplies = supplyRepository.getAll();
+        return new TablePage<>(supplies.subList(shift, Math.min(shift + rowsPerPage, supplies.size())), supplies.size());
     }
 }

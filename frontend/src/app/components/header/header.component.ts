@@ -29,4 +29,10 @@ export class HeaderComponent {
     public routeTo(path: string) {
         this.router.navigate([path]).then();
     }
+
+    ru: boolean = true;
+
+    public changeLang(){
+        this.ru = !this.ru;
+    }
 }

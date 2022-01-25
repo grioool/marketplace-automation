@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.RoleDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.security.Principal;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -55,6 +58,18 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/usersbypage")
+    public TablePage<UserDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+        logger.info("Getting users by page...");
+        TablePage<User> page = userService.getUsersPerPage(shift, rowsPerPage);
+        return new TablePage<>(
+                page.getItems().stream()
+                        .map(user -> conversionService.convert(user, UserDto.class))
+                        .collect(Collectors.toList()),
+                page.getTotalCount()
+        );
+    }
+
     @PostMapping("/user")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         logger.info("Getting user...");
@@ -77,10 +92,17 @@ public class UserController {
         return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
-    @GetMapping( "/user/{userId}")
+    @GetMapping("/user/{userId}")
     public UserDto getUser(@PathVariable("userId") Integer id) {
         logger.info("Getting user...");
         return conversionService.convert(userService.getById(id), UserDto.class);
+    }
+
+    @GetMapping("/user/information")
+    public UserDto getUserInformation(Principal principal) {
+        logger.info("Getting user information ...");
+        User user = ((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
+        return conversionService.convert(user, UserDto.class);
     }
 
     @PutMapping(value = "/user")

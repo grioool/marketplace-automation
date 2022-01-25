@@ -1,9 +1,9 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
-import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
-import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
+import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractService;
 
 public interface UserService extends AbstractService<User> {
@@ -19,5 +19,7 @@ public interface UserService extends AbstractService<User> {
     User createUser(User user);
 
     User getByEmail(String email);
+
+    TablePage<User> getUsersPerPage(int shift, int rowsPerPage);
 
 }

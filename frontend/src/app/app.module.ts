@@ -20,10 +20,11 @@ import {SaleListComponent} from './components/sale-list/sale-list.component';
 import {OrderListComponent} from './components/order-list/order-list.component';
 import {JwtModule} from "@auth0/angular-jwt";
 import {accessTokenKey} from "./services/auth.service";
+import {ListNavigatorComponent} from './components/list-navigator/list-navigator.component';
 
 @NgModule({
     declarations: [
-        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent
+        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent, ListNavigatorComponent
     ],
     imports: [
         BrowserModule,

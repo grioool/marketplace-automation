@@ -7,6 +7,8 @@ import {PurchaseService} from "../../services/purchase.service";
 import {Storage} from "../../classes/storage";
 import {StorageService} from "../../services/storage.service";
 import {Location} from "@angular/common";
+import {TablePage} from "../../classes/table-page";
+import {User} from "../../classes/user";
 
 @Component({
     selector: 'supply-root',
@@ -31,15 +33,15 @@ export class SupplyList implements OnInit {
 
     public storages: Storage[] = [];
 
+    public totalAmount: number = 0;
+
+    public amountOnPage: number = 2;
+
     constructor(private serv: SupplyService,
                 public purchaseService: PurchaseService,
                 public storageService: StorageService,
                 private location: Location) {
         this.supplies = new Array<Supply>();
-        this.purchaseService.getLoadedPurchases()
-            .subscribe((purchases: Purchase[]) => this.purchases = purchases);
-        this.storageService.getLoadedStorages()
-            .subscribe((storages: Storage[]) => this.storages = storages);
     }
 
     ngOnInit() {
@@ -47,9 +49,7 @@ export class SupplyList implements OnInit {
     }
 
     private loadSupplies() {
-        this.serv.getSupplies().subscribe((data: Array<Supply>) => {
-            this.supplies = data;
-        });
+        this.setPageSelected(0);
     }
 
     public addSupply() {
@@ -112,5 +112,13 @@ export class SupplyList implements OnInit {
 
     public back(): void {
         this.location.back();
+    }
+
+    public setPageSelected(shift: number): void {
+        this.serv.getByPage(shift, this.amountOnPage)
+            .subscribe((page: TablePage<Supply>) => {
+                this.supplies = page.items;
+                this.totalAmount = page.totalCount;
+            })
     }
 }

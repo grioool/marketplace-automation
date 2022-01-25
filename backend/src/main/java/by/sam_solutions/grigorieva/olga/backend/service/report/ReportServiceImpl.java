@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.report;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.report.ReportRepository;
@@ -18,5 +19,11 @@ public class ReportServiceImpl extends AbstractServiceImpl<Report> implements Re
     @Override
     public List<Report> getByUser(User user) {
         return reportRepository.getByUser(user);
+    }
+
+    @Override
+    public TablePage<Report> getReportsPerPage(int shift, int rowsPerPage) {
+        List<Report> reports = reportRepository.getAll();
+        return new TablePage<>(reports.subList(shift, Math.min(shift + rowsPerPage, reports.size())), reports.size());
     }
 }

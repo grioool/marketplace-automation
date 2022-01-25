@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.purchase;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.purchase.PurchaseRepository;
@@ -18,5 +19,11 @@ public class PurchaseServiceImpl extends AbstractServiceImpl<Purchase> implement
     @Override
     public List<Purchase> getByUser(User user) {
         return purchaseRepository.getByUser(user);
+    }
+
+    @Override
+    public TablePage<Purchase> getPurchasesPerPage(int shift, int rowsPerPage) {
+        List<Purchase> purchases = purchaseRepository.getAll();
+        return new TablePage<>(purchases.subList(shift, Math.min(shift + rowsPerPage, purchases.size())), purchases.size());
     }
 }

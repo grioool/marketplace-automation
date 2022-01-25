@@ -114,3 +114,13 @@
 .tableBody .table-btn:hover {
     background: #c3c0de;
 }
+
+p {
+    color: #1A1A1A;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+}

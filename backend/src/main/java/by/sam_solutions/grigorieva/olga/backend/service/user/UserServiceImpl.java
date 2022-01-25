@@ -2,6 +2,8 @@ package by.sam_solutions.grigorieva.olga.backend.service.user;
 
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
 import by.sam_solutions.grigorieva.olga.backend.domain.errors.Errors;
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
+import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -29,8 +31,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     private final PasswordEncoder passwordEncoder;
 
-    private final JwtProvider jwtProvider;
-
     @Override
     public void register(UserRegistrationDto userDto) {
         Errors errors = new Errors();
@@ -46,7 +46,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         user.setWildBerriesKeys(userDto.getWbKey());
 
         user.setRoles(List.of(roleRepository.findByName("USER")));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.create(user);
     }
 
@@ -82,7 +82,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         return userRepository.findByEmail(email);
     }
 
-    @Transactional
+    @Override
+    public TablePage<User> getUsersPerPage(int shift, int rowsPerPage) {
+        List<User> users = userRepository.getAll();
+        return new TablePage<>(users.subList(shift, Math.min(shift + rowsPerPage, users.size())), users.size());
+    }
+
+    @Override
     public User getByUsername(String username) {
         return userRepository.findByUsername(username);
     }

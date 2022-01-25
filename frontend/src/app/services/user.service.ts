@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../classes/user';
 import {environment} from "../../environments/environment";
 import {Observable, ReplaySubject, Subject, tap} from "rxjs";
+import {TablePage} from "../classes/table-page";
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +11,6 @@ import {Observable, ReplaySubject, Subject, tap} from "rxjs";
 export class UserService {
 
     private url = environment.apiHost;
-
 
     private isLoaded: boolean = false;
 
@@ -20,8 +20,19 @@ export class UserService {
         this.loadedUsers.subscribe(() => this.isLoaded = true);
     }
 
+    public getByPage(shift: number, rowsPerPage: number): Observable<TablePage<User>> {
+        const params = new HttpParams()
+            .set('shift', shift)
+            .set('rowsPerPage', rowsPerPage);
+        return this.http.get<TablePage<User>>(this.url + '/usersbypage', {params});
+    }
+
     public getUser(id: string) {
         return this.http.get<User>(this.url + '/user' + id);
+    }
+
+    public getUserInformation() {
+        return this.http.get<User>(this.url + '/user/information');
     }
 
     public createUser(user: User) {

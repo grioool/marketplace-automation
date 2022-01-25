@@ -5,11 +5,6 @@
 
 <h1 class="userClass">Пользователи</h1>
 
-<!--<div class="button">-->
-<!--    <button (click)="addUser()" class="button">Добавить пользователя</button>-->
-<!--    <button (click)="addRoleToUser()">Изменить права пользователя</button> TODO ROLE TO USER-->
-<!--</div>-->
-
 <table class="table table-striped">
     <thead>
     <tr class="tableTop">
@@ -28,7 +23,6 @@
     <tr *ngFor="let user of users">
         <ng-container *ngIf="isReadOnly(user)">
             <td>{{user.id}}</td>
-            <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.password}}</td>
             <td>{{user.username}}</td>
@@ -46,9 +40,6 @@
         <ng-container *ngIf="isEditable(user)">
             <td>
                 <input type="number" [(ngModel)]="editedUser.id" readonly disabled class="form-control">
-            </td>
-            <td>
-                <input type="text" [(ngModel)]="editedUser.name" class="form-control">
             </td>
             <td>
                 <input type="text" [(ngModel)]="editedUser.password" class="form-control">
@@ -83,9 +74,22 @@
         <ng-template [ngTemplateOutlet]="loadTemplate(user)"
                      [ngTemplateOutletContext]="{ $implicit: user}">
         </ng-template>
+
     </tr>
     </tbody>
 </table>
+
+<div class="table-navigation-container  col-10">
+    <app-list-navigator class="float-right"
+                        (onChanged)="setPageSelected($event)"
+                        [totalAmount]="totalAmount"
+                        [amountOnPage]="amountOnPage"
+                        [pageShortcutsAmount]="3">
+
+    </app-list-navigator>
+</div>
+
+<p class="total-amount col-2">Total: {{ totalAmount }}</p>
 
 <div>{{statusMessage}}</div>
 

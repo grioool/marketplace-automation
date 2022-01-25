@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -29,6 +30,18 @@ public class SupplyController {
         return supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(supply -> conversionService.convert(supply, SupplyDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/suppliesbypage")
+    public TablePage<SupplyDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+        logger.info("Getting supplies by page...");
+        TablePage<Supply> page = supplyService.getSuppliesPerPage(shift, rowsPerPage);
+        return new TablePage<>(
+                page.getItems().stream()
+                        .map(supply -> conversionService.convert(supply, SupplyDto.class))
+                        .collect(Collectors.toList()),
+                page.getTotalCount()
+        );
     }
 
     @GetMapping(value = "/supply/{supplyId}")

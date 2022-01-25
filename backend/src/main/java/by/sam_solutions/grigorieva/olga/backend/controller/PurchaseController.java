@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.PurchaseDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
@@ -31,6 +32,18 @@ public class PurchaseController {
         return purchaseService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(purchase -> conversionService.convert(purchase, PurchaseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/purchasesbypage")
+    public TablePage<PurchaseDto> getPurchasesByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+        logger.info("Getting purchases by page...");
+        TablePage<Purchase> page = purchaseService.getPurchasesPerPage(shift, rowsPerPage);
+        return new TablePage<>(
+                page.getItems().stream()
+                        .map(purchase -> conversionService.convert(purchase, PurchaseDto.class))
+                        .collect(Collectors.toList()),
+                page.getTotalCount()
+        );
     }
 
     @GetMapping(value = "/purchase/{purchaseId}")
