@@ -50,7 +50,7 @@ public class UserController {
     private final ConversionService conversionService;
 
 
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
     public List<UserDto> getUsers() {
         logger.info("Getting users...");
         return userService.getAll().stream()
@@ -58,7 +58,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/usersbypage")
+    @GetMapping("/admin/usersbypage")
     public TablePage<UserDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
         logger.info("Getting users by page...");
         TablePage<User> page = userService.getUsersPerPage(shift, rowsPerPage);
@@ -70,7 +70,7 @@ public class UserController {
         );
     }
 
-    @PostMapping("/user")
+    @PostMapping("/admin/user")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         logger.info("Getting user...");
         User user = conversionService.convert(userDto, User.class);
@@ -78,7 +78,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(conversionService.convert(userService.createUser(user), UserDto.class));
     }
 
-    @PostMapping("/role")
+    @PostMapping("/admin/role")
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
         logger.info("Creating role...");
         Role role = conversionService.convert(roleDto, Role.class);
@@ -86,33 +86,33 @@ public class UserController {
         return ResponseEntity.created(uri).body(conversionService.convert(userService.createRole(role), RoleDto.class));
     }
 
-    @PostMapping("/role/addtouser")
+    @PostMapping("/admin/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody UserRoleDto dto) {
         logger.info("Adding role to user...");
         return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/admin/user/{userId}")
     public UserDto getUser(@PathVariable("userId") Integer id) {
         logger.info("Getting user...");
         return conversionService.convert(userService.getById(id), UserDto.class);
     }
 
-    @GetMapping("/user/information")
+    @GetMapping("/admin/user/information")
     public UserDto getUserInformation(Principal principal) {
         logger.info("Getting user information ...");
         User user = ((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return conversionService.convert(user, UserDto.class);
     }
 
-    @PutMapping(value = "/user")
+    @PutMapping(value = "/admin/user")
     public UserDto update(@RequestBody UserDto userDto) {
         logger.info("Updating user...");
         User user = conversionService.convert(userDto, User.class);
         return conversionService.convert(userService.update(user), UserDto.class);
     }
 
-    @DeleteMapping(value = "/user/{userId}")
+    @DeleteMapping(value = "/admin/user/{userId}")
     public void delete(@PathVariable("userId") int id) {
         logger.info("Deleting users...");
         userService.delete(id);
