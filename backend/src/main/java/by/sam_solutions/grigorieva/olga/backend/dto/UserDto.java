@@ -1,33 +1,35 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
+@Validated
 public class UserDto {
 
-    @NotEmpty
+    @NotNull
     private int id;
 
-    @NotEmpty
+    @NotNull
     private String email;
 
-    @NotEmpty
+    @NotNull
     private String password;
 
-    @NotEmpty
+    @NotNull
     private String username;
 
-    @NotEmpty
+    @NotNull
     private String nameCompany;
 
-    @NotEmpty
+    @NotNull
     private String wildBerriesKeys;
 
-    @NotEmpty
+    @NotNull
     private Boolean isBlocked;
 
-    @NotEmpty
+    @NotNull
     private Boolean isSubscribed;
 }

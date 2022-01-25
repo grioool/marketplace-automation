@@ -1,15 +1,17 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
+@Validated
 public class RoleDto {
 
-    @NotEmpty
+    @NotNull
     private int id;
 
-    @NotEmpty
+    @NotNull
     private String roleName;
 }

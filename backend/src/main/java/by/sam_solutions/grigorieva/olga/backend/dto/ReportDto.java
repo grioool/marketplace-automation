@@ -2,62 +2,65 @@ package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 @Data
+@Validated
 public class ReportDto {
 
+    @NotNull
     private Integer id;
 
-    @NotEmpty
+    @NotNull
     private Supply supply;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Integer orderNumber;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private String name;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double orderPrice;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double proceeds;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double logistics;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double costPrice;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double commission;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double profit;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double commissionPerCent;
 
     @Pattern(regexp="^[0-9]{2,15}")
-    @NotEmpty
+    @NotNull
     private Double commissionVAT;
 
-    @NotEmpty
+    @NotNull
     private Timestamp dateSale;
 
-    @NotEmpty
+    @NotNull
     private Timestamp dateOrder;
 }
