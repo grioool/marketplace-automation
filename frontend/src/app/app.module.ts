@@ -21,15 +21,18 @@ import {OrderListComponent} from './components/order-list/order-list.component';
 import {JwtModule} from "@auth0/angular-jwt";
 import {accessTokenKey} from "./services/auth.service";
 import {ListNavigatorComponent} from './components/list-navigator/list-navigator.component';
+import {MessagesComponent} from "./components/messages/messages.component";
+import {MessageModule} from "primeng/message";
 
 @NgModule({
     declarations: [
-        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent, ListNavigatorComponent
+        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent, MessagesComponent, ListNavigatorComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        MessageModule,
         RouterModule,
         AppRoutingModule,
         ReactiveFormsModule,
