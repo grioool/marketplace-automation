@@ -11,6 +11,6 @@ public interface ReportService extends AbstractService<Report> {
 
     List<Report> getByUser(User user);
 
-    TablePage<Report> getReportsPerPage(int shift, int rowsPerPage);
+    TablePage<Report> getReportsPerPage(User user, int shift, int rowsPerPage);
 
 }

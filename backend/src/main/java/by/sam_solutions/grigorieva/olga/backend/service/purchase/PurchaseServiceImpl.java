@@ -22,8 +22,8 @@ public class PurchaseServiceImpl extends AbstractServiceImpl<Purchase> implement
     }
 
     @Override
-    public TablePage<Purchase> getPurchasesPerPage(int shift, int rowsPerPage) {
-        List<Purchase> purchases = purchaseRepository.getAll();
+    public TablePage<Purchase> getPurchasesPerPage(User user, int shift, int rowsPerPage) {
+        List<Purchase> purchases = purchaseRepository.getByUser(user);
         return new TablePage<>(purchases.subList(shift, Math.min(shift + rowsPerPage, purchases.size())), purchases.size());
     }
 }

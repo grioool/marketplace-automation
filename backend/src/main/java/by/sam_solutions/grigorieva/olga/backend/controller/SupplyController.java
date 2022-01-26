@@ -33,9 +33,9 @@ public class SupplyController {
     }
 
     @GetMapping("/suppliesbypage")
-    public TablePage<SupplyDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+    public TablePage<SupplyDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting supplies by page...");
-        TablePage<Supply> page = supplyService.getSuppliesPerPage(shift, rowsPerPage);
+        TablePage<Supply> page = supplyService.getSuppliesPerPage(getUser(principal), shift, rowsPerPage);
         return new TablePage<>(
                 page.getItems().stream()
                         .map(supply -> conversionService.convert(supply, SupplyDto.class))
@@ -71,6 +71,10 @@ public class SupplyController {
         logger.info("Deleting supply...");
         supplyService.delete(id);
         logger.info("Deleted.");
+    }
+
+    private User getUser(Principal principal) {
+        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
     }
 
 }

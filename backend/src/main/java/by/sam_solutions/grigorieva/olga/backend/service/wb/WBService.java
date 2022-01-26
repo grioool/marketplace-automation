@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -25,7 +26,7 @@ public class WBService<Entity> {
         RestTemplate restTemplate = new RestTemplate();
 
         String urlTemplateOrders = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("dateFrom", "2022-01-15T21:00:00.000Z")
+                .queryParam("dateFrom", "2022-01-20T21:00:00.000Z")
                 .queryParam("flag", "0")
                 .queryParam("key", user.getWildBerriesKeys())
                 .toUriString();
@@ -34,5 +35,10 @@ public class WBService<Entity> {
                 HttpMethod.GET, entity, new ParameterizedTypeReference<>() {});
 
         return response.getBody();
+    }
+
+    public TablePage<Entity> getByShift(User user, int shift, int rowsPerPage) {
+        List<Entity> sales = getByWBKey(user);
+        return new TablePage<>(sales.subList(shift, Math.min(sales.size(), shift + rowsPerPage)), sales.size());
     }
 }

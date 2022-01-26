@@ -35,9 +35,9 @@ public class PurchaseController {
     }
 
     @GetMapping("/purchasesbypage")
-    public TablePage<PurchaseDto> getPurchasesByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+    public TablePage<PurchaseDto> getPurchasesByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting purchases by page...");
-        TablePage<Purchase> page = purchaseService.getPurchasesPerPage(shift, rowsPerPage);
+        TablePage<Purchase> page = purchaseService.getPurchasesPerPage(getUser(principal), shift, rowsPerPage);
         return new TablePage<>(
                 page.getItems().stream()
                         .map(purchase -> conversionService.convert(purchase, PurchaseDto.class))
@@ -74,4 +74,9 @@ public class PurchaseController {
         purchaseService.delete(id);
         logger.info("Deleted.");
     }
+
+    private User getUser(Principal principal) {
+        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+    }
+
 }
