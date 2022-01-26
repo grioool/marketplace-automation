@@ -13,6 +13,7 @@ import {InformationComponent} from "./components/information/information.compone
 import {AuthGuardService} from "./services/authguard.service";
 import {SaleListComponent} from "./components/sale-list/sale-list.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
+import {MessagesComponent} from "./components/messages/messages.component";
 
 const routes: Routes = [{
     path: '', canActivate: [AuthGuardService], children: [
@@ -28,7 +29,8 @@ const routes: Routes = [{
         {path: "information", component: InformationComponent},
         {path: "sales", component: SaleListComponent},
         {path: "orders", component: OrderListComponent},
-        {path: "**", redirectTo: "main"}
+        {path: "messages", component: MessagesComponent},
+        {path: "**", redirectTo: "main"},
     ]
 }];
 

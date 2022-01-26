@@ -4,6 +4,9 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {NavigationPath} from "../../classes/navigation-path";
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-registration',
@@ -16,9 +19,11 @@ export class RegistrationComponent {
 
     constructor(private http: HttpClient,
                 private authService: AuthService,
+                private messageService: MessageService,
                 private router: Router,
                 private fb: FormBuilder) {
         this.createForm();
+        this.messageService.add({severity:"error", summary: "dfds;lfds"})
     }
 
     private createForm() {
@@ -66,6 +71,7 @@ export class RegistrationComponent {
                 this.registrationForm.get("nameCompany").value,
                 this.registrationForm.get("wbKey").value
             );
+
     }
 
     public get username() {
