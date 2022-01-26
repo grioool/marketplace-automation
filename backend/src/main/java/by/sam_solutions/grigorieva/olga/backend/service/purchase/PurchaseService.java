@@ -11,6 +11,6 @@ public interface PurchaseService extends AbstractService<Purchase> {
 
     List<Purchase> getByUser(User user);
 
-    TablePage<Purchase> getPurchasesPerPage(int shift, int rowsPerPage);
+    TablePage<Purchase> getPurchasesPerPage(User user, int shift, int rowsPerPage);
 
 }

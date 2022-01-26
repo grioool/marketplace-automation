@@ -33,9 +33,9 @@ public class ReportController {
     }
 
     @GetMapping("/reportsbypage")
-    public TablePage<ReportDto> getReportsByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
+    public TablePage<ReportDto> getReportsByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting reports by page...");
-        TablePage<Report> page = reportService.getReportsPerPage(shift, rowsPerPage);
+        TablePage<Report> page = reportService.getReportsPerPage(getUser(principal), shift, rowsPerPage);
         return new TablePage<>(
                 page.getItems().stream()
                         .map(report -> conversionService.convert(report, ReportDto.class))
@@ -71,6 +71,10 @@ public class ReportController {
         logger.info("Deleting report...");
         reportService.delete(id);
         logger.info("Deleted.");
+    }
+
+    private User getUser(Principal principal) {
+        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
     }
 
 }

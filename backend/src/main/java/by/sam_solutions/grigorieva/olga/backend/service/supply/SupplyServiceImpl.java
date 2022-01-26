@@ -22,8 +22,8 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     }
 
     @Override
-    public TablePage<Supply> getSuppliesPerPage(int shift, int rowsPerPage) {
-        List<Supply> supplies = supplyRepository.getAll();
+    public TablePage<Supply> getSuppliesPerPage(User user, int shift, int rowsPerPage) {
+        List<Supply> supplies = supplyRepository.getByUser(user);
         return new TablePage<>(supplies.subList(shift, Math.min(shift + rowsPerPage, supplies.size())), supplies.size());
     }
 }

@@ -11,6 +11,6 @@ public interface SupplyService extends AbstractService<Supply> {
 
     List<Supply> getByUser(User user);
 
-    TablePage<Supply> getSuppliesPerPage(int shift, int rowsPerPage);
+    TablePage<Supply> getSuppliesPerPage(User user, int shift, int rowsPerPage);
 
 }
