@@ -38,7 +38,7 @@ public class WBService<Entity> {
     }
 
     public TablePage<Entity> getByShift(User user, int shift, int rowsPerPage) {
-        List<Entity> sales = getByWBKey(user);
-        return new TablePage<>(sales.subList(shift, Math.min(sales.size(), shift + rowsPerPage)), sales.size());
+        List<Entity> entities = getByWBKey(user);
+        return new TablePage<>(entities.subList(shift, Math.min(entities.size(), shift + rowsPerPage)), entities.size());
     }
 }
