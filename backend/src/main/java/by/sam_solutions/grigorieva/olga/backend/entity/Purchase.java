@@ -9,35 +9,35 @@ import java.sql.Timestamp;
 @Table(name = "purchase")
 @Data
 public class Purchase extends AbstractEntity {
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Timestamp date;
 
-    @Column(name = "product_name")
+    @Column(name = "product_name", nullable = false)
     private String productName;
 
-    @Column(name = "price_for_one")
+    @Column(name = "price_for_one", nullable = false)
     private Double priceForOne;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @Column(name = "purchase_price")
+    @Column(name = "purchase_price", nullable = false)
     private Integer purchasePrice;
 
-    @Column(name = "logistics")
+    @Column(name = "logistics", nullable = false)
     private Double logistics;
 
-    @Column(name = "cost_price")
+    @Column(name = "cost_price", nullable = false)
     private Double costPrice;
 
-    @Column(name = "batch_price")
+    @Column(name = "batch_price", nullable = false)
     private Double batchPrice;
 
-    @Column(name = "extra")
+    @Column(name = "extra", nullable = false)
     private Double extra;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
 

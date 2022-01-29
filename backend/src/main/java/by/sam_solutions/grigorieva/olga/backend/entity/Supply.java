@@ -11,36 +11,36 @@ import java.sql.Timestamp;
 public class Supply extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "purchase_id")
+    @JoinColumn(name = "purchase_id", nullable = false)
     private Purchase purchase;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "storage_id")
+    @JoinColumn(name = "storage_id", nullable = false)
     private Storage storage;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Timestamp date;
 
-    @Column(name = "product")
+    @Column(name = "product", nullable = false)
     private String product;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @Column(name = "logistics")
+    @Column(name = "logistics", nullable = false)
     private Double logistics;
 
-    @Column(name = "purchase_price")
+    @Column(name = "purchase_price", nullable = false)
     private Double purchasePrice;
 
-    @Column(name = "fulfillment")
+    @Column(name = "fulfillment", nullable = false)
     private Double fulfillment;
 
-    @Column(name = "cost_price")
+    @Column(name = "cost_price", nullable = false)
     private Double costPrice;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
 }

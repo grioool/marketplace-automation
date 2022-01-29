@@ -12,10 +12,10 @@ import javax.persistence.*;
 public class Storage extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "town_id")
+    @JoinColumn(name = "town_id", nullable = false)
     private Town town;
 }

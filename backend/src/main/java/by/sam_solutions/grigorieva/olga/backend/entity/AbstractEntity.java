@@ -18,6 +18,6 @@ public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
 }

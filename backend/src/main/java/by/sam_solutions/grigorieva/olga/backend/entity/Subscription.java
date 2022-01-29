@@ -10,17 +10,17 @@ import java.sql.Timestamp;
 @Data
 public class Subscription extends AbstractEntity {
 
-    @Column(name = "date_start")
+    @Column(name = "date_start", nullable = false)
     private Timestamp dateStart;
 
-    @Column(name = "date_end")
+    @Column(name = "date_end", nullable = false)
     private Timestamp dateEnd;
 
-    @Column(name = "period")
+    @Column(name = "period", nullable = false)
     private Integer period;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
 }

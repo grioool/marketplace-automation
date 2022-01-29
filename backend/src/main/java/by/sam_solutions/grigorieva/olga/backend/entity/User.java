@@ -15,25 +15,25 @@ import java.util.Collection;
 @Table(name = "`user`")
 public class User extends AbstractEntity implements UserDetails {
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "wb_key")
+    @Column(name = "wb_key", nullable = false)
     private String wildBerriesKeys;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "name_company")
+    @Column(name = "name_company", nullable = false)
     private String nameCompany;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private Collection<Role> roles = new ArrayList<>();
 
     @Column(name = "is_blocked")

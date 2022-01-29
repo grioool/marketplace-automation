@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 public class Country extends AbstractEntity {
 
-    @Column(name = "country_name")
+    @Column(name = "country_name", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private CountryName countryName;
 
