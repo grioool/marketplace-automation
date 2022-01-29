@@ -9,12 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,11 +28,11 @@ public class SupplyController {
     private final ConversionService conversionService;
 
     @GetMapping(value = "/supplies")
-    public List<SupplyDto> getSupplies(Principal principal) {
+    public  ResponseEntity<List<SupplyDto>> getSupplies(Principal principal) {
         logger.info("Getting supplies...");
-        return supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
+        return new ResponseEntity<>(supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(supply -> conversionService.convert(supply, SupplyDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/suppliesbypage")
@@ -45,25 +48,25 @@ public class SupplyController {
     }
 
     @GetMapping(value = "/supply/{supplyId}")
-    public SupplyDto getSupply(@PathVariable("supplyId") int id) {
+    public ResponseEntity<SupplyDto> getSupply(@PathVariable("supplyId") int id) {
         logger.info("Getting supply...");
-        return conversionService.convert(supplyService.getById(id), SupplyDto.class);
+        return new ResponseEntity<>(conversionService.convert(supplyService.getById(id), SupplyDto.class), HttpStatus.OK);
     }
 
     @PostMapping(value = "/supply")
-    public SupplyDto create(@RequestBody SupplyDto supplyDto, Principal principal) {
+    public ResponseEntity<SupplyDto> create(@RequestBody @Valid SupplyDto supplyDto, Principal principal) {
         logger.info("Creating supply...");
         Supply supply = conversionService.convert(supplyDto, Supply.class);
         supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(supplyService.create(supply), SupplyDto.class);
+        return new ResponseEntity<>(conversionService.convert(supplyService.create(supply), SupplyDto.class), HttpStatus.OK);
     }
 
     @PutMapping(value = "/supply")
-    public SupplyDto update(@RequestBody SupplyDto supplyDto, Principal principal) {
+    public ResponseEntity<SupplyDto> update(@RequestBody SupplyDto supplyDto, Principal principal) {
         logger.info("Updating supply...");
         Supply supply = conversionService.convert(supplyDto, Supply.class);
         supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(supplyService.update(supply), SupplyDto.class);
+        return new ResponseEntity<>(conversionService.convert(supplyService.update(supply), SupplyDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/supply/{supplyId}")

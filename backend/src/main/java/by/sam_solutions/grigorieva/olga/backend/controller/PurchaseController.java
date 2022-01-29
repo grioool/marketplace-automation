@@ -2,8 +2,6 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.PurchaseDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.purchase.PurchaseService;
@@ -11,12 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class PurchaseController {
     private final ConversionService conversionService;
 
     @GetMapping(value = "/purchases")
-    public List<PurchaseDto> getPurchases(Principal principal) {
+    public  ResponseEntity<List<PurchaseDto>> getPurchases(Principal principal) {
         logger.info("Getting purchases...");
-        return purchaseService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
+        return new ResponseEntity<>(purchaseService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(purchase -> conversionService.convert(purchase, PurchaseDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/purchasesbypage")
@@ -47,25 +48,25 @@ public class PurchaseController {
     }
 
     @GetMapping(value = "/purchase/{purchaseId}")
-    public PurchaseDto getPurchase(@PathVariable("purchaseId") int id) {
+    public  ResponseEntity<PurchaseDto> getPurchase(@PathVariable("purchaseId") int id) {
         logger.info("Getting purchase...");
-        return conversionService.convert(purchaseService.getById(id), PurchaseDto.class);
+        return new ResponseEntity<>(conversionService.convert(purchaseService.getById(id), PurchaseDto.class), HttpStatus.OK);
     }
 
     @PostMapping(value = "/purchase")
-    public PurchaseDto create(@RequestBody PurchaseDto purchaseDto, Principal principal) {
+    public  ResponseEntity<PurchaseDto> create(@RequestBody @Valid PurchaseDto purchaseDto, Principal principal) {
         logger.info("Creating purchase...");
         Purchase purchase = conversionService.convert(purchaseDto, Purchase.class);
         purchase.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(purchaseService.create(purchase), PurchaseDto.class);
+        return new ResponseEntity<>(conversionService.convert(purchaseService.create(purchase), PurchaseDto.class), HttpStatus.OK);
     }
 
     @PutMapping(value = "/purchase")
-    public PurchaseDto update(@RequestBody PurchaseDto purchaseDto, Principal principal) {
+    public  ResponseEntity<PurchaseDto> update(@RequestBody PurchaseDto purchaseDto, Principal principal) {
         logger.info("Updating purchase...");
         Purchase purchase = conversionService.convert(purchaseDto, Purchase.class);
         purchase.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(purchaseService.update(purchase), PurchaseDto.class);
+        return new ResponseEntity<>(conversionService.convert(purchaseService.update(purchase), PurchaseDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/purchase/{purchaseId}")

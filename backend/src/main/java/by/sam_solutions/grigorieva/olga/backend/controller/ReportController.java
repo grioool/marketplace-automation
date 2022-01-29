@@ -9,12 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,11 +28,11 @@ public class ReportController {
     private final ConversionService conversionService;
 
     @GetMapping(value = "/reports")
-    public List<ReportDto> getReports(Principal principal) {
+    public ResponseEntity<List<ReportDto>> getReports(Principal principal) {
         logger.info("Getting reports...");
-        return reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
+        return new ResponseEntity<>(reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(report -> conversionService.convert(report, ReportDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/reportsbypage")
@@ -45,25 +48,25 @@ public class ReportController {
     }
 
     @GetMapping(value = "/report/{reportId}")
-    public ReportDto getReport(@PathVariable("reportId") int id) {
+    public ResponseEntity<ReportDto> getReport(@PathVariable("reportId") int id) {
         logger.info("Getting report...");
-        return conversionService.convert(reportService.getById(id), ReportDto.class);
+        return new ResponseEntity<>(conversionService.convert(reportService.getById(id), ReportDto.class), HttpStatus.OK);
     }
 
     @PostMapping(value = "/report")
-    public ReportDto create(@RequestBody ReportDto reportDto, Principal principal) {
+    public ResponseEntity<ReportDto> create(@RequestBody @Valid ReportDto reportDto, Principal principal) {
         logger.info("Creating report...");
         Report report = conversionService.convert(reportDto, Report.class);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(reportService.create(report), ReportDto.class);
+        return new ResponseEntity<>(conversionService.convert(reportService.create(report), ReportDto.class), HttpStatus.OK);
     }
 
     @PutMapping(value = "/report")
-    public ReportDto update(@RequestBody ReportDto reportDto, Principal principal) {
+    public ResponseEntity<ReportDto> update(@RequestBody ReportDto reportDto, Principal principal) {
         logger.info("Updating report...");
         Report report = conversionService.convert(reportDto, Report.class);
         report.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(reportService.update(report), ReportDto.class);
+        return new ResponseEntity<>(conversionService.convert(reportService.update(report), ReportDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/report/{reportId}")

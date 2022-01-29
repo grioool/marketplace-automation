@@ -28,7 +28,7 @@ public class UserRegistrationDto {
     private String nameCompany;
 
     @NotNull
-    @Pattern(regexp="^[0-9]{2,20}")
+    @Pattern(regexp="^[A-Za-zА-Яа-яЁё0-9]{2,20}")
     private String wbKey;
 
 }

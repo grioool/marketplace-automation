@@ -28,7 +28,6 @@ public class SaleWBController {
 
     private final SaleWBService salesService;
     private final Logger logger = LoggerFactory.getLogger(SaleWBController.class);
-    private final ConversionService conversionService;
 
     @GetMapping("/sales")
     public ResponseEntity<List<SaleWBDto>> getSales(Principal principal) {

@@ -2,21 +2,21 @@ package by.sam_solutions.grigorieva.olga.backend.dto;
 
 public class ReportWBDto {
 
-    private String realizationreportId;
+    private Integer realizationreportId;
 
-    private String suppliercontractCode;
+    private Integer suppliercontractCode;
 
-    private String rid;
+    private Integer rid;
 
-    private String rrDt;
+    private Integer rrDt;
 
-    private String rrdId;
+    private Integer rrdId;
 
-    private String giId;
+    private Integer giId;
 
     private String subjectName;
 
-    private String NMId;
+    private Integer NMId;
 
     private String brandName;
 
@@ -24,67 +24,67 @@ public class ReportWBDto {
 
     private String tsName;
 
-    private String barcode;
+    private Integer barcode;
 
     private String docTypeName;
 
-    private String quantity;
+    private Integer quantity;
 
-    private String retailPrice;
+    private Integer retailPrice;
 
-    private String retailAmount;
+    private Integer retailAmount;
 
-    private String salePercent;
+    private Integer salePercent;
 
-    private String commissionPercent;
+    private Integer commissionPercent;
 
     private String officeName;
 
     private String supplierOperName;
 
-    private String orderDt;
+    private Integer orderDt;
 
-    private String saleDt;
+    private Integer saleDt;
 
-    private String shkId;
+    private Integer shkId;
 
-    private String retailPriceWithdiscRub;
+    private Integer retailPriceWithdiscRub;
 
-    private String deliveryAmount;
+    private Integer deliveryAmount;
 
-    private String returnAmount;
+    private Integer returnAmount;
 
-    private String deliveryRub;
+    private Integer deliveryRub;
 
     private String giBoxTypeName;
 
-    private String productDiscountForReport;
+    private Integer productDiscountForReport;
 
-    private String supplierPromo;
+    private Integer supplierPromo;
 
-    private String ppvzSppPrc;
+    private Integer ppvzSppPrc;
 
-    private String ppvzKvwPrcBase;
+    private Integer ppvzKvwPrcBase;
 
-    private String ppvzKvwPrc;
+    private Integer ppvzKvwPrc;
 
-    private String ppvzSalesCommission;
+    private Integer ppvzSalesCommission;
 
-    private String ppvzForPay;
+    private Integer ppvzForPay;
 
-    private String ppvzReward;
+    private Integer ppvzReward;
 
-    private String ppvzVW;
+    private Integer ppvzVW;
 
-    private String ppvzVWNds;
+    private Integer ppvzVWNds;
 
-    private String ppvzOfficeId;
+    private Integer ppvzOfficeId;
 
     private String ppvzOfficeName;
 
-    private String ppvzSupplierId;
+    private Integer ppvzSupplierId;
 
     private String ppvzSupplierName;
 
-    private String ppvzInn;
+    private Integer ppvzInn;
 }

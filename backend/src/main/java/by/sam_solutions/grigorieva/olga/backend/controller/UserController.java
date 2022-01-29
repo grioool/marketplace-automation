@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.util.MimeTypeUtils;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Date;
@@ -51,11 +53,11 @@ public class UserController {
 
 
     @GetMapping("/admin/users")
-    public List<UserDto> getUsers() {
+    public ResponseEntity<List<UserDto>> getUsers() {
         logger.info("Getting users...");
-        return userService.getAll().stream()
+        return new ResponseEntity<>(userService.getAll().stream()
                 .map(user -> conversionService.convert(user, UserDto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/admin/usersbypage")
@@ -71,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/user")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto) {
         logger.info("Getting user...");
         User user = conversionService.convert(userDto, User.class);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
@@ -79,7 +81,7 @@ public class UserController {
     }
 
     @PostMapping("/admin/role")
-    public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
+    public ResponseEntity<RoleDto> createRole(@RequestBody @Valid RoleDto roleDto) {
         logger.info("Creating role...");
         Role role = conversionService.convert(roleDto, Role.class);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
@@ -87,29 +89,29 @@ public class UserController {
     }
 
     @PostMapping("/admin/role/addtouser")
-    public ResponseEntity<?> addRoleToUser(@RequestBody UserRoleDto dto) {
+    public ResponseEntity<?> addRoleToUser(@RequestBody @Valid UserRoleDto dto) {
         logger.info("Adding role to user...");
         return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
     @GetMapping("/admin/user/{userId}")
-    public UserDto getUser(@PathVariable("userId") Integer id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable("userId") Integer id) {
         logger.info("Getting user...");
-        return conversionService.convert(userService.getById(id), UserDto.class);
+        return new ResponseEntity<>(conversionService.convert(userService.getById(id), UserDto.class), HttpStatus.OK);
     }
 
     @GetMapping("/admin/user/information")
-    public UserDto getUserInformation(Principal principal) {
+    public ResponseEntity<UserDto> getUserInformation(Principal principal) {
         logger.info("Getting user information ...");
         User user = ((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return conversionService.convert(user, UserDto.class);
+        return new ResponseEntity<>(conversionService.convert(user, UserDto.class), HttpStatus.OK);
     }
 
     @PutMapping(value = "/admin/user")
-    public UserDto update(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> update(@RequestBody UserDto userDto) {
         logger.info("Updating user...");
         User user = conversionService.convert(userDto, User.class);
-        return conversionService.convert(userService.update(user), UserDto.class);
+        return new ResponseEntity<>(conversionService.convert(userService.update(user), UserDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/admin/user/{userId}")
