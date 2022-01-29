@@ -6,7 +6,7 @@
 
      <div *ngIf="username.invalid && (username.touched || username.dirty)">
        <span *ngIf="username.errors['required']">Поле должно быть заполнено.</span>
-       <span *ngIf="username.errors['pattern']">Поле должно быть заполнено.</span>
+       <span *ngIf="username.errors['pattern']">Поле должно содержать только буквы.</span>
      </div>
 
      <input type="text" formControlName="email" placeholder="Email" name="email" required>
@@ -41,7 +41,7 @@
 
      <div *ngIf="wbKey.invalid && (wbKey.touched || wbKey.dirty)">
        <span *ngIf="wbKey.errors['required']">Поле должно быть заполнено.</span>
-       <span *ngIf="wbKey.errors['pattern']">Поле должно содержать только цифры.</span>
+       <span *ngIf="wbKey.errors['pattern']">Поле должно содержать только цифры и буквы.</span>
      </div>
 
      <p>Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>

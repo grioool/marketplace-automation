@@ -13,7 +13,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.url === environment.apiHost + NavigationPath.LOGIN || req.url === environment.apiHost + "/token/refresh") return next.handle(req);
+        if (req.url === environment.apiHost + NavigationPath.LOGIN || req.url === environment.apiHost + "/token/refresh" || req.url === environment.apiHost + NavigationPath.REGISTRATION) return next.handle(req);
         const authReq = req.clone({
             headers: req.headers.set("Authorization", "Bearer " + localStorage.getItem(accessTokenKey)),
         });

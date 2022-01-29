@@ -4,8 +4,6 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {NavigationPath} from "../../classes/navigation-path";
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
 import {MessageService} from "primeng/api";
 
 @Component({
@@ -30,7 +28,7 @@ export class RegistrationComponent {
         this.registrationForm = this.fb.group({
             username: ['', [
                 Validators.required,
-                Validators.pattern(/^[(\w)-]{3,20}/)
+                Validators.pattern(/^[A-Za-zА-Яа-яЁё]{2,20}/)
             ]],
             email: ['', [
                 Validators.required,
@@ -42,7 +40,7 @@ export class RegistrationComponent {
             ]],
             wbKey: ['', [
                 Validators.required,
-                Validators.pattern(/^[0-9]{2,20}/)
+                Validators.pattern(/^[A-Za-zА-Яа-яЁё0-9]{2,20}/)
             ]],
             passwordRep: ['', [
                 Validators.required

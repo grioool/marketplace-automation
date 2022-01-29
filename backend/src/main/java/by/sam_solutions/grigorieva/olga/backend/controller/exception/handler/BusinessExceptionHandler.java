@@ -3,7 +3,6 @@ package by.sam_solutions.grigorieva.olga.backend.controller.exception.handler;
 import by.sam_solutions.grigorieva.olga.backend.exception.AuthenticationException;
 import by.sam_solutions.grigorieva.olga.backend.exception.InvalidRegistrationArgumentsException;
 import by.sam_solutions.grigorieva.olga.backend.exception.UserAlreadyExists;
-import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-import java.util.List;
 
 @ControllerAdvice
 @Validated
@@ -34,7 +33,7 @@ public class BusinessExceptionHandler {
     public ResponseEntity<String> handleAuthorizationException(Exception e) {
         logError(e);
         return new ResponseEntity<>(
-                e.getMessage(), HttpStatus.FORBIDDEN);
+                e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
