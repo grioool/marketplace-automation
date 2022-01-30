@@ -24,7 +24,7 @@ public class RegistrationController {
     private final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     @PostMapping("/registration")
-    public void register(@RequestBody UserRegistrationDto userDto) {
+    public void register(@RequestBody @Valid UserRegistrationDto userDto) {
         logger.info("New user registration...");
         userService.register(userDto);
         logger.info("Registered.");
