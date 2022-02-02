@@ -33,10 +33,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     @Override
     public void register(UserRegistrationDto userDto) {
-        Errors errors = new Errors();
-        if(getByUsername(userDto.getUsername()) != null) errors.add("Username is .");
-        if(getByEmail(userDto.getEmail()) != null) errors.add("Email is already in Database.");
-        if(errors.hasErrors()) throw new UserAlreadyExists("", errors);
+        if(getByUsername(userDto.getUsername()) != null) throw new UserAlreadyExists();
+      //  if(getByEmail(userDto.getEmail()) != null) errors.add("Email is already in Database.");
 
         User user = new User();
         user.setPassword(userDto.getPassword());
