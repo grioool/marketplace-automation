@@ -15,6 +15,7 @@
 
   color: #000000;
 }
+
 .back-panel {
     cursor: pointer;
 }
@@ -37,6 +38,23 @@
     background: #7B8E98;
 }
 
+label {
+    width: 356px;
+    height: 42px;
+    left: calc(50% - 356px/2 - 0.5px);
+    top: calc(50% - 42px/2 + 184px);
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
 
 .button {
   width: 239px;

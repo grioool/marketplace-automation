@@ -19,7 +19,7 @@ public class Report extends AbstractEntity {
     private Supply supply;
 
     @Column(name = "order_number", nullable = false)
-    private Integer orderNumber;
+    private Long orderNumber;
 
     @Column(name = "name", nullable = false)
     private String name;

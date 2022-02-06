@@ -1,9 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.wb;
 
-import by.sam_solutions.grigorieva.olga.backend.controller.UserController;
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
-import by.sam_solutions.grigorieva.olga.backend.dto.OrderWBDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.SaleWBDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.wb.OrderWBDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.wb.OrderWBService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class OrderWBController {
     @GetMapping("/orders")
     public ResponseEntity<List<OrderWBDto>> getOrders(Principal principal) {
         logger.info("Getting orders...");
-        return ResponseEntity.ok().body(orderWBService.getByWBKey((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()));
+        return ResponseEntity.ok().body(orderWBService.getByDateFrom(mockDate(), getUser(principal)));
     }
 
     @GetMapping("/ordersbypage")
@@ -37,10 +37,14 @@ public class OrderWBController {
                                                @RequestParam Integer rowsPerPage,
                                                Principal principal) {
         logger.info("Getting sales by page...");
-        return orderWBService.getByShift(getUser(principal), shift, rowsPerPage);
+        return orderWBService.getByShift(shift, rowsPerPage, mockDate(), getUser(principal));
     }
 
     private User getUser(Principal principal) {
         return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+    }
+
+    private java.util.Date mockDate() {
+        return java.util.Date.from(Instant.now().minus(1, ChronoUnit.WEEKS));
     }
 }

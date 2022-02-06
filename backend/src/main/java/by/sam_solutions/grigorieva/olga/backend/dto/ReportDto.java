@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
-import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -17,11 +16,11 @@ public class ReportDto {
     private Integer id;
 
     @NotNull
-    private Supply supply;
+    private SupplyDto supply;
 
     @Pattern(regexp="^[0-9]{2,15}")
     @NotNull
-    private Integer orderNumber;
+    private Long orderNumber;
 
     @Pattern(regexp="^[0-9]{2,15}")
     @NotNull

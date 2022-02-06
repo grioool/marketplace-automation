@@ -2,6 +2,9 @@ package by.sam_solutions.grigorieva.olga.backend.config;
 
 import by.sam_solutions.grigorieva.olga.backend.converter.to.dto.*;
 import by.sam_solutions.grigorieva.olga.backend.converter.to.entity.*;
+import by.sam_solutions.grigorieva.olga.backend.converter.to.report.ReportWBDtoToReportDtoConverter;
+import by.sam_solutions.grigorieva.olga.backend.service.profit.ProfitService;
+import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     private final ConversionService mConversionService;
 
+    private final SupplyService supplyService;
+
+    private final ProfitService profitService;
+
     @Autowired
-    public WebConfig(@Lazy ConversionService conversionService) {
+    public WebConfig(@Lazy ConversionService conversionService, SupplyService supplyService, ProfitService profitService) {
         mConversionService = conversionService;
+        this.supplyService = supplyService;
+        this.profitService = profitService;
     }
 
     public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
@@ -68,6 +77,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(new SupplyToEntityConverter(mConversionService));
         registry.addConverter(new TownToEntityConverter());
         registry.addConverter(new UserToEntityConverter());
+        registry.addConverter(new ReportWBDtoToReportDtoConverter(mConversionService, supplyService, profitService));
     }
 
     @Bean

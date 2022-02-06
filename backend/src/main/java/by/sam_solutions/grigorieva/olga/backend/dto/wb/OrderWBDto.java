@@ -1,13 +1,13 @@
-package by.sam_solutions.grigorieva.olga.backend.dto;
+package by.sam_solutions.grigorieva.olga.backend.dto.wb;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class SaleWBDto {
+public class OrderWBDto {
 
-    private String number;
+    private Long number;
 
     private Date date;
 
@@ -25,35 +25,13 @@ public class SaleWBDto {
 
     private Long discountPercent;
 
-    private Boolean isSupply;
-
-    private Boolean isRealization;
-
-    private Long orderId;
-
-    private Long promoCodeDiscount;
-
     private String warehouseName;
 
-    private String countryName;
-
-    private String oblastOkrugName;
-
-    private String regionName;
+    private String oblast;
 
     private Long incomeID;
 
-    private String saleID;
-
     private Long odid;
-
-    private Long spp;
-
-    private Double forPay;
-
-    private Double finishedPrice;
-
-    private Long priceWithDisc;
 
     private Long nmId;
 
@@ -63,7 +41,10 @@ public class SaleWBDto {
 
     private String brand;
 
-    private Long IsStorno;
+    private Boolean isCancel;
+
+    private String cancel_dt;
 
     private String gNumber;
+
 }
