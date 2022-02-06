@@ -1,6 +1,5 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
-import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.ReportDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
@@ -29,26 +28,6 @@ public class ReportController {
     private final Logger logger = LoggerFactory.getLogger(ReportController.class);
     private final ConversionService conversionService;
 
-    @GetMapping(value = "/reports")
-    public ResponseEntity<List<ReportDto>> getReports(Principal principal) {
-        logger.info("Getting reports...");
-        return new ResponseEntity<>(reportService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
-                .map(report -> conversionService.convert(report, ReportDto.class))
-                .collect(Collectors.toList()), HttpStatus.OK);
-    }
-
-    @GetMapping("/reportsbypage")
-    public TablePage<ReportDto> getReportsByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
-        logger.info("Getting reports by page...");
-        TablePage<Report> page = reportService.getReportsPerPage(getUser(principal), shift, rowsPerPage);
-        return new TablePage<>(
-                page.getItems().stream()
-                        .map(report -> conversionService.convert(report, ReportDto.class))
-                        .collect(Collectors.toList()),
-                page.getTotalCount()
-        );
-    }
-
     @GetMapping(value = "/report/{reportId}")
     public ResponseEntity<ReportDto> getReport(@PathVariable("reportId") int id) {
         logger.info("Getting report...");
@@ -76,10 +55,6 @@ public class ReportController {
         logger.info("Deleting report...");
         reportService.delete(id);
         logger.info("Deleted.");
-    }
-
-    private User getUser(Principal principal) {
-        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
     }
 
 }

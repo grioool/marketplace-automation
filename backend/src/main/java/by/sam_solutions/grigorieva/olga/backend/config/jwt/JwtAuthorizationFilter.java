@@ -3,6 +3,7 @@ package by.sam_solutions.grigorieva.olga.backend.config.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userService;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(List.of("/login", "/token/refresh", "/registration").contains(request.getRequestURI())) {
@@ -57,16 +60,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     authenticationToken.setDetails(user);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-                } catch (Exception exception) {
-
-                    response.setHeader("error", exception.getMessage());
+                } catch (JWTVerificationException exception) {
                     response.setStatus(FORBIDDEN.value());
-                    response.sendError(FORBIDDEN.value());
-                    Map<String, String> error = new HashMap<>();
-                    error.put("error_message", exception.getMessage());
                     response.setContentType(APPLICATION_JSON_VALUE);
-                    new ObjectMapper().writeValue(response.getOutputStream(), error);
-
+                    objectMapper.writeValue(response.getOutputStream(), "Access denied"); //TODO
+                    return;
                 }
 
                 filterChain.doFilter(request, response);

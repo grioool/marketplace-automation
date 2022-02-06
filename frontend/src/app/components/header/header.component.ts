@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-import {NavigationPath} from "../../classes/navigation-path";
+import {getFirstUrlToken, NavigationPath} from "../../classes/navigation-path";
 
 @Component({
     selector: 'app-header',
@@ -23,7 +23,7 @@ export class HeaderComponent {
     }
 
     public isMenuActive(): boolean {
-        return ![NavigationPath.LOGIN, NavigationPath.REGISTRATION].includes(this.router.url as any)
+        return ![NavigationPath.LOGIN, NavigationPath.REGISTRATION].includes(getFirstUrlToken(this.router.url) as NavigationPath)
     }
 
     public routeTo(path: string) {

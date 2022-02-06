@@ -23,10 +23,28 @@ import {accessTokenKey} from "./services/auth.service";
 import {ListNavigatorComponent} from './components/list-navigator/list-navigator.component';
 import {MessagesComponent} from "./components/messages/messages.component";
 import {MessageModule} from "primeng/message";
+import {MessageService} from "primeng/api";
+import {MessagesModule} from "primeng/messages";
+import {ToastModule} from "primeng/toast";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
-        AppComponent, PurchaseList, UserList, ReportList, SupplyList, HeaderComponent, LoginComponent, RegistrationComponent, ProfileComponent, MainComponent, InformationComponent, SaleListComponent, OrderListComponent, MessagesComponent, ListNavigatorComponent
+        AppComponent,
+        PurchaseList,
+        UserList,
+        ReportList,
+        SupplyList,
+        HeaderComponent,
+        LoginComponent,
+        RegistrationComponent,
+        ProfileComponent,
+        MainComponent,
+        InformationComponent,
+        SaleListComponent,
+        OrderListComponent,
+        MessagesComponent,
+        ListNavigatorComponent,
     ],
     imports: [
         BrowserModule,
@@ -40,9 +58,13 @@ import {MessageModule} from "primeng/message";
             config: {
                 tokenGetter: () => localStorage.getItem(accessTokenKey)
             }
-        })
+        }),
+        MessagesModule,
+        ToastModule,
+        BrowserAnimationsModule,
     ],
     providers: [
+        MessageService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthenticationInterceptor,

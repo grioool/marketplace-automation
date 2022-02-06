@@ -1,7 +1,3 @@
-.selected {
-    color:red;
-}
-
 .custom-button {
     background: #ECEBF4;
     border-radius: 20px;
@@ -20,4 +16,8 @@
     font-style: normal;
     font-size: 13px;
     line-height: 20px;
+}
+
+.selected {
+    color:red;
 }

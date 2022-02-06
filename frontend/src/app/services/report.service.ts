@@ -13,8 +13,10 @@ export class ReportService {
   private url = environment.apiHost;
   constructor(private http: HttpClient){ }
 
-    public getByPage(shift: number, rowsPerPage: number): Observable<TablePage<Report>> {
+    public getByPage(dateFrom: Date, dateTo: Date, shift: number, rowsPerPage: number): Observable<TablePage<Report>> {
         const params = new HttpParams()
+            .set("dateFrom", dateFrom.toISOString())
+            .set("dateTo", dateTo.toISOString())
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
         return this.http.get<TablePage<Report>>(this.url + '/reportsbypage', {params});

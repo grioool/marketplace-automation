@@ -13,24 +13,24 @@ import {InformationComponent} from "./components/information/information.compone
 import {AuthGuardService} from "./services/authguard.service";
 import {SaleListComponent} from "./components/sale-list/sale-list.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
-import {MessagesComponent} from "./components/messages/messages.component";
+import {NavigationPath} from "./classes/navigation-path";
 
 const routes: Routes = [{
-    path: '', canActivate: [AuthGuardService], children: [
-        {path: "users", component: UserList},
-        {path: "purchases", component: PurchaseList},
-        {path: "supplies", component: SupplyList},
-        {path: "reports", component: ReportList},
-        {path: "header", component: HeaderComponent},
-        {path: "main", component: MainComponent},
-        {path: "registration", component: RegistrationComponent},
-        {path: "login", component: LoginComponent},
-        {path: "profile", component: ProfileComponent},
-        {path: "information", component: InformationComponent},
-        {path: "sales", component: SaleListComponent},
-        {path: "orders", component: OrderListComponent},
-        {path: "messages", component: MessagesComponent},
-        {path: "**", redirectTo: "main"},
+    path: '',
+    canActivateChild: [AuthGuardService],
+    children: [
+        {path: NavigationPath.USERS, component: UserList},
+        {path: NavigationPath.PURCHASES, component: PurchaseList},
+        {path: NavigationPath.SUPPLIES, component: SupplyList},
+        {path: NavigationPath.REPORTS, component: ReportList},
+        {path: NavigationPath.MAIN, component: MainComponent},
+        {path: NavigationPath.REGISTRATION, component: RegistrationComponent},
+        {path: NavigationPath.LOGIN, component: LoginComponent},
+        {path: NavigationPath.PROFILE, component: ProfileComponent},
+        {path: NavigationPath.INFORMATION, component: InformationComponent},
+        {path: NavigationPath.SALES, component: SaleListComponent},
+        {path: NavigationPath.ORDERS, component: OrderListComponent},
+        {path: "**", redirectTo: NavigationPath.MAIN},
     ]
 }];
 

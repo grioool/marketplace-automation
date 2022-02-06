@@ -7,6 +7,7 @@ import by.sam_solutions.grigorieva.olga.backend.dto.UserRoleDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.TokenAuthentication;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
+import by.sam_solutions.grigorieva.olga.backend.exception.RefreshTokenException;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -126,40 +127,37 @@ public class UserController {
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            try {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer "))
+            throw new RefreshTokenException();
+        try {
+            String refresh_token = authorizationHeader.substring("Bearer ".length());
+            Algorithm algorithm = Algorithm.HMAC512(jwtSecret);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT decodedJWT = verifier.verify(refresh_token);
+            String username = decodedJWT.getSubject();
+            User user = userService.getByUsername(username);
 
-                String refresh_token = authorizationHeader.substring("Bearer ".length());
-                Algorithm algorithm = Algorithm.HMAC512(jwtSecret);
-                JWTVerifier verifier = JWT.require(algorithm).build();
-                DecodedJWT decodedJWT = verifier.verify(refresh_token);
-                String username = decodedJWT.getSubject();
-                User user = userService.getByUsername(username);
+            new ObjectMapper().writeValue(response.getOutputStream(),
+                    TokenAuthentication.builder()
+                            .accessToken(
+                                    JWT.create()
+                                            .withSubject(user.getUsername())
+                                            .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                                            .withClaim("roles", user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
+                                            .sign(algorithm)
+                            )
+                            .refreshToken(refresh_token)
+                            .build());
 
-                new ObjectMapper().writeValue(response.getOutputStream(),
-                        TokenAuthentication.builder()
-                                .accessToken(
-                                        JWT.create()
-                                                .withSubject(user.getUsername())
-                                                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                                                .withClaim("roles", user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
-                                                .sign(algorithm)
-                                )
-                                .refreshToken(refresh_token)
-                                .build());
-
-            } catch (Exception exception) {
-                response.setHeader("error", exception.getMessage());
-                response.setStatus(FORBIDDEN.value());
-                response.sendError(FORBIDDEN.value());
-                Map<String, String> error = new HashMap<>();
-                logger.error(exception.getMessage());
-                error.put("error_message", exception.getMessage());
-                response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), error);
-            }
-        } else {
-            throw new RuntimeException("Refresh token is missing");
+        } catch (Exception exception) {
+            response.setHeader("error", exception.getMessage());
+            response.setStatus(FORBIDDEN.value());
+            response.sendError(FORBIDDEN.value());
+            Map<String, String> error = new HashMap<>();
+            logger.error(exception.getMessage());
+            error.put("error_message", exception.getMessage());
+            response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
+            new ObjectMapper().writeValue(response.getOutputStream(), error);
         }
     }
 

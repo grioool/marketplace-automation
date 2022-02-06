@@ -1,13 +1,12 @@
 package by.sam_solutions.grigorieva.olga.backend.service.user;
 
-import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
-import by.sam_solutions.grigorieva.olga.backend.domain.errors.Errors;
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
-import by.sam_solutions.grigorieva.olga.backend.dto.UserDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.exception.UserAlreadyExists;
+import by.sam_solutions.grigorieva.olga.backend.exception.AuthenticationException;
+import by.sam_solutions.grigorieva.olga.backend.exception.EmailAlreadyExists;
+import by.sam_solutions.grigorieva.olga.backend.exception.UsernameAlreadyExists;
 import by.sam_solutions.grigorieva.olga.backend.repository.role.RoleRepository;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
@@ -33,8 +32,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     @Override
     public void register(UserRegistrationDto userDto) {
-        if(getByUsername(userDto.getUsername()) != null) throw new UserAlreadyExists();
-      //  if(getByEmail(userDto.getEmail()) != null) errors.add("Email is already in Database.");
+        if(getByUsername(userDto.getUsername()) != null) throw new UsernameAlreadyExists();
+        if(getByEmail(userDto.getEmail()) != null) throw new EmailAlreadyExists();
 
         User user = new User();
         user.setPassword(userDto.getPassword());
@@ -70,14 +69,18 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found.");
+            throw new AuthenticationException("username.not.found");
         }
         return user;
     }
 
     @Override
     public User getByEmail(String email) {
-        return userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new AuthenticationException("username.not.found");
+        }
+        return user;
     }
 
     @Override

@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {map, Observable} from "rxjs";
 import {AuthService} from "./auth.service";
-import {NavigationPath} from "../classes/navigation-path";
+import {getFirstUrlToken, NavigationPath} from "../classes/navigation-path";
 
 @Injectable({
     providedIn: 'root',
 })
 
-export class AuthGuardService implements CanActivate {
+export class AuthGuardService implements CanActivateChild {
 
     constructor(private _router: Router, private authService: AuthService) {
     }
 
-    public canActivate(route: ActivatedRouteSnapshot,
+    public canActivateChild(route: ActivatedRouteSnapshot,
                        state: RouterStateSnapshot): Observable<boolean> {
         return this.authService.isAuthenticated()
             .pipe(map(authenticated => {
@@ -31,6 +31,6 @@ export class AuthGuardService implements CanActivate {
     }
 
     private static requireAuthentication(url: string): boolean {
-        return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN].includes(url as never);
+        return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN].includes(getFirstUrlToken(url) as NavigationPath);
     }
 }
