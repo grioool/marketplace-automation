@@ -16,7 +16,7 @@
       <span *ngIf="password.errors['pattern']">Поле должно быть заполнено.</span>
     </div>
 
-    <a href="">Восстановить пароль</a>
+    <button (click)="OnResetPassword()" class="resetbtn">Восстановить пароль</button>
 
     <button type="submit" (click)="OnLogin()" class="loginbtn">Войти</button>
     <button (click)="OnRegister()" class="registerbtn">Зарегистрироваться</button>

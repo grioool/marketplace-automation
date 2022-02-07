@@ -62,7 +62,8 @@ export class RegistrationComponent {
     public OnRegister() {
         this.registrationForm.markAllAsTouched();
         if (this.registrationForm.valid)
-            this.authService.register(
+            this.authService.
+            register(
                 this.registrationForm.get("username").value,
                 this.registrationForm.get("email").value,
                 this.registrationForm.get("password").value,

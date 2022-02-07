@@ -4,7 +4,6 @@ import {PurchaseList} from "./components/purchase-list/purchase-list.component";
 import {UserList} from "./components/user-list/user-list.component";
 import {SupplyList} from "./components/supply-list/supply-list.component";
 import {ReportList} from "./components/report-list/report-list.component";
-import {HeaderComponent} from "./components/header/header.component";
 import {MainComponent} from "./components/main/main.component";
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {LoginComponent} from "./components/login/login.component";
@@ -14,6 +13,8 @@ import {AuthGuardService} from "./services/authguard.service";
 import {SaleListComponent} from "./components/sale-list/sale-list.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
 import {NavigationPath} from "./classes/navigation-path";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ChangePasswordComponent} from "./components/change-password/change-password.component";
 
 const routes: Routes = [{
     path: '',
@@ -30,6 +31,8 @@ const routes: Routes = [{
         {path: NavigationPath.INFORMATION, component: InformationComponent},
         {path: NavigationPath.SALES, component: SaleListComponent},
         {path: NavigationPath.ORDERS, component: OrderListComponent},
+        {path: NavigationPath.PASSWORD, component: ForgotPasswordComponent},
+        {path: NavigationPath.CHANGE_PASSWORD, component: ChangePasswordComponent},
         {path: "**", redirectTo: NavigationPath.MAIN},
     ]
 }];

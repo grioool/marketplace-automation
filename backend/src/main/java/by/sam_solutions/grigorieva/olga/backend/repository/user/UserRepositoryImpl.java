@@ -32,4 +32,16 @@ public class UserRepositoryImpl extends AbstractRepositoryImpl<User> implements 
             return null;
         }
     }
+
+   public User findByResetPasswordToken(String resetPasswordToken) {
+       try {
+           return entityManager.createQuery(
+                           "SELECT u from User u WHERE u.resetPasswordToken = :resetPasswordToken", User.class
+                   )
+                   .setParameter("resetPasswordToken", resetPasswordToken)
+                   .getSingleResult();
+       } catch (NoResultException e) {
+           return null;
+       }
+   }
 }

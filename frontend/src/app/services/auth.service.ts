@@ -35,7 +35,6 @@ export class AuthService {
         })
             .pipe(
                 catchError((err: string[]) => {
-                    alert(err)//TODO decoration
                     return of(undefined);
                 })
             )

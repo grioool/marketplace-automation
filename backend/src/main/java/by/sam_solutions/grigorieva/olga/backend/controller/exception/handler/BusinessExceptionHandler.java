@@ -2,10 +2,12 @@ package by.sam_solutions.grigorieva.olga.backend.controller.exception.handler;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.localization.Messages;
 import by.sam_solutions.grigorieva.olga.backend.exception.AuthenticationException;
+import by.sam_solutions.grigorieva.olga.backend.exception.EmailAlreadyExists;
 import by.sam_solutions.grigorieva.olga.backend.exception.UsernameAlreadyExists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -37,6 +39,12 @@ public class BusinessExceptionHandler {
         return ResponseEntity.badRequest().body(e.getLocalizedMessage());
     }
 
+    @ExceptionHandler(value = EmailAlreadyExists.class)
+    public ResponseEntity<String> handleUserAlreadyExists(EmailAlreadyExists e) {
+        logError(e);
+        return ResponseEntity.badRequest().body(e.getLocalizedMessage());
+    }
+
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<String> handleNotImplementedExceptions(Exception e) {
         logError(e);
@@ -58,6 +66,8 @@ public class BusinessExceptionHandler {
                 .collect(toList());
         return new ResponseEntity<>(localized, HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(value = {ParameterizedTypeReference})
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

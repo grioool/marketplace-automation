@@ -66,7 +66,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws AuthenticationException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new AuthenticationException("username.not.found");
@@ -75,7 +75,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getByEmail(String email) throws AuthenticationException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new AuthenticationException("username.not.found");
@@ -92,5 +92,25 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     @Override
     public User getByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public void updateResetPasswordToken(String token, String email) throws AuthenticationException {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.create(user);
+        } else {
+            throw new AuthenticationException("user.not.found");
+        }
+    }
+
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetPasswordToken(null);
+        userRepository.update(user);
     }
 }

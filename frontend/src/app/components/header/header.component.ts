@@ -23,7 +23,7 @@ export class HeaderComponent {
     }
 
     public isMenuActive(): boolean {
-        return ![NavigationPath.LOGIN, NavigationPath.REGISTRATION].includes(getFirstUrlToken(this.router.url) as NavigationPath)
+        return ![NavigationPath.LOGIN, NavigationPath.REGISTRATION, NavigationPath.PASSWORD].includes(getFirstUrlToken(this.router.url) as NavigationPath)
     }
 
     public routeTo(path: string) {

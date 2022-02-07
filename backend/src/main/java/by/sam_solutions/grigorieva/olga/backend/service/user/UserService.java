@@ -22,4 +22,10 @@ public interface UserService extends AbstractService<User> {
 
     TablePage<User> getUsersPerPage(int shift, int rowsPerPage);
 
+    void updateResetPasswordToken(String token, String email);
+
+    User getByResetPasswordToken(String token);
+
+    void updatePassword(User user, String newPassword);
+
 }

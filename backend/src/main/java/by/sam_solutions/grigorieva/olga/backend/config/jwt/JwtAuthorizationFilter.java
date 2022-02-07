@@ -41,7 +41,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(List.of("/login", "/token/refresh", "/registration").contains(request.getRequestURI())) {
+        if(List.of("/login", "/token/refresh", "/registration", "/forgot/password", "/reset/password").contains(request.getRequestURI())) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);

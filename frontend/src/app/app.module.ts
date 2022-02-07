@@ -27,6 +27,8 @@ import {MessageService} from "primeng/api";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +47,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         OrderListComponent,
         MessagesComponent,
         ListNavigatorComponent,
+        ForgotPasswordComponent,
+        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,

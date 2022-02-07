@@ -15,7 +15,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(![NavigationPath.LOGIN, "/token/refresh", NavigationPath.REGISTRATION]
+        if(![NavigationPath.LOGIN, "/token/refresh", NavigationPath.REGISTRATION, NavigationPath.PASSWORD]
             .includes(req.url.replace(environment.apiHost,  ""))) {
             req =  req.clone({
                 headers: req.headers.set("Authorization", "Bearer " + localStorage.getItem(accessTokenKey)),

@@ -46,5 +46,9 @@ export class LoginComponent {
     this.router.navigate([NavigationPath.REGISTRATION]).then();
   }
 
+  public OnResetPassword() {
+    this.router.navigate([NavigationPath.PASSWORD]).then();
+  }
+
 }
 

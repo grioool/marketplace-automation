@@ -47,18 +47,21 @@ input[type=text], input[type=password] {
   color: #000000;
 }
 
-a {
-  margin-left: 150px;
+.resetbtn {
+  margin-left: 240px;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 200;
   font-size: 9px;
-  line-height: 14px;
-  width: 356px;
-  left: calc(50% - 356px/2);
 
   text-align: center;
   color: #7B8E98;
+    background: #FFFFFF;
+
+    border: 0;
+    cursor: pointer;
+
+    border-radius: 55px;
 }
 
 span {
