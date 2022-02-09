@@ -32,8 +32,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
     @Override
     public void register(UserRegistrationDto userDto) {
-        if(getByUsername(userDto.getUsername()) != null) throw new UsernameAlreadyExists();
-        if(getByEmail(userDto.getEmail()) != null) throw new EmailAlreadyExists();
+        if (getByUsername(userDto.getUsername()) != null) throw new UsernameAlreadyExists();
+        if (getByEmail(userDto.getEmail()) != null) throw new EmailAlreadyExists();
 
         User user = new User();
         user.setPassword(userDto.getPassword());
@@ -44,6 +44,9 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
         user.setRoles(List.of(roleRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        user.setIsBlocked(false);
+        user.setIsSubscribed(false);
         userRepository.create(user);
     }
 
@@ -69,18 +72,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     public User loadUserByUsername(String username) throws AuthenticationException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new AuthenticationException("username.not.found");
+            throw new AuthenticationException("user.not.found");
         }
         return user;
     }
 
     @Override
     public User getByEmail(String email) throws AuthenticationException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new AuthenticationException("username.not.found");
-        }
-        return user;
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -104,13 +103,24 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         }
     }
 
+    public void updateResetPassword(String password, String email) throws AuthenticationException {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPassword(passwordEncoder.encode(password));
+            userRepository.create(user);
+        } else {
+            throw new AuthenticationException("user.not.found");
+        }
+    }
+
     public User getByResetPasswordToken(String token) {
         return userRepository.findByResetPasswordToken(token);
     }
 
     public void updatePassword(User user, String newPassword) {
-        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPassword(newPassword);
         user.setResetPasswordToken(null);
+        user.setResetPassword(null);
         userRepository.update(user);
     }
 }

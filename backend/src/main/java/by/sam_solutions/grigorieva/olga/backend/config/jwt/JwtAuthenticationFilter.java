@@ -35,4 +35,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
         mapper.writeValue(response.getOutputStream(), jwtProvider.generateToken((User) authentication.getPrincipal()));
     }
+
+//    @Override
+//    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
+//        throw new BadCredentialsException("bad.credentials");
+//    }
 }

@@ -45,6 +45,9 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
+    @Column(name = "reset_password")
+    private String resetPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

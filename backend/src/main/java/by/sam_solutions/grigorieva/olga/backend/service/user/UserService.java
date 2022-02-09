@@ -24,6 +24,8 @@ public interface UserService extends AbstractService<User> {
 
     void updateResetPasswordToken(String token, String email);
 
+    void updateResetPassword(String password, String email);
+
     User getByResetPasswordToken(String token);
 
     void updatePassword(User user, String newPassword);

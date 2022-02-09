@@ -9,7 +9,7 @@
   <li (click)="routeTo(navigationPath.INFORMATION)" >
     Личная информация
   </li>
-  <li (click)="routeTo(navigationPath.USERS)">
+  <li (click)="routeTo(navigationPath.USERS)" *ngIf="service.isAdmin()">
     Пользователи
   </li>
 </ul>

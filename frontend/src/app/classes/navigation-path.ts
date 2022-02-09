@@ -10,8 +10,7 @@ export enum NavigationPath {
     INFORMATION = "information",
     SALES = "sales",
     ORDERS = "orders",
-    PASSWORD = "password",
-    CHANGE_PASSWORD = "password/change"
+    PASSWORD = "password"
 }
 
 export const getFirstUrlToken: (url: string) => string = (url: string): string =>

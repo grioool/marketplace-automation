@@ -8,35 +8,36 @@
 <div class="container">
 
     <ng-container *ngIf="isReadOnly(user)">
-        <p>Email: {{user.email}}</p>
-        <p>Имя: {{user.username}}</p>
-        <p>Название компании: {{user.nameCompany}}</p>
-        <p>Ключ WB: {{user.wildBerriesKeys}}</p>
-        <p>Пароль: {{user.password}}</p>
-
-        <button type="button" class="eyeButton" (click)="hideText()"><i class='fas fa-eye fa-lg'></i></button>
-        <button type="submit" class="btn" (click)="editUser(user)">Изменить</button>
+        <p>В целях безопасности личная информация скрыта </p>
+        <button type="submit" class="btn" (click)="editUser(user)">Показать</button>
     </ng-container>
 
     <ng-container *ngIf="isEditable(user)">
 
+        <p>Email: </p>
         <input type="text" [(ngModel)]="editedUser.email" placeholder="Email" name="email" required>
 
+        <p>Имя: </p>
+        <input type="text" [(ngModel)]="editedUser.username" placeholder="Username" name="username" required>
+
+        <p>Название компании: </p>
         <input type="text" [(ngModel)]="editedUser.nameCompany" placeholder="Название юридического лица" name="nameC"
                required>
 
-        <input class="hidden" [(ngModel)]="editedUser.wildBerriesKeys" placeholder="Ключ от WB" name="wb"
+        <p>Ключ WB: </p>
+        <input type="text" class="hidden" [(ngModel)]="editedUser.wildBerriesKeys" placeholder="Ключ от WB" name="wb"
                [type]="hide ? 'password' : 'text'" required>
 
+        <p>Пароль: </p>
         <span style="position: relative">
-            <input class="hidden" [(ngModel)]="editedUser.password" type="text" placeholder="Пароль" name="password"
-                   [type]="hide ? 'password' : 'text'" required>
+            <input type="password" readonly class="hidden" [(ngModel)]="editedUser.password" placeholder="Пароль"
+                   name="password"required>
             <button type="button" class="eyeButton" (click)="hideText()"><i class='fas fa-eye fa-lg'></i></button>
         </span>
 
-        <button type="submit" class="btn">Сохранить</button>
+        <button type="submit" class="btn" (click)="updateUser(this.editedUser)">Сохранить</button>
 
-        <button type="submit" class="btn" (click)="cancel()">Отмена</button>
+        <button type="submit" class="btn" (click)="OnChange()">Изменить пароль</button>
 
     </ng-container>
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationPath} from "../../classes/navigation-path";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
     public navigationPath: typeof NavigationPath = NavigationPath;
 
     constructor(private router: Router,
-                private location: Location) {
+                private location: Location,
+                public service: AuthService) {
     }
 
     ngOnInit(): void {
