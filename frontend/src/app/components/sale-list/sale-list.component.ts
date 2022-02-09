@@ -25,7 +25,7 @@ export class SaleListComponent implements OnInit {
 
     public totalAmount: number = 0;
 
-    public amountOnPage: number = 2;
+    public amountOnPage: number = 20;
 
     constructor(private serv: SaleService,
                 private location: Location) {

@@ -1,12 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.converter.to.entity;
 
 import by.sam_solutions.grigorieva.olga.backend.dto.ReportDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
+
+import java.sql.Timestamp;
 
 @RequiredArgsConstructor
 public class ReportToEntityConverter implements Converter<ReportDto, Report> {
@@ -23,8 +24,8 @@ public class ReportToEntityConverter implements Converter<ReportDto, Report> {
         report.setCommissionPerCent(reportDto.getCommissionPerCent());
         report.setCommissionVAT(reportDto.getCommissionVAT());
         report.setCostPrice(reportDto.getCostPrice());
-        report.setDateOrder(reportDto.getDateOrder());
-        report.setDateSale(reportDto.getDateSale());
+        report.setDateOrder(Timestamp.valueOf(reportDto.getDateOrder()));
+        report.setDateSale(Timestamp.valueOf(reportDto.getDateSale()));
         report.setLogistics(reportDto.getLogistics());
         report.setOrderNumber(reportDto.getOrderNumber());
         report.setOrderPrice(reportDto.getOrderPrice());

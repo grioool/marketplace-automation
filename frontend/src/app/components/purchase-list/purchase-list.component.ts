@@ -28,7 +28,7 @@ export class PurchaseList implements OnInit {
 
     public totalAmount: number = 0;
 
-    public amountOnPage: number = 2;
+    public amountOnPage: number = 5;
 
     constructor(private serv: PurchaseService,
                 private location: Location) {

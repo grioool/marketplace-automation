@@ -13,8 +13,8 @@ export class Report {
     public profit: number,
     public commissionPerCent: number,
     public commissionVAT: number,
-    public dateSale: number,
-    public dateOrder: number,
+    public dateSale: string,
+    public dateOrder: string,
     public supply: Supply
   ) { }
 }

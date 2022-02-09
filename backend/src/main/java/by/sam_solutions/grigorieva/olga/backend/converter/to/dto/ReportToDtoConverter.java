@@ -22,8 +22,8 @@ public class ReportToDtoConverter implements Converter<Report, ReportDto> {
         reportDto.setCommissionPerCent(report.getCommissionPerCent());
         reportDto.setCommissionVAT(report.getCommissionVAT());
         reportDto.setCostPrice(report.getCostPrice());
-        reportDto.setDateOrder(report.getDateOrder());
-        reportDto.setDateSale(report.getDateSale());
+        reportDto.setDateOrder(report.getDateOrder().toLocalDateTime().toString());
+        reportDto.setDateSale(report.getDateSale().toLocalDateTime().toString());
         reportDto.setLogistics(report.getLogistics());
         reportDto.setOrderNumber(report.getOrderNumber());
         reportDto.setOrderPrice(report.getOrderPrice());

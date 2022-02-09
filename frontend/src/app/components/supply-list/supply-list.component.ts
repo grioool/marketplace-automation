@@ -35,7 +35,7 @@ export class SupplyList implements OnInit {
 
     public totalAmount: number = 0;
 
-    public amountOnPage: number = 2;
+    public amountOnPage: number = 5;
 
     constructor(private serv: SupplyService,
                 public purchaseService: PurchaseService,

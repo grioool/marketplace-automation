@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {getFirstUrlToken, NavigationPath} from "../../classes/navigation-path";
+import {Locale} from "../../classes/locale";
+import {LocaleContextHolder} from "../../classes/locale-context-holder";
 
 @Component({
     selector: 'app-header',
@@ -12,10 +14,15 @@ export class HeaderComponent {
 
     public navigationPath: typeof NavigationPath = NavigationPath;
 
+    public currentLang: Locale;
+
     constructor(
         private authService: AuthService,
         private router: Router
     ) {
+        this.currentLang = LocaleContextHolder.getLocale();
+        LocaleContextHolder.locale()
+            .subscribe((locale: Locale) => this.currentLang = locale);
     }
 
     public OnLogout() {
@@ -32,7 +39,7 @@ export class HeaderComponent {
 
     ru: boolean = true;
 
-    public changeLang(){
-        this.ru = !this.ru;
+    public changeLang() {
+        LocaleContextHolder.nextLocale();
     }
 }

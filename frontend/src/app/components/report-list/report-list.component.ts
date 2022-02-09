@@ -30,7 +30,7 @@ export class ReportList implements OnInit {
 
     public totalAmount: number = 0;
 
-    public amountOnPage: number = 2;
+    public amountOnPage: number = 9;
 
     constructor(private serv: ReportService,
                 public supplyService: SupplyService,
