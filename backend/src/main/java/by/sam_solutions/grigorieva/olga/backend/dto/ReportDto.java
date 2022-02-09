@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
-import java.sql.Timestamp;
 
 @Data
 @Validated
@@ -59,8 +58,8 @@ public class ReportDto {
     private Double commissionVAT;
 
     @NotNull
-    private Timestamp dateSale;
+    private String dateSale;
 
     @NotNull
-    private Timestamp dateOrder;
+    private String dateOrder;
 }

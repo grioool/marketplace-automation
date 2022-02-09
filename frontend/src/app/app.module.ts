@@ -28,7 +28,6 @@ import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +47,6 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
         MessagesComponent,
         ListNavigatorComponent,
         ForgotPasswordComponent,
-        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,

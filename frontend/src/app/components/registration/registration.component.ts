@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {NavigationPath} from "../../classes/navigation-path";
 import {MessageService} from "primeng/api";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-registration',
@@ -14,6 +15,14 @@ import {MessageService} from "primeng/api";
 export class RegistrationComponent {
 
     public registrationForm: FormGroup;
+
+    private passwordRegexp: string = environment.passwordRegexp;
+
+    private usernameRegexp: string = environment.usernameRegexp;
+
+    private nameCompanyRegexp: string = environment.nameCompanyRegexp;
+
+    private wbKeyRegexp: string = environment.wbKeyRegexp;
 
     constructor(private http: HttpClient,
                 private authService: AuthService,
@@ -28,7 +37,7 @@ export class RegistrationComponent {
         this.registrationForm = this.fb.group({
             username: ['', [
                 Validators.required,
-                Validators.pattern(/^[A-Za-zА-Яа-яЁё]{2,20}/)
+                Validators.pattern(this.usernameRegexp)
             ]],
             email: ['', [
                 Validators.required,
@@ -36,11 +45,11 @@ export class RegistrationComponent {
             ]],
             nameCompany: ['', [
                 Validators.required,
-                Validators.pattern(/^[A-Za-zА-Яа-яЁё]{2,20}/)
+                Validators.pattern(this.nameCompanyRegexp)
             ]],
             wbKey: ['', [
                 Validators.required,
-                Validators.pattern(/^[A-Za-zА-Яа-яЁё0-9]{2,20}/)
+                Validators.pattern(this.wbKeyRegexp)
             ]],
             passwordRep: ['', [
                 Validators.required
@@ -49,7 +58,7 @@ export class RegistrationComponent {
                 '',
                 [
                     Validators.required,
-                    Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,10}/)
+                    Validators.pattern(this.passwordRegexp)
                 ],
             ],
         })

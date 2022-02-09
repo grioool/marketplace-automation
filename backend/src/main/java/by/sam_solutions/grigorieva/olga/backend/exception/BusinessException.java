@@ -1,25 +1,19 @@
 package by.sam_solutions.grigorieva.olga.backend.exception;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.localization.Messages;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.util.Locale;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 @NoArgsConstructor
-@AllArgsConstructor
 public class BusinessException extends RuntimeException {
 
     private String messageKey;
 
-    private Locale locale;
-
     public BusinessException(String messageKey) {
         this.messageKey = messageKey;
-        locale = Locale.getDefault();
     }
 
     public String getLocalizedMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(messageKey, LocaleContextHolder.getLocale());
     }
 }

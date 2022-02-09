@@ -12,4 +12,8 @@ public class Messages {
         if (resourceBundle.containsKey(messageKey)) return resourceBundle.getString(messageKey);
         throw new LocalizationException();
     }
+
+    public static String getMessage(String messageKey) {
+        return getMessageForLocale(messageKey, Locale.getDefault());
+    }
 }

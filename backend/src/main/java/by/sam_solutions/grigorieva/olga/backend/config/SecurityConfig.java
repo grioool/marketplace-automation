@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -52,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/token/refresh", "/registration", "/sendHtmlEmail", "/forgot/password/**", "/reset/password/**").permitAll()
+                .antMatchers("/login", "/token/refresh", "/registration", "/password/forgetting/**", "/locale/**", "admin/roles").permitAll()
                 .antMatchers(GET, "/user/**").hasAnyAuthority("USER")
                 .antMatchers(GET, "/admin/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
