@@ -24,7 +24,7 @@ export class SaleService {
         const params = new HttpParams()
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
-        return this.http.get<TablePage<Sale>>(this.url + '/salesbypage', {params});
+        return this.http.get<TablePage<Sale>>(this.url + '/salesByPage', {params});
     }
 
     public getLoadedSales(): Observable<Sale[]> {

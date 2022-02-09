@@ -24,7 +24,7 @@ export class PurchaseService {
         const params = new HttpParams()
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
-        return this.http.get<TablePage<Purchase>>(this.url + '/purchasesbypage', {params});
+        return this.http.get<TablePage<Purchase>>(this.url + '/purchasesByPage', {params});
     }
 
     public getLoadedPurchases(): Observable<Purchase[]> {
@@ -39,15 +39,15 @@ export class PurchaseService {
     }
 
     public createPurchase(purchase: Purchase) {
-        return this.http.post<Purchase>(this.url + '/purchase', purchase);
+        return this.http.post<Purchase>(this.url + '/purchases', purchase);
     }
 
     public updatePurchase(purchase: Purchase) {
-        return this.http.put<Purchase>(this.url + '/purchase', purchase);
+        return this.http.put<Purchase>(this.url + '/purchases', purchase);
     }
 
     public deletePurchase(id: number) {
-        return this.http.delete<Purchase>(this.url + '/purchase/' + id);
+        return this.http.delete<Purchase>(this.url + '/purchases/' + id);
     }
 
 }

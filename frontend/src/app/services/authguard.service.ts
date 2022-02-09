@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivateChild {
 
     public canActivateChild(route: ActivatedRouteSnapshot,
                        state: RouterStateSnapshot): Observable<boolean> {
-        return this.authService.isAuthenticated()
+        return this.authService.authenticated()
             .pipe(map(authenticated => {
                 if (AuthGuardService.requireAuthentication(state.url)) {
                     if (authenticated) return true;

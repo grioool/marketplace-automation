@@ -24,27 +24,27 @@ export class UserService {
         const params = new HttpParams()
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
-        return this.http.get<TablePage<User>>(this.url + '/admin/usersbypage', {params});
+        return this.http.get<TablePage<User>>(this.url + '/admin/usersByPage', {params});
     }
 
     public getUser(id: string) {
-        return this.http.get<User>(this.url + '/admin/user' + id);
+        return this.http.get<User>(this.url + '/admin/users/' + id);
     }
 
     public getUserInformation() {
-        return this.http.get<User>(this.url + '/admin/user/information');
+        return this.http.get<User>(this.url + '/users/information');
     }
 
     public createUser(user: User) {
-        return this.http.post<User>(this.url + '/admin/user', user);
+        return this.http.post<User>(this.url + '/admin/users', user);
     }
 
     public updateUser(user: User) {
-        return this.http.put<User>(this.url + '/admin/user', user);
+        return this.http.put<User>(this.url + '/admin/users', user);
     }
 
     public deleteUser(id: number) {
-        return this.http.delete<User>(this.url + '/admin/user/' + id);
+        return this.http.delete<User>(this.url + '/admin/users/' + id);
     }
 
     public getLoadedUsers(): Observable<User[]> {

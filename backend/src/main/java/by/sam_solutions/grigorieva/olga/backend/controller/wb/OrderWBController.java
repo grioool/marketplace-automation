@@ -32,7 +32,7 @@ public class OrderWBController {
         return ResponseEntity.ok().body(orderWBService.getByDateFrom(mockDate(), getUser(principal)));
     }
 
-    @GetMapping("/ordersbypage")
+    @GetMapping("/ordersByPage")
     public TablePage<OrderWBDto> getOrdersByPage(@RequestParam Integer shift,
                                                @RequestParam Integer rowsPerPage,
                                                Principal principal) {

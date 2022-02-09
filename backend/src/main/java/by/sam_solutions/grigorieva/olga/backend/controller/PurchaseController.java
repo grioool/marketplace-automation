@@ -37,7 +37,7 @@ public class PurchaseController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @GetMapping("/purchasesbypage")
+    @GetMapping("/purchasesByPage")
     public TablePage<PurchaseDto> getPurchasesByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting purchases by page...");
         TablePage<Purchase> page = purchaseService.getPurchasesPerPage(getUser(principal), shift, rowsPerPage);
@@ -49,13 +49,13 @@ public class PurchaseController {
         );
     }
 
-    @GetMapping(value = "/purchase/{purchaseId}")
+    @GetMapping(value = "/purchases/{purchaseId}")
     public  ResponseEntity<PurchaseDto> getPurchase(@PathVariable("purchaseId") int id) {
         logger.info("Getting purchase...");
         return new ResponseEntity<>(conversionService.convert(purchaseService.getById(id), PurchaseDto.class), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/purchase")
+    @PostMapping(value = "/purchases")
     public  ResponseEntity<PurchaseDto> create(@RequestBody @Valid PurchaseDto purchaseDto, Principal principal) {
         logger.info("Creating purchase...");
         Purchase purchase = conversionService.convert(purchaseDto, Purchase.class);
@@ -63,7 +63,7 @@ public class PurchaseController {
         return new ResponseEntity<>(conversionService.convert(purchaseService.create(purchase), PurchaseDto.class), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/purchase")
+    @PutMapping(value = "/purchases")
     public  ResponseEntity<PurchaseDto> update(@RequestBody PurchaseDto purchaseDto, Principal principal) {
         logger.info("Updating purchase...");
         Purchase purchase = conversionService.convert(purchaseDto, Purchase.class);
@@ -71,7 +71,7 @@ public class PurchaseController {
         return new ResponseEntity<>(conversionService.convert(purchaseService.update(purchase), PurchaseDto.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/purchase/{purchaseId}")
+    @DeleteMapping(value = "/purchases/{purchaseId}")
     public void delete(@PathVariable("purchaseId") int id) {
         logger.info("Deleting purchase...");
         purchaseService.delete(id);

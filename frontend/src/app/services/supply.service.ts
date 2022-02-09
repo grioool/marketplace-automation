@@ -24,19 +24,19 @@ export class SupplyService {
         const params = new HttpParams()
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
-        return this.http.get<TablePage<Supply>>(this.url + '/suppliesbypage', {params});
+        return this.http.get<TablePage<Supply>>(this.url + '/suppliesByPage', {params});
     }
 
     public createSupply(supply: Supply) {
-        return this.http.post<Supply>(this.url + '/supply', supply);
+        return this.http.post<Supply>(this.url + '/supplies', supply);
     }
 
     public updateSupply(supply: Supply) {
-        return this.http.put<Supply>(this.url + '/supply', supply);
+        return this.http.put<Supply>(this.url + '/supplies', supply);
     }
 
     public deleteSupply(id: number) {
-        return this.http.delete<Supply>(this.url + '/supply/' + id);
+        return this.http.delete<Supply>(this.url + '/supplies/' + id);
     }
 
     public getLoadedSupplies(): Observable<Supply[]> {

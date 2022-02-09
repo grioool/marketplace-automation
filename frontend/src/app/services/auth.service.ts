@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 import {catchError, Observable, of} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {isPresent} from "../../util";
-import {isBlank} from "../util/util";
 
 declare type AuthenticationResponse = { accessToken: string; refreshToken: string };
 
@@ -18,11 +17,14 @@ export const accessTokenKey: string = "access_token";
 })
 export class AuthService {
 
+    private roles: string[] = [];
+
     private uri: string = environment.apiHost;
 
     constructor(private http: HttpClient,
                 private router: Router,
                 private jwtHelper: JwtHelperService) {
+        this.updateRole();
     }
 
     public register(username: string, email: string, password: string, nameCompany: string, wbKey: string) {
@@ -35,11 +37,10 @@ export class AuthService {
         })
             .pipe(
                 catchError((err: string[]) => {
-                    return of(undefined);
+                    return of(err);
                 })
             )
             .subscribe((resp: any) => {
-                if(isBlank(resp)) return;
                 this.router.navigate([NavigationPath.LOGIN]).then();
             });
     }
@@ -53,6 +54,7 @@ export class AuthService {
                 this.router.navigate([NavigationPath.MAIN]).then();
                 localStorage.setItem(accessTokenKey, resp.accessToken);
                 localStorage.setItem(refreshTokenKey, resp.refreshToken);
+                this.updateRole();
             })
     }
 
@@ -62,9 +64,26 @@ export class AuthService {
         this.router.navigate([NavigationPath.LOGIN]).then();
     }
 
-    public isAuthenticated(): Observable<boolean> {
+    public authenticated(): Observable<boolean> {
+        return of(this.isAuthenticated());
+    }
+
+    public isAuthenticated(): boolean {
         const token: string = localStorage.getItem(accessTokenKey);
-        return of(isPresent(token) && !this.jwtHelper.isTokenExpired(token));
+        return isPresent(token) && !this.jwtHelper.isTokenExpired(token);
+    }
+
+    public isAdmin(): boolean {
+        return this.roles.includes('ADMIN');
+    }
+
+    private updateRole() {
+        if (!this.isAuthenticated()) {
+            this.roles = [];
+            return;
+        }
+        this.http.get<string[]>(this.uri + '/admin/roles')
+            .subscribe((roles: string[]) => this.roles = roles);
     }
 
 }

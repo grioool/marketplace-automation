@@ -24,7 +24,7 @@ export class OrderService {
         const params = new HttpParams()
             .set('shift', shift)
             .set('rowsPerPage', rowsPerPage);
-        return this.http.get<TablePage<Order>>(this.url + '/ordersbypage', {params});
+        return this.http.get<TablePage<Order>>(this.url + '/ordersByPage', {params});
     }
 
     public getLoadedOrders(): Observable<Order[]> {

@@ -3,9 +3,12 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 import by.sam_solutions.grigorieva.olga.backend.domain.password.Utility;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.exception.AuthenticationException;
+import by.sam_solutions.grigorieva.olga.backend.exception.TokenException;
 import by.sam_solutions.grigorieva.olga.backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,20 +32,24 @@ public class ForgotPasswordController {
 
     private final UserService userService;
 
-    @PostMapping("/forgot/password")
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @PostMapping("/password/forgetting")
     public void processForgotPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
+        String password = request.getParameter("password");
         String token = RandomString.make(30);
 
         try {
             userService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset/password?token=" + token;
+            userService.updateResetPassword(password, email);
+            String resetPasswordLink = Utility.getSiteURL(request) + "/password/resetting?token=" + token;
             sendEmail(email, resetPasswordLink);
 
         } catch (AuthenticationException ex) {
-           // ("error", ex.getMessage());
+           logger.error("", ex);
         } catch (UnsupportedEncodingException | MessagingException e) {
-        //  ("error", "Error while sending email");
+          logger.error("Error while sending email", e);
         }
 
     }
@@ -72,27 +79,17 @@ public class ForgotPasswordController {
         mailSender.send(message);
     }
 
-    @GetMapping("/forgot/password/reset/password")
-    public void showResetPasswordForm(@Param(value = "token") String token, Model model) {
-        User user = userService.getByResetPasswordToken(token);
-        model.addAttribute("token", token);
-
-        if (user == null) {
-            //Invalid Token
-        }
-    }
-
-    @PostMapping("/forgot/password/reset/password") //http://localhost:4200/password/change
-    public void processResetPassword(HttpServletRequest request) {
-        String token = request.getParameter("token");
-        String password = request.getParameter("password");
+    @GetMapping("/password/forgetting/password/resetting")
+    public String processResetPassword(@Param(value = "token") String token) {
 
         User user = userService.getByResetPasswordToken(token);
 
         if (user == null) {
-            //Invalid Token
+            throw new TokenException();
         } else {
+            String password = user.getResetPassword();
             userService.updatePassword(user, password);
         }
+        return "You successfully changed password!";
     }
 }

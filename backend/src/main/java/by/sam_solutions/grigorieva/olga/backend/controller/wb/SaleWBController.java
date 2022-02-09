@@ -32,7 +32,7 @@ public class SaleWBController {
         return ResponseEntity.ok().body(salesService.getByDateFrom(mockDate(), getUser(principal)));
     }
 
-    @GetMapping("/salesbypage")
+    @GetMapping("/salesByPage")
     public TablePage<SaleWBDto> getSalesByPage(@RequestParam Integer shift,
                                                @RequestParam Integer rowsPerPage,
                                                Principal principal) {

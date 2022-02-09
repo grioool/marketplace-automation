@@ -32,13 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.security.Principal;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
@@ -54,28 +52,27 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final ConversionService conversionService;
 
-
     @GetMapping("/admin/users")
     public ResponseEntity<List<UserDto>> getUsers() {
         logger.info("Getting users...");
         return new ResponseEntity<>(userService.getAll().stream()
                 .map(user -> conversionService.convert(user, UserDto.class))
-                .collect(Collectors.toList()), HttpStatus.OK);
+                .collect(toList()), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/usersbypage")
+    @GetMapping("/admin/usersByPage")
     public TablePage<UserDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage) {
         logger.info("Getting users by page...");
         TablePage<User> page = userService.getUsersPerPage(shift, rowsPerPage);
         return new TablePage<>(
                 page.getItems().stream()
                         .map(user -> conversionService.convert(user, UserDto.class))
-                        .collect(Collectors.toList()),
+                        .collect(toList()),
                 page.getTotalCount()
         );
     }
 
-    @PostMapping("/admin/user")
+    @PostMapping("/admin/users")
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto) {
         logger.info("Getting user...");
         User user = conversionService.convert(userDto, User.class);
@@ -83,7 +80,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(conversionService.convert(userService.createUser(user), UserDto.class));
     }
 
-    @PostMapping("/admin/role")
+    @PostMapping("/admin/roles")
     public ResponseEntity<RoleDto> createRole(@RequestBody @Valid RoleDto roleDto) {
         logger.info("Creating role...");
         Role role = conversionService.convert(roleDto, Role.class);
@@ -91,40 +88,47 @@ public class UserController {
         return ResponseEntity.created(uri).body(conversionService.convert(userService.createRole(role), RoleDto.class));
     }
 
-    @PostMapping("/admin/role/addtouser")
+    @PostMapping("/admin/roles/adding")
     public ResponseEntity<?> addRoleToUser(@RequestBody @Valid UserRoleDto dto) {
         logger.info("Adding role to user...");
         return ResponseEntity.ok().body(userService.addRoleToUser(dto.getUsername(), dto.getRoleName()));
     }
 
-    @GetMapping("/admin/user/{userId}")
+    @GetMapping("/admin/users/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") Integer id) {
         logger.info("Getting user...");
         return new ResponseEntity<>(conversionService.convert(userService.getById(id), UserDto.class), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/user/information")
+    @GetMapping("/users/information")
     public ResponseEntity<UserDto> getUserInformation(Principal principal) {
         logger.info("Getting user information ...");
         User user = ((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
         return new ResponseEntity<>(conversionService.convert(user, UserDto.class), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/admin/user")
+
+    @GetMapping("/admin/roles")
+    public ResponseEntity<Collection<String>> getRole(Principal principal) {
+        User user = ((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
+        return ResponseEntity.ok(user.getRoles().stream().map(Role::getRoleName).collect(toList()));
+    }
+
+    @PutMapping(value = "/admin/users")
     public ResponseEntity<UserDto> update(@RequestBody UserDto userDto) {
         logger.info("Updating user...");
         User user = conversionService.convert(userDto, User.class);
         return new ResponseEntity<>(conversionService.convert(userService.update(user), UserDto.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/admin/user/{userId}")
+    @DeleteMapping(value = "/admin/users/{userId}")
     public void delete(@PathVariable("userId") int id) {
         logger.info("Deleting users...");
         userService.delete(id);
         logger.error("Deleted.");
     }
 
-    @GetMapping("/token/refresh")
+    @GetMapping("/token/refreshing")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer "))
@@ -143,7 +147,7 @@ public class UserController {
                                     JWT.create()
                                             .withSubject(user.getUsername())
                                             .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                                            .withClaim("roles", user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
+                                            .withClaim("roles", user.getRoles().stream().map(Role::getRoleName).collect(toList()))
                                             .sign(algorithm)
                             )
                             .refreshToken(refresh_token)

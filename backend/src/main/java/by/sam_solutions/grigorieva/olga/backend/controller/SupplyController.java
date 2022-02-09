@@ -37,7 +37,7 @@ public class SupplyController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @GetMapping("/suppliesbypage")
+    @GetMapping("/suppliesByPage")
     public TablePage<SupplyDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting supplies by page...");
         TablePage<Supply> page = supplyService.getSuppliesPerPage(getUser(principal), shift, rowsPerPage);
@@ -49,13 +49,13 @@ public class SupplyController {
         );
     }
 
-    @GetMapping(value = "/supply/{supplyId}")
+    @GetMapping(value = "/supplies/{supplyId}")
     public ResponseEntity<SupplyDto> getSupply(@PathVariable("supplyId") int id) {
         logger.info("Getting supply...");
         return new ResponseEntity<>(conversionService.convert(supplyService.getById(id), SupplyDto.class), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/supply")
+    @PostMapping(value = "/supplies")
     public ResponseEntity<SupplyDto> create(@RequestBody @Valid SupplyDto supplyDto, Principal principal) {
         logger.info("Creating supply...");
         Supply supply = conversionService.convert(supplyDto, Supply.class);
@@ -63,7 +63,7 @@ public class SupplyController {
         return new ResponseEntity<>(conversionService.convert(supplyService.create(supply), SupplyDto.class), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/supply")
+    @PutMapping(value = "/supplies")
     public ResponseEntity<SupplyDto> update(@RequestBody SupplyDto supplyDto, Principal principal) {
         logger.info("Updating supply...");
         Supply supply = conversionService.convert(supplyDto, Supply.class);
@@ -71,7 +71,7 @@ public class SupplyController {
         return new ResponseEntity<>(conversionService.convert(supplyService.update(supply), SupplyDto.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/supply/{supplyId}")
+    @DeleteMapping(value = "/supplies/{supplyId}")
     public void delete(@PathVariable("supplyId") int id) {
         logger.info("Deleting supply...");
         supplyService.delete(id);

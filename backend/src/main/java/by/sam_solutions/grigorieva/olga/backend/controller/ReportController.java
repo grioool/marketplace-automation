@@ -28,13 +28,13 @@ public class ReportController {
     private final Logger logger = LoggerFactory.getLogger(ReportController.class);
     private final ConversionService conversionService;
 
-    @GetMapping(value = "/report/{reportId}")
+    @GetMapping(value = "/reports/{reportId}")
     public ResponseEntity<ReportDto> getReport(@PathVariable("reportId") int id) {
         logger.info("Getting report...");
         return new ResponseEntity<>(conversionService.convert(reportService.getById(id), ReportDto.class), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/report")
+    @PostMapping(value = "/reports")
     public ResponseEntity<ReportDto> create(@RequestBody @Valid ReportDto reportDto, Principal principal) {
         logger.info("Creating report...");
         Report report = conversionService.convert(reportDto, Report.class);
@@ -42,7 +42,7 @@ public class ReportController {
         return new ResponseEntity<>(conversionService.convert(reportService.create(report), ReportDto.class), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/report")
+    @PutMapping(value = "/reports")
     public ResponseEntity<ReportDto> update(@RequestBody ReportDto reportDto, Principal principal) {
         logger.info("Updating report...");
         Report report = conversionService.convert(reportDto, Report.class);
@@ -50,7 +50,7 @@ public class ReportController {
         return new ResponseEntity<>(conversionService.convert(reportService.update(report), ReportDto.class), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/report/{reportId}")
+    @DeleteMapping(value = "/reports/{reportId}")
     public void delete(@PathVariable("reportId") int id) {
         logger.info("Deleting report...");
         reportService.delete(id);

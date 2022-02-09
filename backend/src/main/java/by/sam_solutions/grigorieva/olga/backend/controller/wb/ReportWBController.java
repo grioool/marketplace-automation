@@ -48,7 +48,7 @@ public class ReportWBController {
         );
     }
 
-    @GetMapping("/reportsbypage")
+    @GetMapping("/reportsByPage")
     public ResponseEntity<TablePage<ReportDto>> getReportsWBByPage(@RequestParam
                                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                                                LocalDateTime dateFrom,
