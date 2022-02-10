@@ -65,7 +65,8 @@ public class ReportWBController {
                         tablePage.getItems().stream()
                                 .map(reportWBDto -> conversionService.convert(reportWBDto, ReportDto.class))
                                 .collect(toList()),
-                        tablePage.getTotalCount()
+                        tablePage.getTotalCount(),
+                        tablePage.getCurrentShift()
                 ));
     }
 

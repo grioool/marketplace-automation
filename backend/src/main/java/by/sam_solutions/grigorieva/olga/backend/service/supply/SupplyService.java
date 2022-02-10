@@ -13,4 +13,6 @@ public interface SupplyService extends AbstractService<Supply> {
 
     TablePage<Supply> getSuppliesPerPage(User user, int shift, int rowsPerPage);
 
+    Supply getByProduct(String name);
+
 }

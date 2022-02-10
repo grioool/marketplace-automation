@@ -23,15 +23,17 @@ public class ReportWBDtoToReportDtoConverter implements Converter<ReportWBDto, R
     public ReportDto convert(ReportWBDto reportWBDto) {
         Supply supply = supplyService.getById(reportWBDto.getGi_id().intValue());
 
+        SupplyDto supplyDto = supply == null ? SupplyDto.blank(reportWBDto.getRealizationreport_id()) : conversionService.convert(supply, SupplyDto.class);
+
         ReportDto reportDto = new ReportDto();
         reportDto.setId(reportWBDto.getRealizationreport_id());
         reportDto.setOrderNumber(reportWBDto.getRid());
-        reportDto.setSupply(conversionService.convert(supply, SupplyDto.class));
+        reportDto.setSupply(supplyDto);
         reportDto.setName(reportWBDto.getSa_name());
         reportDto.setOrderPrice(reportWBDto.getRetail_price_withdisc_rub());
         reportDto.setProceeds(reportWBDto.getPpvz_for_pay());
         reportDto.setLogistics(reportWBDto.getDelivery_rub());
-        reportDto.setCostPrice(supply.getCostPrice());
+        reportDto.setCostPrice(supplyDto.getCostPrice());
         reportDto.setCommission(reportWBDto.getPpvz_sales_commission());
         reportDto.setCommissionPerCent(reportWBDto.getCommission_percent());
         reportDto.setCommissionVAT(reportWBDto.getPpvz_vm_nds());

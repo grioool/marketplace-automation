@@ -7,11 +7,13 @@ import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyReposito
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements SupplyService {
 
     private final SupplyRepository supplyRepository;
@@ -24,6 +26,11 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     @Override
     public TablePage<Supply> getSuppliesPerPage(User user, int shift, int rowsPerPage) {
         List<Supply> supplies = supplyRepository.getByUser(user);
-        return new TablePage<>(supplies.subList(shift, Math.min(shift + rowsPerPage, supplies.size())), supplies.size());
+        return TablePage.slice(supplies, shift, rowsPerPage);
+    }
+
+    @Override
+    public Supply getByProduct(String name) {
+       return supplyRepository.getByProduct(name);
     }
 }

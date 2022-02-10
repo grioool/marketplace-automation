@@ -85,7 +85,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     @Override
     public TablePage<User> getUsersPerPage(int shift, int rowsPerPage) {
         List<User> users = userRepository.getAll();
-        return new TablePage<>(users.subList(shift, Math.min(shift + rowsPerPage, users.size())), users.size());
+        return TablePage.slice(users, shift, rowsPerPage);
     }
 
     @Override

@@ -32,6 +32,8 @@ export class ReportList implements OnInit {
 
     public amountOnPage: number = 9;
 
+    public supplyNotFound: string = "Нет данных о поставке";
+
     constructor(private serv: ReportService,
                 public supplyService: SupplyService,
                 private location: Location) {
@@ -56,6 +58,7 @@ export class ReportList implements OnInit {
             .subscribe((page: TablePage<Report>) => {
                 this.reports = page.items;
                 this.totalAmount = page.totalCount;
+                this.currentShift = page.currentShift;
             })
     }
 }

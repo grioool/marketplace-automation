@@ -39,9 +39,9 @@
             <td>{{report.orderPrice}}</td>
             <td>{{report.proceeds}}</td>
             <td>{{report.logistics}}</td>
-            <td>{{report.costPrice}}</td>
+            <td>{{report.costPrice === -1 ? supplyNotFound : report.costPrice}}</td>
             <td>{{report.commission}}</td>
-            <td>{{report.profit}}</td>
+            <td>{{report.costPrice === -1 ? supplyNotFound : report.profit}}</td>
             <td>{{report.commissionPerCent}}</td>
             <td>{{report.commissionVAT}}</td>
             <td>{{report.dateSale}}</td>

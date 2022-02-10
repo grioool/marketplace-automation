@@ -45,7 +45,8 @@ public class SupplyController {
                 page.getItems().stream()
                         .map(supply -> conversionService.convert(supply, SupplyDto.class))
                         .collect(Collectors.toList()),
-                page.getTotalCount()
+                page.getTotalCount(),
+                page.getCurrentShift()
         );
     }
 

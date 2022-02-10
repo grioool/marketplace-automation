@@ -45,7 +45,8 @@ public class PurchaseController {
                 page.getItems().stream()
                         .map(purchase -> conversionService.convert(purchase, PurchaseDto.class))
                         .collect(Collectors.toList()),
-                page.getTotalCount()
+                page.getTotalCount(),
+                page.getCurrentShift()
         );
     }
 

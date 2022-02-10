@@ -47,4 +47,11 @@ public class SupplyDto {
     @Pattern(regexp="^[0-9]{2,15}")
     @NotNull
     private Double costPrice;
+
+    public static SupplyDto blank(Integer id) {
+        SupplyDto supplyDto = new SupplyDto();
+        supplyDto.setId(id);
+        supplyDto.setCostPrice(-1.0);
+        return supplyDto;
+    }
 }

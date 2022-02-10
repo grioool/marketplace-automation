@@ -24,6 +24,6 @@ public class ReportServiceImpl extends AbstractServiceImpl<Report> implements Re
     @Override
     public TablePage<Report> getReportsPerPage(User user, int shift, int rowsPerPage) {
         List<Report> reports = reportRepository.getByUser(user);
-        return new TablePage<>(reports.subList(shift, Math.min(shift + rowsPerPage, reports.size())), reports.size());
+        return TablePage.slice(reports, shift, rowsPerPage);
     }
 }

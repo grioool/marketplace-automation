@@ -68,7 +68,8 @@ public class UserController {
                 page.getItems().stream()
                         .map(user -> conversionService.convert(user, UserDto.class))
                         .collect(toList()),
-                page.getTotalCount()
+                page.getTotalCount(),
+                page.getCurrentShift()
         );
     }
 
