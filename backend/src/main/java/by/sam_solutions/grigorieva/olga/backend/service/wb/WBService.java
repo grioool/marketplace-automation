@@ -1,6 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
+import by.sam_solutions.grigorieva.olga.backend.exception.BusinessException;
+import by.sam_solutions.grigorieva.olga.backend.exception.UpgradeRequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -36,6 +38,8 @@ public class WBService<Entity> {
                 entity,
                 typeReference
         );
+
+        if(response.getStatusCode() == HttpStatus.UPGRADE_REQUIRED) throw new UpgradeRequiredException();
 
         return response.getBody();
     }

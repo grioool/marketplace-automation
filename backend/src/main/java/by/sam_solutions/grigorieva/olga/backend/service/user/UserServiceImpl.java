@@ -69,10 +69,10 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
     }
 
     @Override
-    public User loadUserByUsername(String username) throws AuthenticationException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new AuthenticationException("user.not.found");
+            throw new UsernameNotFoundException("user.not.found");
         }
         return user;
     }

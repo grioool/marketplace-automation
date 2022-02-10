@@ -1,9 +1,12 @@
 package by.sam_solutions.grigorieva.olga.backend.controller.exception.handler;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.localization.Messages;
+import by.sam_solutions.grigorieva.olga.backend.dto.ExceptionDto;
 import by.sam_solutions.grigorieva.olga.backend.exception.*;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,79 +20,81 @@ import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 
 @ControllerAdvice
+@RequiredArgsConstructor
 public class BusinessExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(BusinessExceptionHandler.class);
-    private final String errorHeader = "error";
+    private final ConversionService conversionService;
 
     @ExceptionHandler(value = AuthenticationException.class)
-    public ResponseEntity<String> handleAuthorizationException(AuthenticationException e) {
+    public ResponseEntity<ExceptionDto> handleAuthorizationException(AuthenticationException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).header(errorHeader, e.getLocalizedMessage()).build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(conversionService.convert(e, ExceptionDto.class));
     }
 
     @ExceptionHandler(value = UsernameAlreadyExists.class)
-    public ResponseEntity<String> handleUserAlreadyExists(UsernameAlreadyExists e) {
+    public ResponseEntity<ExceptionDto> handleUserAlreadyExists(UsernameAlreadyExists e) {
         logError(e);
-        return ResponseEntity.badRequest().header(errorHeader, e.getLocalizedMessage()).build();
+        return ResponseEntity.badRequest().body(conversionService.convert(e, ExceptionDto.class));
     }
 
     @ExceptionHandler(value = EmailAlreadyExists.class)
-    public ResponseEntity<String> handleEmailAlreadyExists(EmailAlreadyExists e) {
+    public ResponseEntity<ExceptionDto> handleEmailAlreadyExists(EmailAlreadyExists e) {
         logError(e);
-        return ResponseEntity.badRequest().header(errorHeader, e.getLocalizedMessage()).build();
+        return ResponseEntity.badRequest().body(conversionService.convert(e, ExceptionDto.class));
     }
 
     @ExceptionHandler(value = BusinessException.class)
-    public ResponseEntity<String> handleBusinessException(BusinessException e) {
+    public ResponseEntity<ExceptionDto> handleBusinessException(BusinessException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(errorHeader,e.getLocalizedMessage()).build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(conversionService.convert(e, ExceptionDto.class));
     }
 
     @ExceptionHandler(value = TokenException.class)
-    public ResponseEntity<String> handleTokenInvalid(TokenException e) {
+    public ResponseEntity<ExceptionDto> handleTokenInvalid(TokenException e) {
         logError(e);
-        return ResponseEntity.badRequest().header(errorHeader, e.getLocalizedMessage()).build();
+        return ResponseEntity.badRequest().body(conversionService.convert(e, ExceptionDto.class));
     }
 
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
-    public ResponseEntity<String> handleNotImplementedExceptions(HttpRequestMethodNotSupportedException e) {
+    public ResponseEntity<ExceptionDto> handleNotImplementedExceptions(HttpRequestMethodNotSupportedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).header(errorHeader, e.getLocalizedMessage()).build();
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ExceptionDto(""));
     }
 
     @ExceptionHandler(value = {IOException.class})
-    public ResponseEntity<String> handlerInternalExceptions(IOException e) {
+    public ResponseEntity<ExceptionDto> handlerInternalExceptions(IOException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(errorHeader, e.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDto(e.getMessage()));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+    public ResponseEntity<ExceptionDto> handleConstraintViolationException(ConstraintViolationException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).header(errorHeader, e.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(e.getMessage()));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException e) {
+    public ResponseEntity<ExceptionDto> handleBadCredentialsException(BadCredentialsException e) {
         logError(e);
-        return ResponseEntity.badRequest().header("error", Messages.getMessage("bad.credentials")).build();
+        return ResponseEntity.badRequest().body(new ExceptionDto(Messages.getMessage("bad.credentials")));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleUsernameNotFoundException(UsernameNotFoundException e) {
+    public ResponseEntity<ExceptionDto> handleUsernameNotFoundException(UsernameNotFoundException e) {
         logError(e);
-        return ResponseEntity.badRequest().header("error", Messages.getMessage("bad.credentials")).build();
+        return ResponseEntity.badRequest()
+                .body(new ExceptionDto(Messages.getMessage("bad.credentials")));
     }
 
-   // @ExceptionHandler(value = {HttpStatus.UPGRADE_REQUIRED})
+    @ExceptionHandler(UpgradeRequiredException.class)
     @ResponseStatus(HttpStatus.UPGRADE_REQUIRED)
-    public ResponseEntity<String> handleBadCredentialsException(UsernameNotFoundException e) {
+    public ResponseEntity<ExceptionDto> handleBadCredentialsException(UpgradeRequiredException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).header("error", Messages.getMessage("upgrade.required")).build();
+        return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).body(conversionService.convert(e, ExceptionDto.class));
     }
 
     private void logError(Exception e) {

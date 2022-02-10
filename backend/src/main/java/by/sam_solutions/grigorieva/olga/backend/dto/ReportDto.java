@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.validation.CustomPattern;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -17,45 +18,41 @@ public class ReportDto {
     @NotNull
     private SupplyDto supply;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Long orderNumber;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String name;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double orderPrice;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double proceeds;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double logistics;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double costPrice;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double commission;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double profit;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double commissionPerCent;
-
-    @Pattern(regexp="^[0-9]{2,15}")
-    @NotNull
-    private Double commissionVAT;
 
     @NotNull
     private String dateSale;

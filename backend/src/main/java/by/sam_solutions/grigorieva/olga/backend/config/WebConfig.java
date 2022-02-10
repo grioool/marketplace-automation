@@ -86,6 +86,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(new TownToEntityConverter());
         registry.addConverter(new UserToEntityConverter());
         registry.addConverter(new ReportWBDtoToReportDtoConverter(mConversionService, supplyService, profitService));
+        registry.addConverter(new ExceptionToDtoConverter());
     }
 
     @Bean

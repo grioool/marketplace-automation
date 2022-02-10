@@ -36,7 +36,6 @@ public class ReportWBDtoToReportDtoConverter implements Converter<ReportWBDto, R
         reportDto.setCostPrice(supplyDto.getCostPrice());
         reportDto.setCommission(reportWBDto.getPpvz_sales_commission());
         reportDto.setCommissionPerCent(reportWBDto.getCommission_percent());
-        reportDto.setCommissionVAT(reportWBDto.getPpvz_vm_nds());
         reportDto.setDateOrder(reportWBDto.getOrder_dt().toLocalDateTime().toString());
         reportDto.setDateSale(reportWBDto.getSale_dt().toLocalDateTime().toString());
         reportDto.setProfit(profitService.getProfit(reportDto));

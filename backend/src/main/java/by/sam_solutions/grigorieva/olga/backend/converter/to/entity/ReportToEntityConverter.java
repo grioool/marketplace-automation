@@ -22,7 +22,6 @@ public class ReportToEntityConverter implements Converter<ReportDto, Report> {
         report.setName(reportDto.getName());
         report.setCommission(reportDto.getCommission());
         report.setCommissionPerCent(reportDto.getCommissionPerCent());
-        report.setCommissionVAT(reportDto.getCommissionVAT());
         report.setCostPrice(reportDto.getCostPrice());
         report.setDateOrder(Timestamp.valueOf(reportDto.getDateOrder()));
         report.setDateSale(Timestamp.valueOf(reportDto.getDateSale()));

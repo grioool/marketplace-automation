@@ -1,5 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.dto;
 
+import by.sam_solutions.grigorieva.olga.backend.domain.validation.CustomPattern;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -24,27 +25,27 @@ public class SupplyDto {
     @NotNull
     private Timestamp date;
 
-    @Pattern(regexp="^[A-Za-zА-Яа-яЁё]{2,15}")
+    @CustomPattern(patternKey = "field.letters.regexp", message = "field.letters.invalid")
     @NotNull
     private String product;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Integer amount;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double logistics;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double purchasePrice;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double fulfillment;
 
-    @Pattern(regexp="^[0-9]{2,15}")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private Double costPrice;
 

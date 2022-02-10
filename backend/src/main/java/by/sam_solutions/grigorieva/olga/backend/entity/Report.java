@@ -45,9 +45,6 @@ public class Report extends AbstractEntity {
     @Column(name = "commission_per_cent", nullable = false)
     private Double commissionPerCent;
 
-    @Column(name = "commission_vat", nullable = false)
-    private Double commissionVAT;
-
     @Column(name = "date_sale", nullable = false)
     private Timestamp dateSale;
 

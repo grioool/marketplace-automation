@@ -8,8 +8,6 @@ import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {LocaleContextHolder} from "../classes/locale-context-holder";
 
-export const ERROR_HEADER: string = "error";
-
 @Injectable({
     providedIn: "root"
 })
@@ -32,16 +30,15 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         });
 
         return next.handle(req)
-            .pipe(catchError((error: HttpErrorResponse) => {
-                if (error.status === 403) this.router.navigate([NavigationPath.LOGIN]).then();
+            .pipe(catchError((response: HttpErrorResponse) => {
+                if (response.status === 403) this.router.navigate([NavigationPath.LOGIN]).then();
                 this.messageService.add({
                     severity: "error",
                     summary: "Error",
-                    detail: error.headers.get(ERROR_HEADER) || "Unknown error",
-                    //detail:error.error,
+                    detail: response.error.message || "Unknown server error",
                     key: "notification"
                 })
-                return throwError(() => error);
+                return throwError(() => response);
             }));
     }
 }

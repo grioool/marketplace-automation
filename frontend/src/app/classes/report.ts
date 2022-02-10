@@ -12,7 +12,6 @@ export class Report {
     public commission: number,
     public profit: number,
     public commissionPerCent: number,
-    public commissionVAT: number,
     public dateSale: string,
     public dateOrder: string,
     public supply: Supply
