@@ -1,7 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.converter.to.report;
 
 import by.sam_solutions.grigorieva.olga.backend.dto.ReportDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.wb.ReportWBDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.service.profit.ProfitService;
@@ -21,19 +21,18 @@ public class ReportWBDtoToReportDtoConverter implements Converter<ReportWBDto, R
 
     @Override
     public ReportDto convert(ReportWBDto reportWBDto) {
-        Supply supply = supplyService.getById(reportWBDto.getGi_id().intValue());
-
-        SupplyDto supplyDto = supply == null ? SupplyDto.blank(reportWBDto.getRealizationreport_id()) : conversionService.convert(supply, SupplyDto.class);
+        Supply supply = supplyService.getByIdAndProductName(reportWBDto.getSa_name(), reportWBDto.getGi_id().intValue());
+        SupplyTableRowDto supplyTableRowDto = supply == null ? SupplyTableRowDto.blank(reportWBDto.getRealizationreport_id()) : conversionService.convert(supply, SupplyTableRowDto.class);
 
         ReportDto reportDto = new ReportDto();
         reportDto.setId(reportWBDto.getRealizationreport_id());
         reportDto.setOrderNumber(reportWBDto.getRid());
-        reportDto.setSupply(supplyDto);
+        reportDto.setSupply(supplyTableRowDto);
         reportDto.setName(reportWBDto.getSa_name());
         reportDto.setOrderPrice(reportWBDto.getRetail_price_withdisc_rub());
         reportDto.setProceeds(reportWBDto.getPpvz_for_pay());
         reportDto.setLogistics(reportWBDto.getDelivery_rub());
-        reportDto.setCostPrice(supplyDto.getCostPrice());
+        reportDto.setCostPrice(supplyTableRowDto.getCostPrice());
         reportDto.setCommission(reportWBDto.getPpvz_sales_commission());
         reportDto.setCommissionPerCent(reportWBDto.getCommission_percent());
         reportDto.setDateOrder(reportWBDto.getOrder_dt().toLocalDateTime().toString());

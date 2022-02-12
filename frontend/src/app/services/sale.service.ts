@@ -20,9 +20,10 @@ export class SaleService {
         this.loadedSales.subscribe(() => this.isLoaded = true);
     }
 
-    public getByPage(shift: number, rowsPerPage: number): Observable<TablePage<Sale>> {
+    public getByPage(dateFrom: Date, shift: number, rowsPerPage: number): Observable<TablePage<Sale>> {
         const params = new HttpParams()
             .set('shift', shift)
+            .set("dateFrom", dateFrom.toISOString())
             .set('rowsPerPage', rowsPerPage);
         return this.http.get<TablePage<Sale>>(this.url + '/salesByPage', {params});
     }

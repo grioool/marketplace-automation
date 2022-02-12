@@ -7,6 +7,7 @@ import by.sam_solutions.grigorieva.olga.backend.service.wb.SaleWBService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -27,24 +29,25 @@ public class SaleWBController {
     private final Logger logger = LoggerFactory.getLogger(SaleWBController.class);
 
     @GetMapping("/sales")
-    public ResponseEntity<List<SaleWBDto>> getSales(Principal principal) {
+    public ResponseEntity<List<SaleWBDto>> getSales(Principal principal, @RequestParam
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime dateFrom) {
         logger.info("Getting sales...");
-        return ResponseEntity.ok().body(salesService.getByDateFrom(mockDate(), getUser(principal)));
+        return ResponseEntity.ok().body(salesService.getByDateFrom(dateFrom, getUser(principal)));
     }
 
     @GetMapping("/salesByPage")
-    public TablePage<SaleWBDto> getSalesByPage(@RequestParam Integer shift,
+    public TablePage<SaleWBDto> getSalesByPage(@RequestParam
+                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                           LocalDateTime dateFrom,
+                                               @RequestParam Integer shift,
                                                @RequestParam Integer rowsPerPage,
                                                Principal principal) {
         logger.info("Getting sales by page...");
-        return salesService.getByShift(shift, rowsPerPage, mockDate(), getUser(principal));
+        return salesService.getByShift(shift, rowsPerPage, dateFrom, getUser(principal));
     }
 
     private User getUser(Principal principal) {
         return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
-    }
-
-    private Date mockDate() {
-        return Date.from(Instant.now().minus(1, ChronoUnit.WEEKS));
     }
 }

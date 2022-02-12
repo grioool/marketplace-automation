@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,9 +25,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
+import java.util.*;
 
 @Configuration
 @EnableWebMvc
@@ -50,23 +50,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         this.profitService = profitService;
     }
 
-    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+//    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
+//        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(new Hibernate5Module());
+//
+//        messageConverter.setObjectMapper(mapper);
+//        return messageConverter;
+//
+//    }
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new Hibernate5Module());
-
-        messageConverter.setObjectMapper(mapper);
-        return messageConverter;
-
-    }
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(jacksonMessageConverter());
-        super.configureMessageConverters(converters);
-    }
-
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(jacksonMessageConverter());
+//        super.configureMessageConverters(converters);
+//    }
+    
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new CountryToDtoConverter());
@@ -74,7 +74,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(new ReportToDtoConverter(mConversionService));
         registry.addConverter(new RoleToDtoConverter());
         registry.addConverter(new StorageToDtoConverter(mConversionService));
-        registry.addConverter(new SupplyToDtoConverter(mConversionService));
+        registry.addConverter(new SupplyProductToDtoConverter(mConversionService));
         registry.addConverter(new TownToDtoConverter());
         registry.addConverter(new UserToDtoConverter());
         registry.addConverter(new CountryToEntityConverter());
@@ -82,7 +82,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(new ReportToEntityConverter(mConversionService));
         registry.addConverter(new RoleToEntityConverter());
         registry.addConverter(new StorageToEntityConverter(mConversionService));
-        registry.addConverter(new SupplyToEntityConverter(mConversionService));
+        registry.addConverter(new SupplyTableRowToSupplyProductConverter(mConversionService));
         registry.addConverter(new TownToEntityConverter());
         registry.addConverter(new UserToEntityConverter());
         registry.addConverter(new ReportWBDtoToReportDtoConverter(mConversionService, supplyService, profitService));

@@ -4,6 +4,7 @@ import {SaleService} from "../../services/sale.service";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
 import {User} from "../../classes/user";
+import {Order} from "../../classes/order";
 
 @Component({
     selector: 'app-sale',
@@ -27,17 +28,16 @@ export class SaleListComponent implements OnInit {
 
     public amountOnPage: number = 20;
 
+    public dateFrom: string = new Date(Date.now() - 60 * 60 * 24 * 7).toISOString();
+
+    public currentShift: number = 0;
+
     constructor(private serv: SaleService,
                 private location: Location) {
         this.sales = new Array<Sale>();
     }
-
     ngOnInit() {
-        this.loadSales();
-    }
-
-    private loadSales() {
-        this.setPageSelected(0);
+        this.load();
     }
 
     public back(): void {
@@ -45,10 +45,16 @@ export class SaleListComponent implements OnInit {
     }
 
     public setPageSelected(shift: number): void {
-        this.serv.getByPage(shift, this.amountOnPage)
+        this.currentShift = shift;
+        this.load();
+    }
+
+    public load() {
+        this.serv.getByPage(new Date(Date.parse(this.dateFrom)), this.currentShift, this.amountOnPage)
             .subscribe((page: TablePage<Sale>) => {
                 this.sales = page.items;
                 this.totalAmount = page.totalCount;
+                this.currentShift = page.currentShift;
             })
     }
 }

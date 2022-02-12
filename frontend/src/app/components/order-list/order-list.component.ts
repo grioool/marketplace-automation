@@ -3,6 +3,7 @@ import {Order} from "../../classes/order";
 import {OrderService} from "../../services/order.service";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
+import {Report} from "../../classes/report";
 
 @Component({
     selector: 'app-order',
@@ -25,17 +26,17 @@ export class OrderListComponent implements OnInit {
 
     public amountOnPage: number = 20;
 
+    public dateFrom: string = new Date(Date.now() - 60 * 60 * 24 * 7).toISOString();
+
+    public currentShift: number = 0;
+
     constructor(private serv: OrderService,
                 private location: Location) {
         this.orders = new Array<Order>();
     }
 
     ngOnInit() {
-        this.loadOrders();
-    }
-
-    private loadOrders() {
-        this.setPageSelected(0);
+        this.load();
     }
 
     public back(): void {
@@ -43,10 +44,16 @@ export class OrderListComponent implements OnInit {
     }
 
     public setPageSelected(shift: number): void {
-        this.serv.getByPage(shift, this.amountOnPage)
+        this.currentShift = shift;
+        this.load();
+    }
+
+    public load() {
+        this.serv.getByPage(new Date(Date.parse(this.dateFrom)), this.currentShift, this.amountOnPage)
             .subscribe((page: TablePage<Order>) => {
                 this.orders = page.items;
                 this.totalAmount = page.totalCount;
+                this.currentShift = page.currentShift;
             })
     }
 }

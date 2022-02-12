@@ -42,6 +42,11 @@ export class SupplyList implements OnInit {
                 public storageService: StorageService,
                 private location: Location) {
         this.supplies = new Array<Supply>();
+        this.purchaseService.getLoadedPurchases()
+            .subscribe(purchases => this.purchases = purchases);
+        this.storageService.getLoadedStorages()
+            .subscribe(storages => this.storages = storages);
+
     }
 
     ngOnInit() {

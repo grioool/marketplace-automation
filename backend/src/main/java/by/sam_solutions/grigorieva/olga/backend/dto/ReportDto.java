@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
 
 @Data
 @Validated
@@ -16,7 +15,7 @@ public class ReportDto {
     private Integer id;
 
     @NotNull
-    private SupplyDto supply;
+    private SupplyTableRowDto supply;
 
     @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull

@@ -11,4 +11,6 @@ public interface SupplyRepository extends AbstractRepository<Supply> {
     List<Supply> getByUser(User user);
 
     Supply getByProduct(String name);
+
+    Supply getByIdAndProductName(String product, int id);
 }

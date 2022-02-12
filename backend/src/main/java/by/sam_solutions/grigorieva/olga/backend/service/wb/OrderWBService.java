@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,17 +18,17 @@ public class OrderWBService extends WBService<OrderWBDto> {
         super(url);
     }
 
-    public List<OrderWBDto> getByDateFrom(Date from, User user) {
+    public List<OrderWBDto> getByDateFrom(LocalDateTime from, User user) {
         return getByWBKey(
                 user,
                 uriComponentsBuilder -> uriComponentsBuilder
-                        .queryParam("dateFrom", from)
+                        .queryParam("dateFrom", from.toLocalDate().toString())
                         .queryParam("flag", "0"),
                 new ParameterizedTypeReference<List<OrderWBDto>>() {}
         );
     }
 
-    public TablePage<OrderWBDto> getByShift(int shift, int rowsPerPage, Date from, User user) {
+    public TablePage<OrderWBDto> getByShift(int shift, int rowsPerPage, LocalDateTime from, User user) {
         List<OrderWBDto> entities = getByDateFrom(from, user);
         return TablePage.slice(entities, shift, rowsPerPage);
     }

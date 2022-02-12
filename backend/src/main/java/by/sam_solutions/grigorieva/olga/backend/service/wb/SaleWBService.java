@@ -6,8 +6,11 @@ import by.sam_solutions.grigorieva.olga.backend.dto.wb.SaleWBDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,18 +21,18 @@ public class SaleWBService extends WBService<SaleWBDto> {
         super(url);
     }
 
-    public List<SaleWBDto> getByDateFrom(Date from, User user) {
+    public List<SaleWBDto> getByDateFrom(LocalDateTime dateFrom, User user) {
         return getByWBKey(
                 user,
                 uriComponentsBuilder -> uriComponentsBuilder
-                        .queryParam("dateFrom", from)
+                        .queryParam("dateFrom", dateFrom.toLocalDate().toString())
                         .queryParam("flag", "0"),
                 new ParameterizedTypeReference<List<SaleWBDto>>() {}
         );
     }
 
-    public TablePage<SaleWBDto> getByShift(int shift, int rowsPerPage, Date from, User user) {
-        List<SaleWBDto> entities = getByDateFrom(from, user);
+    public TablePage<SaleWBDto> getByShift(int shift, int rowsPerPage, LocalDateTime dateFrom, User user) {
+        List<SaleWBDto> entities = getByDateFrom(dateFrom, user);
         return TablePage.slice(entities, shift, rowsPerPage);
     }
 }

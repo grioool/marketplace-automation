@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.*;
 
 @Entity
 @Table(name = "supply")
@@ -21,11 +22,9 @@ public class Supply extends AbstractEntity {
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
-    @Column(name = "product", nullable = false)
-    private String product;
-
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Set<SupplyProduct> supplyProducts = new LinkedHashSet<>();
 
     @Column(name = "logistics", nullable = false)
     private Double logistics;
@@ -42,5 +41,4 @@ public class Supply extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 }

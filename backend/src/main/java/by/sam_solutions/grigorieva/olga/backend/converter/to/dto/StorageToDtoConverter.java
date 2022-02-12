@@ -4,8 +4,6 @@ import by.sam_solutions.grigorieva.olga.backend.dto.CountryDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.StorageDto;
 import by.sam_solutions.grigorieva.olga.backend.dto.TownDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Storage;
-import by.sam_solutions.grigorieva.olga.backend.entity.country.Country;
-import by.sam_solutions.grigorieva.olga.backend.entity.town.Town;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;

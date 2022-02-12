@@ -2,10 +2,12 @@ package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.exception.BusinessException;
+import by.sam_solutions.grigorieva.olga.backend.exception.TooManyRequestException;
 import by.sam_solutions.grigorieva.olga.backend.exception.UpgradeRequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,15 +34,21 @@ public class WBService<Entity> {
                 .queryParam("key", user.getWildBerriesKeys());
         uriConfigurator.accept(uriBuilder);
 
-        ResponseEntity<List<Entity>> response = restTemplate.exchange(
-                uriBuilder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                typeReference
-        );
+        try {
+            ResponseEntity<List<Entity>> response = restTemplate.exchange(
+                    uriBuilder.toUriString(),
+                    HttpMethod.GET,
+                    entity,
+                    typeReference
+            );
 
-        if(response.getStatusCode() == HttpStatus.UPGRADE_REQUIRED) throw new UpgradeRequiredException();
+            return response.getBody();
+        }
+        catch(HttpClientErrorException e){
+            if(e.getStatusCode() == HttpStatus.UPGRADE_REQUIRED) throw new UpgradeRequiredException();
+            if(e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) throw new TooManyRequestException();
+            throw e;
+        }
 
-        return response.getBody();
     }
 }

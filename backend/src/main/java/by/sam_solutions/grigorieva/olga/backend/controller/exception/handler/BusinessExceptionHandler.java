@@ -15,6 +15,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -74,6 +75,7 @@ public class BusinessExceptionHandler {
         logError(e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(e.getMessage()));
     }
+    // TODO MethodArgumentNotValid
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -95,6 +97,13 @@ public class BusinessExceptionHandler {
     public ResponseEntity<ExceptionDto> handleBadCredentialsException(UpgradeRequiredException e) {
         logError(e);
         return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(TooManyRequestException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public ResponseEntity<ExceptionDto> handleManyRequestException(TooManyRequestException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert((BusinessException)e, ExceptionDto.class));
     }
 
     private void logError(Exception e) {

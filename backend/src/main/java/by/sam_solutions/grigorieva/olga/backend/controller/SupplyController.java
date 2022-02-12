@@ -1,8 +1,9 @@
 package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
+import by.sam_solutions.grigorieva.olga.backend.entity.SupplyProduct;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
 import lombok.RequiredArgsConstructor;
@@ -30,20 +31,20 @@ public class SupplyController {
     private final ConversionService conversionService;
 
     @GetMapping(value = "/supplies")
-    public  ResponseEntity<List<SupplyDto>> getSupplies(Principal principal) {
+    public ResponseEntity<List<SupplyTableRowDto>> getSupplies(Principal principal) {
         logger.info("Getting supplies...");
         return new ResponseEntity<>(supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
-                .map(supply -> conversionService.convert(supply, SupplyDto.class))
+                .map(supply -> conversionService.convert(supply, SupplyTableRowDto.class))
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/suppliesByPage")
-    public TablePage<SupplyDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
+    public TablePage<SupplyTableRowDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting supplies by page...");
-        TablePage<Supply> page = supplyService.getSuppliesPerPage(getUser(principal), shift, rowsPerPage);
+        TablePage<SupplyProduct> page = supplyService.getSupplyProductsPerPage(getUser(principal), shift, rowsPerPage);
         return new TablePage<>(
                 page.getItems().stream()
-                        .map(supply -> conversionService.convert(supply, SupplyDto.class))
+                        .map(supplyProduct -> conversionService.convert(supplyProduct, SupplyTableRowDto.class))
                         .collect(Collectors.toList()),
                 page.getTotalCount(),
                 page.getCurrentShift()
@@ -51,25 +52,26 @@ public class SupplyController {
     }
 
     @GetMapping(value = "/supplies/{supplyId}")
-    public ResponseEntity<SupplyDto> getSupply(@PathVariable("supplyId") int id) {
+    public ResponseEntity<SupplyTableRowDto> getSupply(@PathVariable("supplyId") int id) {
         logger.info("Getting supply...");
-        return new ResponseEntity<>(conversionService.convert(supplyService.getById(id), SupplyDto.class), HttpStatus.OK);
+        return new ResponseEntity<>(conversionService.convert(supplyService.getById(id), SupplyTableRowDto.class), HttpStatus.OK);
     }
 
     @PostMapping(value = "/supplies")
-    public ResponseEntity<SupplyDto> create(@RequestBody @Valid SupplyDto supplyDto, Principal principal) {
+    public ResponseEntity<SupplyTableRowDto> create(@RequestBody @Valid SupplyTableRowDto supplyTableRowDto, Principal principal) {
         logger.info("Creating supply...");
-        Supply supply = conversionService.convert(supplyDto, Supply.class);
-        supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return new ResponseEntity<>(conversionService.convert(supplyService.create(supply), SupplyDto.class), HttpStatus.OK);
+        SupplyProduct supplyProduct = conversionService.convert(supplyTableRowDto, SupplyProduct.class);
+        supplyProduct.getSupply().setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
+        supplyService.addSupplyProduct(supplyProduct);
+        return new ResponseEntity<>(supplyTableRowDto, HttpStatus.OK);
     }
 
     @PutMapping(value = "/supplies")
-    public ResponseEntity<SupplyDto> update(@RequestBody SupplyDto supplyDto, Principal principal) {
+    public ResponseEntity<SupplyTableRowDto> update(@RequestBody SupplyTableRowDto supplyTableRowDto, Principal principal) {
         logger.info("Updating supply...");
-        Supply supply = conversionService.convert(supplyDto, Supply.class);
+        Supply supply = conversionService.convert(supplyTableRowDto, Supply.class);
         supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return new ResponseEntity<>(conversionService.convert(supplyService.update(supply), SupplyDto.class), HttpStatus.OK);
+        return new ResponseEntity<>(conversionService.convert(supplyService.update(supply), SupplyTableRowDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/supplies/{supplyId}")

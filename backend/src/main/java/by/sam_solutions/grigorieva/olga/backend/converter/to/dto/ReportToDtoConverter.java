@@ -1,7 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.converter.to.dto;
 
 import by.sam_solutions.grigorieva.olga.backend.dto.ReportDto;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyDto;
+import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Report;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
@@ -16,7 +16,7 @@ public class ReportToDtoConverter implements Converter<Report, ReportDto> {
     public ReportDto convert(Report report) {
         ReportDto reportDto = new ReportDto();
         reportDto.setId(report.getId());
-        reportDto.setSupply(conversionService.convert(report.getSupply(), SupplyDto.class));
+        reportDto.setSupply(conversionService.convert(report.getSupply(), SupplyTableRowDto.class));
         reportDto.setName(report.getName());
         reportDto.setCommission(report.getCommission());
         reportDto.setCommissionPerCent(report.getCommissionPerCent());

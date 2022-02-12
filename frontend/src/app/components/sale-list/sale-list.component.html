@@ -5,6 +5,9 @@
 
 <h1 class="saleClass">Продажи WB</h1>
 
+<label>From date: </label>
+<input type="date" [(ngModel)]="dateFrom" (blur)="load()" class="button"/>
+
 <table class="table table-striped">
     <thead>
     <tr class="tableTop">
