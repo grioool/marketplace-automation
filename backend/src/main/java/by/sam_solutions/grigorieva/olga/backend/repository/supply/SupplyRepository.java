@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface SupplyRepository extends AbstractRepository<Supply> {
 
-    List<Supply> getByUser(User user);
+    Supply getByWildberriesId(int id);
 
-    Supply getByProduct(String name);
+    List<Supply> getByUser(User user);
 
     Supply getByIdAndProductName(String product, int id);
 }

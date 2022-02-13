@@ -8,6 +8,8 @@ import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,23 +18,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements SupplyService {
 
-    private final ConversionService conversionService;
-
     private final SupplyRepository supplyRepository;
+
+    @Autowired
+    public SupplyServiceImpl(SupplyRepository supplyRepository) {
+        this.supplyRepository = supplyRepository;
+    }
 
     @Override
     public void addSupplyProduct(SupplyProduct supplyProduct) {
-        Supply supply = supplyRepository.getById(supplyProduct.getId());
+        Supply supply = supplyRepository.getByWildberriesId(supplyProduct.getSupply().getId());
         if (supply == null) {
-            create(conversionService.convert(supplyProduct, Supply.class));
+            create(supplyProduct.getSupply());
             return;
         }
-        supply.getSupplyProducts()
-                .add(new SupplyProduct(supply, supplyProduct.getProduct(), supplyProduct.getAmount()));
+
+        supply.addSupplyProduct(supplyProduct);
         update(supply);
     }
 
@@ -61,5 +65,10 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     @Override
     public Supply getByIdAndProductName(String product, int id) {
         return supplyRepository.getByIdAndProductName(product, id);
+    }
+
+    @Override
+    public Supply getByWildberriesId(int id) {
+        return supplyRepository.getByWildberriesId(id);
     }
 }

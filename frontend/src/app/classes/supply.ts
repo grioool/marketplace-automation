@@ -6,7 +6,7 @@ export class Supply {
     public id: number,
     public purchase: Purchase,
     public storage: Storage,
-    public date: number,
+    public date: string,
     public product: string,
     public amount: number,
     public logistics: number,

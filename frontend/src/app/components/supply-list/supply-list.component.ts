@@ -8,7 +8,6 @@ import {Storage} from "../../classes/storage";
 import {StorageService} from "../../services/storage.service";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
-import {User} from "../../classes/user";
 
 @Component({
     selector: 'supply-root',
@@ -16,7 +15,6 @@ import {User} from "../../classes/user";
     styleUrls: ['./supply-list.component.css']
 })
 export class SupplyList implements OnInit {
-    title = 'frontend';
 
     @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any> | undefined;
     @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any> | undefined;
@@ -32,6 +30,8 @@ export class SupplyList implements OnInit {
     public purchases: Purchase[] = [];
 
     public storages: Storage[] = [];
+
+    public currentShift: number = 0;
 
     public totalAmount: number = 0;
 
@@ -54,11 +54,11 @@ export class SupplyList implements OnInit {
     }
 
     private loadSupplies() {
-        this.setPageSelected(0);
+        this.setPageSelected(this.currentShift);
     }
 
     public addSupply() {
-        this.editedSupply = new Supply(0, null, null, 0, "", 0, 0, 0, 0, 0);
+        this.editedSupply = new Supply(0, null, null, "", "", 0, 0, 0, 0, 0);
         this.supplies.push(this.editedSupply);
         this.isNewRecord = true;
     }
@@ -77,18 +77,17 @@ export class SupplyList implements OnInit {
 
     public saveSupply() {
         if (this.isNewRecord) {
-            this.serv.createSupply(this.editedSupply).subscribe(data => {
-                this.statusMessage = 'Данные успешно добавлены';
-                this.loadSupplies();
-            });
-            this.isNewRecord = false;
-            this.editedSupply = null;
+            this.serv.createSupply(this.editedSupply)
+                .subscribe(() => {
+                    this.loadSupplies();
+                    this.isNewRecord = false;
+                    this.editedSupply = null;
+                });
         } else {
-            this.serv.updateSupply(this.editedSupply).subscribe(data => {
-                this.statusMessage = 'Данные успешно обновлены';
+            this.serv.updateSupply(this.editedSupply).subscribe(() => {
                 this.loadSupplies();
+                this.editedSupply = null;
             });
-            this.editedSupply = null;
         }
     }
 
@@ -101,7 +100,7 @@ export class SupplyList implements OnInit {
     }
 
     public deleteSupply(id: number) {
-        this.serv.deleteSupply(id).subscribe(data => {
+        this.serv.deleteSupply(id).subscribe(() => {
             this.statusMessage = 'Данные успешно удалены';
             this.loadSupplies();
         });
@@ -120,10 +119,12 @@ export class SupplyList implements OnInit {
     }
 
     public setPageSelected(shift: number): void {
+        this.currentShift = shift;
         this.serv.getByPage(shift, this.amountOnPage)
             .subscribe((page: TablePage<Supply>) => {
                 this.supplies = page.items;
                 this.totalAmount = page.totalCount;
+                this.currentShift = page.currentShift;
             })
     }
 }

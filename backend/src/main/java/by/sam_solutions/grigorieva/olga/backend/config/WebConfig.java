@@ -50,22 +50,22 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         this.profitService = profitService;
     }
 
-//    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
-//        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.registerModule(new Hibernate5Module());
-//
-//        messageConverter.setObjectMapper(mapper);
-//        return messageConverter;
-//
-//    }
+    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
+        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
 
-//    @Override
-//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        converters.add(jacksonMessageConverter());
-//        super.configureMessageConverters(converters);
-//    }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new Hibernate5Module());
+
+        messageConverter.setObjectMapper(mapper);
+        return messageConverter;
+
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(jacksonMessageConverter());
+        super.configureMessageConverters(converters);
+    }
     
     @Override
     public void addFormatters(FormatterRegistry registry) {

@@ -1,6 +1,8 @@
 package by.sam_solutions.grigorieva.olga.backend.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,8 +10,12 @@ import java.util.*;
 
 @Entity
 @Table(name = "supply")
-@Data
+@Getter
+@Setter
 public class Supply extends AbstractEntity {
+
+    @Column(name = "wildberries_id")
+    private Integer wildberriesId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "purchase_id", nullable = false)
@@ -22,8 +28,7 @@ public class Supply extends AbstractEntity {
     @Column(name = "date", nullable = false)
     private Timestamp date;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "supply", cascade = CascadeType.ALL)
     private Set<SupplyProduct> supplyProducts = new LinkedHashSet<>();
 
     @Column(name = "logistics", nullable = false)
@@ -41,4 +46,9 @@ public class Supply extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public void addSupplyProduct(SupplyProduct supplyProduct) {
+        supplyProduct.setSupply(this);
+        supplyProducts.add(supplyProduct);
+    }
 }

@@ -19,19 +19,6 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
     }
 
     @Override
-    public Supply getByProduct(String product) {
-        try {
-            return entityManager.createQuery(
-                            "SELECT s from Supply s WHERE s.product = :product", Supply.class
-                    )
-                    .setParameter("product", product)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
-    @Override
     public Supply getByIdAndProductName(String product, int id) {
         try {
             return entityManager.createQuery(
@@ -40,6 +27,17 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
                     )
                     .setParameter("id", id)
                     .setParameter("product", product)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Supply getByWildberriesId(int wildberriesId) {
+        try {
+            return entityManager.createQuery("SELECT s FROM Supply s WHERE s.wildberriesId = :wildberriesId", Supply.class)
+                    .setParameter("wildberriesId", wildberriesId)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;

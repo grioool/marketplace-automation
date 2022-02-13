@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,10 +23,10 @@ public class SupplyTableRowToSupplyProductConverter implements Converter<SupplyT
     @Override
     public SupplyProduct convert(SupplyTableRowDto supplyTableRowDto) {
         Supply supply = new Supply();
-        supply.setId(supplyTableRowDto.getId());
+        supply.setWildberriesId(supplyTableRowDto.getId());
         supply.setPurchase(conversionService.convert(supplyTableRowDto.getPurchase(), Purchase.class));
         supply.setStorage(conversionService.convert(supplyTableRowDto.getStorage(), Storage.class));
-        supply.setDate(supplyTableRowDto.getDate());
+        supply.setDate(Timestamp.valueOf(supplyTableRowDto.getDate()));
 
         Set<SupplyProduct> supplyProducts = new HashSet<>();
         SupplyProduct supplyProduct = new SupplyProduct(supply, supplyTableRowDto.getProduct(), supplyTableRowDto.getAmount());

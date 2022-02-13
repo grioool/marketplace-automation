@@ -2,10 +2,13 @@ package by.sam_solutions.grigorieva.olga.backend.dto;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.validation.CustomPattern;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Validated
@@ -21,12 +24,12 @@ public class SupplyTableRowDto {
     private StorageDto storage;
 
     @NotNull
-    private Timestamp date;
+    private String date;
 
-    @CustomPattern(patternKey = "field.letters.regexp", message = "field.letters.invalid")
     @NotNull
     private String product;
 
+    @NotNull
     private Integer amount;
 
     @NotNull

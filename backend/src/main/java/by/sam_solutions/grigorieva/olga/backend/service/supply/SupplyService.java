@@ -20,4 +20,6 @@ public interface SupplyService extends AbstractService<Supply> {
 
     Supply getByIdAndProductName(String product, int id);
 
+    Supply getByWildberriesId(int id);
+
 }
