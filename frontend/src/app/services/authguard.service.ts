@@ -31,6 +31,6 @@ export class AuthGuardService implements CanActivateChild {
     }
 
     private static requireAuthentication(url: string): boolean {
-        return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN, NavigationPath.PASSWORD].includes(getFirstUrlToken(url) as NavigationPath);
+        return ![NavigationPath.REGISTRATION, NavigationPath.LOGIN].includes(getFirstUrlToken(url) as NavigationPath);
     }
 }

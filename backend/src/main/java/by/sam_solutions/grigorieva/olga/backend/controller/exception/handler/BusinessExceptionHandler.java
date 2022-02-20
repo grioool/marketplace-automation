@@ -6,16 +6,17 @@ import by.sam_solutions.grigorieva.olga.backend.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -75,10 +76,9 @@ public class BusinessExceptionHandler {
         logError(e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(e.getMessage()));
     }
-    // TODO MethodArgumentNotValid
 
     @ExceptionHandler(BadCredentialsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ExceptionDto> handleBadCredentialsException(BadCredentialsException e) {
         logError(e);
         return ResponseEntity.badRequest().body(new ExceptionDto(Messages.getMessage("bad.credentials")));
@@ -103,7 +103,28 @@ public class BusinessExceptionHandler {
     @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
     public ResponseEntity<ExceptionDto> handleManyRequestException(TooManyRequestException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert((BusinessException)e, ExceptionDto.class));
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(ConversionNotSupportedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ExceptionDto> handleConversionException(ConversionNotSupportedException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleMethodNotValidException(MethodArgumentNotValidException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleNullPointerException(NullPointerException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(conversionService.convert(e, ExceptionDto.class));
     }
 
     private void logError(Exception e) {

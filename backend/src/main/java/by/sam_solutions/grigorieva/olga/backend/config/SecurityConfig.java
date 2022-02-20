@@ -3,11 +3,18 @@ package by.sam_solutions.grigorieva.olga.backend.config;
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtAuthenticationFilter;
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtAuthorizationFilter;
 import by.sam_solutions.grigorieva.olga.backend.config.jwt.JwtProvider;
+import by.sam_solutions.grigorieva.olga.backend.config.jwt.handler.JwtAuthEntryPoint;
+import by.sam_solutions.grigorieva.olga.backend.config.jwt.handler.JwtAuthenticationFailureHandler;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,12 +34,15 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtAuthenticationFailureHandler jwtAuthenticationFailureHandler;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
     private final JwtProvider jwtProvider;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -43,7 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         AuthenticationManager authenticationManager = authenticationManagerBean();
         JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtProvider);
+        customAuthenticationFilter.setAuthenticationFailureHandler(jwtAuthenticationFailureHandler);
         customAuthenticationFilter.setFilterProcessesUrl("/login");
+
         http
                 .cors().configurationSource(configurationSource())
                 .and()
@@ -57,7 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(customAuthenticationFilter)
-                .addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthorizationFilter, JwtAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthEntryPoint);
+
     }
 
     public CorsConfigurationSource configurationSource() {
@@ -82,5 +97,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        builder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        builder.serializationInclusion(JsonInclude.Include.NON_NULL);
+        builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return builder;
     }
 }
