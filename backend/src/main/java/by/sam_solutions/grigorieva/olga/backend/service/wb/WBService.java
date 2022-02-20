@@ -49,6 +49,5 @@ public class WBService<Entity> {
             if(e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) throw new TooManyRequestException();
             throw e;
         }
-
     }
 }

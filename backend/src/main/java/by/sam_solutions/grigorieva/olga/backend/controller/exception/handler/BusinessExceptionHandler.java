@@ -17,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -102,6 +103,13 @@ public class BusinessExceptionHandler {
     @ExceptionHandler(TooManyRequestException.class)
     @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
     public ResponseEntity<ExceptionDto> handleManyRequestException(TooManyRequestException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public ResponseEntity<ExceptionDto> handleHttpClientErrorException(HttpClientErrorException e) {
         logError(e);
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
     }
