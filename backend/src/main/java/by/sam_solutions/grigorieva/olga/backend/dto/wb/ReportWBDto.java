@@ -14,7 +14,7 @@ public class ReportWBDto {
 
     private Long rrd_id;
 
-    private Long gi_id; // id поставки
+    private Long gi_id; 
 
     private String subject_name;
 

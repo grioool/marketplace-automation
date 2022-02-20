@@ -5,49 +5,46 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
-import java.sql.Timestamp;
 
 @Data
 @Validated
 public class PurchaseDto {
 
     @NotNull
-    private Integer id;
+    private int id;
 
     @NotNull
     private String date;
 
-   // @CustomPattern(patternKey = "field.letters.regexp", message = "field.letters.invalid")
+    @CustomPattern(patternKey = "field.letters.regexp", message = "field.letters.invalid")
     @NotNull
     private String productName;
 
-  //  @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String priceForOne;
 
-   // @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String amount;
 
-  //  @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String purchasePrice;
 
-  //  @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String logistics;
 
-   // @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String costPrice;
 
-  //  @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String batchPrice;
 
-  //  @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
     private String extra;
 }

@@ -18,6 +18,7 @@ public class SupplyTableRowDto {
     private Integer id;
 
     @NotNull
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     private Integer wildberriesId;
 
     @NotNull
@@ -33,16 +34,20 @@ public class SupplyTableRowDto {
     private String product;
 
     @NotNull
-    private Integer amount;
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    private String amount;
 
     @NotNull
-    private Double logistics;
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    private String logistics;
 
     @NotNull
-    private Double purchasePrice;
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    private String purchasePrice;
 
     @NotNull
-    private Double fulfillment;
+    @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
+    private String fulfillment;
 
     @NotNull
     private Double costPrice;

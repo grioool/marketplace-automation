@@ -29,14 +29,14 @@ public class SupplyTableRowToSupplyProductConverter implements Converter<SupplyT
         supply.setDate(Timestamp.valueOf(LocalDateTime.parse(supplyTableRowDto.getDate(), DateTimeFormatter.ISO_DATE_TIME)));
 
         Set<SupplyProduct> supplyProducts = new HashSet<>();
-        SupplyProduct supplyProduct = new SupplyProduct(supply, supplyTableRowDto.getProduct(), supplyTableRowDto.getAmount());
+        SupplyProduct supplyProduct = new SupplyProduct(supply, supplyTableRowDto.getProduct(), Integer.parseInt(supplyTableRowDto.getAmount()));
         supplyProduct.setId(supplyTableRowDto.getId());
         supplyProducts.add(supplyProduct);
 
         supply.setSupplyProducts(supplyProducts);
-        supply.setLogistics(supplyTableRowDto.getLogistics());
-        supply.setPurchasePrice(supplyTableRowDto.getPurchasePrice());
-        supply.setFulfillment(supplyTableRowDto.getFulfillment());
+        supply.setLogistics(Double.parseDouble(supplyTableRowDto.getLogistics()));
+        supply.setPurchasePrice(Double.parseDouble(supplyTableRowDto.getPurchasePrice()));
+        supply.setFulfillment(Double.parseDouble(supplyTableRowDto.getFulfillment()));
         supply.setCostPrice(supplyTableRowDto.getCostPrice());
         return supplyProduct;
     }

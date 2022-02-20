@@ -4,10 +4,12 @@ import by.sam_solutions.grigorieva.olga.backend.domain.localization.Messages;
 import by.sam_solutions.grigorieva.olga.backend.dto.ExceptionDto;
 import by.sam_solutions.grigorieva.olga.backend.exception.*;
 import lombok.RequiredArgsConstructor;
+import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -62,20 +64,13 @@ public class BusinessExceptionHandler {
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<ExceptionDto> handleNotImplementedExceptions(HttpRequestMethodNotSupportedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ExceptionDto(""));
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ExceptionDto(Messages.getMessage("method.not.supported")));
     }
 
     @ExceptionHandler(value = {IOException.class})
     public ResponseEntity<ExceptionDto> handlerInternalExceptions(IOException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDto(e.getMessage()));
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ExceptionDto> handleConstraintViolationException(ConstraintViolationException e) {
-        logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(e.getMessage()));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDto(Messages.getMessage("fatal.error")));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -107,32 +102,53 @@ public class BusinessExceptionHandler {
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
     }
 
-    @ExceptionHandler(HttpClientErrorException.class)
-    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
-    public ResponseEntity<ExceptionDto> handleHttpClientErrorException(HttpClientErrorException e) {
-        logError(e);
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
-    }
-
     @ExceptionHandler(ConversionNotSupportedException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ExceptionDto> handleConversionException(ConversionNotSupportedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(conversionService.convert(e, ExceptionDto.class));
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(new ExceptionDto(Messages.getMessage("fatal.error")));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleMethodNotValidException(MethodArgumentNotValidException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(conversionService.convert(e, ExceptionDto.class));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
     }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleNullPointerException(NullPointerException e) {
         logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
+    }
+
+    @ExceptionHandler(LocalizationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleLocalizationException(LocalizationException e) {
+        logError(e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(conversionService.convert(e, ExceptionDto.class));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleDatabaseIntegrityException(DataIntegrityViolationException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleConstraintViolationException(ConstraintViolationException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+    }
+
+    @ExceptionHandler(PSQLException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handlePSQLException(PSQLException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
     }
 
     private void logError(Exception e) {

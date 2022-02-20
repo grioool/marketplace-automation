@@ -5,13 +5,12 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 @Data
 @Validated
 public class SupplyProductDto {
 
-    @Null
+    @NotNull
     private Integer id;
 
     @NotNull
@@ -22,5 +21,5 @@ public class SupplyProductDto {
 
     @CustomPattern(patternKey = "field.digits.regexp", message = "field.digits.invalid")
     @NotNull
-    private Integer amount;
+    private String amount;
 }

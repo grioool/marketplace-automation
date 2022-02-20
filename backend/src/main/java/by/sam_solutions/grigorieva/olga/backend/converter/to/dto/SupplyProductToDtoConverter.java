@@ -22,10 +22,10 @@ public class SupplyProductToDtoConverter implements Converter<SupplyProduct, Sup
         supplyTableRowDto.setStorage(conversionService.convert(supplyProduct.getSupply().getStorage(), StorageDto.class));
         supplyTableRowDto.setDate(supplyProduct.getSupply().getDate().toLocalDateTime().toString());
         supplyTableRowDto.setProduct(supplyProduct.getProduct());
-        supplyTableRowDto.setAmount(supplyProduct.getAmount());
-        supplyTableRowDto.setLogistics(supplyProduct.getSupply().getLogistics());
-        supplyTableRowDto.setPurchasePrice(supplyProduct.getSupply().getPurchasePrice());
-        supplyTableRowDto.setFulfillment(supplyProduct.getSupply().getFulfillment());
+        supplyTableRowDto.setAmount(supplyProduct.getAmount().toString());
+        supplyTableRowDto.setLogistics(supplyProduct.getSupply().getLogistics().toString());
+        supplyTableRowDto.setPurchasePrice(supplyProduct.getSupply().getPurchasePrice().toString());
+        supplyTableRowDto.setFulfillment(supplyProduct.getSupply().getFulfillment().toString());
         supplyTableRowDto.setCostPrice(supplyProduct.getSupply().getCostPrice());
         return supplyTableRowDto;
     }
