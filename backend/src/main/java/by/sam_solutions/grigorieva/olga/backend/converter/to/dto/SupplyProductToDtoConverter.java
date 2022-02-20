@@ -16,7 +16,8 @@ public class SupplyProductToDtoConverter implements Converter<SupplyProduct, Sup
     @Override
     public SupplyTableRowDto convert(SupplyProduct supplyProduct) {
         SupplyTableRowDto supplyTableRowDto = new SupplyTableRowDto();
-        supplyTableRowDto.setId(supplyProduct.getSupply().getWildberriesId());
+        supplyTableRowDto.setId(supplyProduct.getId());
+        supplyTableRowDto.setWildberriesId(supplyProduct.getSupply().getWildberriesId());
         supplyTableRowDto.setPurchase(conversionService.convert(supplyProduct.getSupply().getPurchase(), PurchaseDto.class));
         supplyTableRowDto.setStorage(conversionService.convert(supplyProduct.getSupply().getStorage(), StorageDto.class));
         supplyTableRowDto.setDate(supplyProduct.getSupply().getDate().toLocalDateTime().toString());

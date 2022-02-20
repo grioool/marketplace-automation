@@ -25,7 +25,7 @@ public class ReportsWBService extends WBService<ReportWBDto> {
                 uriComponentsBuilder -> uriComponentsBuilder
                         .queryParam("dateFrom", period.getFrom().toLocalDate().toString())
                         .queryParam("dateTo", period.getTo().toLocalDate().toString()),
-                new ParameterizedTypeReference<>() {
+                new ParameterizedTypeReference<List<ReportWBDto>>() {
                 }
         );
     }

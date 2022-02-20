@@ -7,12 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TownRepositoryImpl extends AbstractRepositoryImpl<Town> implements TownRepository {
-
-    public Town findByName(TownName name) {
-        return entityManager.createQuery(
-                        "SELECT t from Town t WHERE t.townName = :townName", Town.class
-                )
-                .setParameter("townName", name)
-                .getSingleResult();
-    }
 }

@@ -12,13 +12,13 @@ public interface SupplyService extends AbstractService<Supply> {
 
     void addSupplyProduct(SupplyProduct supplyProduct);
 
+    void updateSupplyProduct(SupplyProduct supplyProduct);
+
     List<Supply> getByUser(User user);
 
     TablePage<SupplyProduct> getSupplyProductsPerPage(User user, int shift, int rowsPerPage);
 
-    Supply getByProduct(String name);
-
-    Supply getByIdAndProductName(String product, int id);
+    Supply getByWildberriesIdAndProductName(String product, int id);
 
     Supply getByWildberriesId(int id);
 

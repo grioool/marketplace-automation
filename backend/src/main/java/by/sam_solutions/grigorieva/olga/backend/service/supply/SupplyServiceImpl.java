@@ -1,16 +1,13 @@
 package by.sam_solutions.grigorieva.olga.backend.service.supply;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
-import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
 import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.SupplyProduct;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.supply.SupplyRepository;
+import by.sam_solutions.grigorieva.olga.backend.repository.supply.product.SupplyProductRepository;
 import by.sam_solutions.grigorieva.olga.backend.service.AbstractServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements SupplyService {
 
     private final SupplyRepository supplyRepository;
 
-    @Autowired
-    public SupplyServiceImpl(SupplyRepository supplyRepository) {
-        this.supplyRepository = supplyRepository;
-    }
+    private final SupplyProductRepository supplyProductRepository;
 
     @Override
     public void addSupplyProduct(SupplyProduct supplyProduct) {
@@ -38,6 +33,12 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
 
         supply.addSupplyProduct(supplyProduct);
         update(supply);
+    }
+
+    @Override
+    public void updateSupplyProduct(SupplyProduct supplyProduct) {
+        supplyProduct.getSupply().setId(supplyRepository.getByWildberriesId(supplyProduct.getSupply().getWildberriesId()).getId());
+        supplyProductRepository.update(supplyProduct);
     }
 
     @Override
@@ -58,13 +59,15 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     }
 
     @Override
-    public Supply getByProduct(String name) {
-        return supplyRepository.getByProduct(name);
-    }
-
-    @Override
-    public Supply getByIdAndProductName(String product, int id) {
-        return supplyRepository.getByIdAndProductName(product, id);
+    public Supply getByWildberriesIdAndProductName(String product, int id) {
+        Supply supply = supplyRepository.getByWildberriesId(id);
+        if(supply == null) {
+            return null;
+        }
+        boolean hasProduct = supply.getSupplyProducts().stream()
+                .anyMatch(supplyProduct -> supplyProduct.getProduct().equals(product));
+        if(hasProduct) return null;
+        return supply;
     }
 
     @Override

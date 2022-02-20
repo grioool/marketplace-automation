@@ -10,15 +10,15 @@ public class PurchaseToDtoConverter implements Converter<Purchase, PurchaseDto> 
     public PurchaseDto convert(Purchase purchase) {
         PurchaseDto purchaseDto = new PurchaseDto();
         purchaseDto.setId(purchase.getId());
-        purchaseDto.setDate(purchase.getDate());
+        purchaseDto.setDate(purchase.getDate().toLocalDateTime().toString());
         purchaseDto.setProductName(purchase.getProductName());
-        purchaseDto.setPriceForOne(purchase.getPriceForOne());
-        purchaseDto.setAmount(purchase.getAmount());
-        purchaseDto.setPurchasePrice(purchase.getPurchasePrice());
-        purchaseDto.setLogistics(purchase.getLogistics());
-        purchaseDto.setCostPrice(purchase.getCostPrice());
-        purchaseDto.setBatchPrice(purchase.getBatchPrice());
-        purchaseDto.setExtra(purchase.getExtra());
+        purchaseDto.setPriceForOne(purchase.getPriceForOne().toString());
+        purchaseDto.setAmount(purchase.getAmount().toString());
+        purchaseDto.setPurchasePrice(purchase.getPurchasePrice().toString());
+        purchaseDto.setLogistics(purchase.getLogistics().toString());
+        purchaseDto.setCostPrice(purchase.getCostPrice().toString());
+        purchaseDto.setBatchPrice(purchase.getBatchPrice().toString());
+        purchaseDto.setExtra(purchase.getExtra().toString());
         return purchaseDto;
     }
 }

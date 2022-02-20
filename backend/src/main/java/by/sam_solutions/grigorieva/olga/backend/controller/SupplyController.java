@@ -2,7 +2,6 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
-import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.SupplyProduct;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
@@ -16,10 +15,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,9 +68,10 @@ public class SupplyController {
     @PutMapping(value = "/supplies")
     public ResponseEntity<SupplyTableRowDto> update(@RequestBody SupplyTableRowDto supplyTableRowDto, Principal principal) {
         logger.info("Updating supply...");
-        Supply supply = conversionService.convert(supplyTableRowDto, Supply.class);
-        supply.setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
-        return new ResponseEntity<>(conversionService.convert(supplyService.update(supply), SupplyTableRowDto.class), HttpStatus.OK);
+        SupplyProduct supplyProduct = conversionService.convert(supplyTableRowDto, SupplyProduct.class);
+        supplyProduct.getSupply().setUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal());
+        supplyService.updateSupplyProduct(supplyProduct);
+        return ResponseEntity.ok(supplyTableRowDto);
     }
 
     @DeleteMapping(value = "/supplies/{supplyId}")

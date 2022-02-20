@@ -2,10 +2,8 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Purchase} from '../../classes/purchase';
 import {PurchaseService} from '../../services/purchase.service';
 import {isPresent} from "../../../util";
-import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
-import {Sale} from "../../classes/sale";
 
 @Component({
     selector: 'purchase-root',
@@ -44,7 +42,7 @@ export class PurchaseList implements OnInit {
     }
 
     public addPurchase() {
-        this.editedPurchase = new Purchase(0, 0, "", 0, 0, 0, 0, 0, 0, 0);
+        this.editedPurchase = new Purchase(0, "", "", 0, 0, 0, 0, 0, 0, 0);
         this.purchases.push(this.editedPurchase);
         this.isNewRecord = true;
     }
@@ -62,6 +60,11 @@ export class PurchaseList implements OnInit {
     }
 
     public savePurchase() {
+        if(this.editedPurchase.date) {
+            this.editedPurchase.date = new Date(Date.parse(this.editedPurchase.date)).toISOString();
+        } else {
+            this.editedPurchase.date = new Date().toISOString();
+        }
         if (this.isNewRecord) {
             this.serv.createPurchase(this.editedPurchase).subscribe(data => {
                 this.statusMessage = 'Данные успешно добавлены';

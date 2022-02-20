@@ -24,7 +24,7 @@
   <tbody class="tableBody">
   <tr *ngFor="let supply of supplies">
     <ng-container *ngIf="isReadOnly(supply)">
-      <td>{{supply.id}}</td>
+      <td>{{supply.wildberriesId}}</td>
       <td>{{supply.purchase.id}}</td>
       <td>{{supply.storage.id}}</td>
       <td>{{supply.date}}</td>
@@ -43,7 +43,7 @@
     </ng-container>
     <ng-container *ngIf="isEditable(supply)">
       <td>
-        <input type="number" [(ngModel)]="editedSupply.id" class="form-control">
+        <input type="number" [(ngModel)]="editedSupply.wildberriesId" class="form-control">
       </td>
       <td>
         <select [(ngModel)]="editedSupply.purchase" class="form-control">

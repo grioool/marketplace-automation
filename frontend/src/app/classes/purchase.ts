@@ -1,7 +1,7 @@
 export class Purchase {
   constructor(
     public id: number,
-    public date: number,
+    public date: string,
     public productName: string,
     public priceForOne: number,
     public amount: number,

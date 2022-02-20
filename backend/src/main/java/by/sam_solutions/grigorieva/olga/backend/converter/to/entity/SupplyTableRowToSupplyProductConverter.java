@@ -10,9 +10,9 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -23,13 +23,14 @@ public class SupplyTableRowToSupplyProductConverter implements Converter<SupplyT
     @Override
     public SupplyProduct convert(SupplyTableRowDto supplyTableRowDto) {
         Supply supply = new Supply();
-        supply.setWildberriesId(supplyTableRowDto.getId());
+        supply.setWildberriesId(supplyTableRowDto.getWildberriesId());
         supply.setPurchase(conversionService.convert(supplyTableRowDto.getPurchase(), Purchase.class));
         supply.setStorage(conversionService.convert(supplyTableRowDto.getStorage(), Storage.class));
-        supply.setDate(Timestamp.valueOf(supplyTableRowDto.getDate()));
+        supply.setDate(Timestamp.valueOf(LocalDateTime.parse(supplyTableRowDto.getDate(), DateTimeFormatter.ISO_DATE_TIME)));
 
         Set<SupplyProduct> supplyProducts = new HashSet<>();
         SupplyProduct supplyProduct = new SupplyProduct(supply, supplyTableRowDto.getProduct(), supplyTableRowDto.getAmount());
+        supplyProduct.setId(supplyTableRowDto.getId());
         supplyProducts.add(supplyProduct);
 
         supply.setSupplyProducts(supplyProducts);

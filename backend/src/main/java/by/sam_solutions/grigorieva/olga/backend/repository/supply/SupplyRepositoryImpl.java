@@ -13,24 +13,9 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
 
     @Override
     public List<Supply> getByUser(User user) {
-        return entityManager.createQuery("SELECT s FROM Supply s WHERE s.user = :user")
+        return entityManager.createQuery("SELECT s FROM Supply s WHERE s.user = :user", Supply.class)
                 .setParameter("user", user)
                 .getResultList();
-    }
-
-    @Override
-    public Supply getByIdAndProductName(String product, int id) {
-        try {
-            return entityManager.createQuery(
-                            "SELECT s from Supply s, SupplyProduct sp " +
-                                    "WHERE s.id = :id AND s = sp.supply AND sp.product = :product", Supply.class
-                    )
-                    .setParameter("id", id)
-                    .setParameter("product", product)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     @Override

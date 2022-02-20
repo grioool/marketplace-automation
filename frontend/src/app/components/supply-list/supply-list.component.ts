@@ -1,6 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Supply} from '../../classes/supply';
-import {isPresent} from "../../../util";
 import {SupplyService} from "../../services/supply.service";
 import {Purchase} from "../../classes/purchase";
 import {PurchaseService} from "../../services/purchase.service";
@@ -58,13 +57,37 @@ export class SupplyList implements OnInit {
     }
 
     public addSupply() {
-        this.editedSupply = new Supply(0, null, null, "", "", 0, 0, 0, 0, 0);
+        this.editedSupply = new Supply(
+            -1,
+            0,
+            null,
+            null,
+            "",
+            "",
+            0,
+            0,
+            0,
+            0,
+            0
+        );
         this.supplies.push(this.editedSupply);
         this.isNewRecord = true;
     }
 
     public editSupply(supply: Supply) {
-        this.editedSupply = new Supply(supply.id, supply.purchase, supply.storage, supply.date, supply.product, supply.amount, supply.logistics, supply.purchasePrice, supply.fulfillment, supply.costPrice);
+        this.editedSupply = new Supply(
+            supply.id,
+            supply.wildberriesId,
+            supply.purchase,
+            supply.storage,
+            supply.date,
+            supply.product,
+            supply.amount,
+            supply.logistics,
+            supply.purchasePrice,
+            supply.fulfillment,
+            supply.costPrice
+        );
     }
 
     public loadTemplate(supply: Supply) {
@@ -76,15 +99,22 @@ export class SupplyList implements OnInit {
     }
 
     public saveSupply() {
+        if(this.editedSupply.date) {
+            this.editedSupply.date = new Date(Date.parse(this.editedSupply.date)).toISOString();
+        } else {
+            this.editedSupply.date = new Date().toISOString();
+        }
         if (this.isNewRecord) {
             this.serv.createSupply(this.editedSupply)
                 .subscribe(() => {
+                    this.statusMessage = 'Данные успешно добавлены';
                     this.loadSupplies();
                     this.isNewRecord = false;
                     this.editedSupply = null;
                 });
         } else {
             this.serv.updateSupply(this.editedSupply).subscribe(() => {
+                this.statusMessage = 'Данные успешно обновлены';
                 this.loadSupplies();
                 this.editedSupply = null;
             });
@@ -111,7 +141,7 @@ export class SupplyList implements OnInit {
     }
 
     public isEditable(supply: Supply): boolean {
-        return isPresent(this.editedSupply) && this.editedSupply.id === supply.id;
+        return supply.id === this.editedSupply?.id;
     }
 
     public back(): void {

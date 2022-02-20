@@ -18,6 +18,9 @@ public class SupplyTableRowDto {
     private Integer id;
 
     @NotNull
+    private Integer wildberriesId;
+
+    @NotNull
     private PurchaseDto purchase;
 
     @NotNull

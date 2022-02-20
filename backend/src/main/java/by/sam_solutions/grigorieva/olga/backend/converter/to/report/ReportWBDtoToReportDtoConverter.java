@@ -21,7 +21,7 @@ public class ReportWBDtoToReportDtoConverter implements Converter<ReportWBDto, R
 
     @Override
     public ReportDto convert(ReportWBDto reportWBDto) {
-        Supply supply = supplyService.getByIdAndProductName(reportWBDto.getSa_name(), reportWBDto.getGi_id().intValue());
+        Supply supply = supplyService.getByWildberriesIdAndProductName(reportWBDto.getSa_name(), reportWBDto.getGi_id().intValue());
         SupplyTableRowDto supplyTableRowDto = supply == null ? SupplyTableRowDto.blank(reportWBDto.getRealizationreport_id()) : conversionService.convert(supply, SupplyTableRowDto.class);
 
         ReportDto reportDto = new ReportDto();

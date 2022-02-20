@@ -34,7 +34,7 @@ public class WBService<Entity> {
                 .queryParam("key", user.getWildBerriesKeys());
         uriConfigurator.accept(uriBuilder);
 
-        try {
+     //   try {
             ResponseEntity<List<Entity>> response = restTemplate.exchange(
                     uriBuilder.toUriString(),
                     HttpMethod.GET,
@@ -43,12 +43,12 @@ public class WBService<Entity> {
             );
 
             return response.getBody();
-        }
-        catch(HttpClientErrorException e){
-            if(e.getStatusCode() == HttpStatus.UPGRADE_REQUIRED) throw new UpgradeRequiredException();
-            if(e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) throw new TooManyRequestException();
-            throw e;
-        }
+    //    }
+//        catch(HttpClientErrorException e){
+////            if(e.getStatusCode() == HttpStatus.UPGRADE_REQUIRED) throw new UpgradeRequiredException();
+////            if(e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) throw new TooManyRequestException();
+//            throw e;
+//        }
 
     }
 }
