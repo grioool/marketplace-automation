@@ -27,7 +27,7 @@ import {MessageService} from "primeng/api";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 
 @NgModule({
     declarations: [

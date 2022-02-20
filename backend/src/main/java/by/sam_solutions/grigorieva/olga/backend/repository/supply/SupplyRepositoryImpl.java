@@ -20,12 +20,14 @@ public class SupplyRepositoryImpl extends AbstractRepositoryImpl<Supply> impleme
 
     @Override
     public Supply getByWildberriesId(int wildberriesId) {
+        Supply supply;
         try {
-            return entityManager.createQuery("SELECT s FROM Supply s WHERE s.wildberriesId = :wildberriesId", Supply.class)
+            supply = entityManager.createQuery("SELECT s FROM Supply s WHERE s.wildberriesId = :wildberriesId", Supply.class)
                     .setParameter("wildberriesId", wildberriesId)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
+        return supply;
     }
 }

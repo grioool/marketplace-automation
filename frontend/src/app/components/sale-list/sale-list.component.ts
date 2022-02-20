@@ -3,8 +3,6 @@ import {Sale} from "../../classes/sale";
 import {SaleService} from "../../services/sale.service";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
-import {User} from "../../classes/user";
-import {Order} from "../../classes/order";
 
 @Component({
     selector: 'app-sale',

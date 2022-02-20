@@ -112,12 +112,17 @@ export class SupplyList implements OnInit {
                     this.isNewRecord = false;
                     this.editedSupply = null;
                 });
+            this.isNewRecord = false;
+            this.editedSupply = null;
+            this.loadSupplies();
         } else {
             this.serv.updateSupply(this.editedSupply).subscribe(() => {
                 this.statusMessage = 'Данные успешно обновлены';
                 this.loadSupplies();
                 this.editedSupply = null;
             });
+            this.editedSupply = null;
+            this.loadSupplies();
         }
     }
 

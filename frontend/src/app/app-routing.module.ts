@@ -1,4 +1,4 @@
-import {Component, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PurchaseList} from "./components/purchase-list/purchase-list.component";
 import {UserList} from "./components/user-list/user-list.component";

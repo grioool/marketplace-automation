@@ -32,9 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
-import java.util.stream.Collectors;
 import java.security.Principal;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;

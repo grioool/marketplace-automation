@@ -3,7 +3,6 @@ package by.sam_solutions.grigorieva.olga.backend.dto.wb;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 public class ReportWBDto {

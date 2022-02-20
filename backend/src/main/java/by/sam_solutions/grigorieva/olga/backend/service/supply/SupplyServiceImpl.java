@@ -30,7 +30,6 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
             create(supplyProduct.getSupply());
             return;
         }
-
         supply.addSupplyProduct(supplyProduct);
         update(supply);
     }

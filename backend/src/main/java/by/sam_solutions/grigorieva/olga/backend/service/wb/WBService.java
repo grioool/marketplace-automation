@@ -1,7 +1,6 @@
 package by.sam_solutions.grigorieva.olga.backend.service.wb;
 
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
-import by.sam_solutions.grigorieva.olga.backend.exception.BusinessException;
 import by.sam_solutions.grigorieva.olga.backend.exception.TooManyRequestException;
 import by.sam_solutions.grigorieva.olga.backend.exception.UpgradeRequiredException;
 import lombok.RequiredArgsConstructor;

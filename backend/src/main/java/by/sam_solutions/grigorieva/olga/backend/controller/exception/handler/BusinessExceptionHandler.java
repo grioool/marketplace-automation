@@ -19,7 +19,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -149,6 +148,13 @@ public class BusinessExceptionHandler {
     public ResponseEntity<ExceptionDto> handlePSQLException(PSQLException e) {
         logError(e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionDto> handleIllegalArgumentException(IllegalArgumentException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
     }
 
     private void logError(Exception e) {

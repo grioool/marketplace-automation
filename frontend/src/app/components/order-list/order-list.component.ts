@@ -3,7 +3,6 @@ import {Order} from "../../classes/order";
 import {OrderService} from "../../services/order.service";
 import {Location} from "@angular/common";
 import {TablePage} from "../../classes/table-page";
-import {Report} from "../../classes/report";
 
 @Component({
     selector: 'app-order',

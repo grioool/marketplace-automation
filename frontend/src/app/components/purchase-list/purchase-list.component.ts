@@ -72,12 +72,14 @@ export class PurchaseList implements OnInit {
             });
             this.isNewRecord = false;
             this.editedPurchase = null;
+            this.loadPurchases();
         } else {
             this.serv.updatePurchase(this.editedPurchase as Purchase).subscribe(data => {
                 this.statusMessage = 'Данные успешно обновлены';
                 this.loadPurchases();
             });
             this.editedPurchase = null;
+            this.loadPurchases();
         }
     }
 

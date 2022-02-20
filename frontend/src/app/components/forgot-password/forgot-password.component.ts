@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {PasswordService} from "../../services/password.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
