@@ -16,6 +16,8 @@ export class SupplyService {
 
     private loadedSupplies: Subject<Supply[]> = new ReplaySubject<Supply[]>(1);
 
+    private loadedSuppliesIds: Subject<number[]> = new ReplaySubject<number[]>(1);
+
     constructor(private http: HttpClient) {
         this.loadedSupplies.subscribe(() => this.isLoaded = true);
     }
@@ -39,15 +41,20 @@ export class SupplyService {
         return this.http.delete<Supply>(this.url + '/supplies/' + id);
     }
 
-    public getLoadedSupplies(): Observable<Supply[]> {
+    public getLoadedSuppliesIds(): Observable<number[]> {
         if (!this.isLoaded)
-            this.getSupplies().subscribe();
-        return this.loadedSupplies.asObservable();
+            this.getSuppliesIds().subscribe();
+        return this.loadedSuppliesIds.asObservable();
     }
 
     public getSupplies(): Observable<Supply[]> {
         return this.http.get<Supply[]>(this.url + '/supplies')
             .pipe(tap(supplies => this.loadedSupplies.next(supplies)));
+    }
+
+    public getSuppliesIds(): Observable<number[]> {
+        return this.http.get<number[]>(this.url + '/supplies/ids')
+            .pipe(tap(ids => this.loadedSuppliesIds.next(ids)));
     }
 
 }

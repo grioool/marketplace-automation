@@ -14,6 +14,8 @@ public interface SupplyService extends AbstractService<Supply> {
 
     void updateSupplyProduct(SupplyProduct supplyProduct);
 
+    void deleteSupplyProduct(Integer id);
+
     List<Supply> getByUser(User user);
 
     TablePage<SupplyProduct> getSupplyProductsPerPage(User user, int shift, int rowsPerPage);

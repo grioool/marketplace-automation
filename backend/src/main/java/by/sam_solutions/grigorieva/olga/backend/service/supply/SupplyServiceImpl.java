@@ -41,6 +41,17 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     }
 
     @Override
+    public void deleteSupplyProduct(Integer id) {
+        SupplyProduct supplyProduct = supplyProductRepository.getById(id);
+        Supply supply = supplyProduct.getSupply();
+        if (supply.getSupplyProducts().size() == 1) {
+            supplyRepository.delete(supply.getId());
+            return;
+        }
+        supply.removeProduct(supplyProduct);
+    }
+
+    @Override
     public List<Supply> getByUser(User user) {
         return supplyRepository.getByUser(user);
     }
@@ -60,12 +71,12 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
     @Override
     public Supply getByWildberriesIdAndProductName(String product, int id) {
         Supply supply = supplyRepository.getByWildberriesId(id);
-        if(supply == null) {
+        if (supply == null) {
             return null;
         }
         boolean hasProduct = supply.getSupplyProducts().stream()
                 .anyMatch(supplyProduct -> supplyProduct.getProduct().equals(product));
-        if(hasProduct) return null;
+        if (hasProduct) return null;
         return supply;
     }
 

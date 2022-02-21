@@ -2,6 +2,7 @@ package by.sam_solutions.grigorieva.olga.backend.controller;
 
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.SupplyTableRowDto;
+import by.sam_solutions.grigorieva.olga.backend.entity.Supply;
 import by.sam_solutions.grigorieva.olga.backend.entity.SupplyProduct;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.service.supply.SupplyService;
@@ -34,6 +35,14 @@ public class SupplyController {
         logger.info("Getting supplies...");
         return new ResponseEntity<>(supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
                 .map(supply -> conversionService.convert(supply, SupplyTableRowDto.class))
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/supplies/ids")
+    public ResponseEntity<List<Integer>> getSuppliesIds(Principal principal) {
+        logger.info("Getting supplies ids...");
+        return new ResponseEntity<>(supplyService.getByUser((User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal()).stream()
+                .map(Supply::getWildberriesId)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
@@ -77,7 +86,7 @@ public class SupplyController {
     @DeleteMapping(value = "/supplies/{supplyId}")
     public void delete(@PathVariable("supplyId") int id) {
         logger.info("Deleting supply...");
-        supplyService.delete(id);
+        supplyService.deleteSupplyProduct(id);
         logger.info("Deleted.");
     }
 

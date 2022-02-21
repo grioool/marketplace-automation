@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Setter
 public class SupplyProduct extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "supply_id", nullable = false)
     private Supply supply;
 

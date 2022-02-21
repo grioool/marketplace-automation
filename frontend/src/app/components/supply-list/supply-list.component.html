@@ -43,7 +43,12 @@
     </ng-container>
     <ng-container *ngIf="isEditable(supply)">
       <td>
-        <input type="number" [(ngModel)]="editedSupply.wildberriesId" class="form-control">
+        <input type="number" *ngIf="isNewRecord" [(ngModel)]="editedSupply.wildberriesId" class="form-control">
+          <select *ngIf="!isNewRecord" [(ngModel)]="editedSupply.wildberriesId" class="form-control">
+              <option *ngFor="let id of suppliesIds" [ngValue]="id">
+                  {{id}}
+              </option>
+          </select>
       </td>
       <td>
         <select [(ngModel)]="editedSupply.purchase" class="form-control">

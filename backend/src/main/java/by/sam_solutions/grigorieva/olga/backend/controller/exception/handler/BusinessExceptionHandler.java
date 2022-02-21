@@ -157,6 +157,8 @@ public class BusinessExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
     }
 
+    //AccessDeniedException
+
     private void logError(Exception e) {
         logger.error(e.getClass() + ": " + e.getMessage());
     }

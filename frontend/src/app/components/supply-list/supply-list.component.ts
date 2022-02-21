@@ -22,6 +22,8 @@ export class SupplyList implements OnInit {
 
     public supplies: Supply[];
 
+    public suppliesIds: number[];
+
     public isNewRecord: boolean = false;
 
     public statusMessage: string = "";
@@ -34,7 +36,7 @@ export class SupplyList implements OnInit {
 
     public totalAmount: number = 0;
 
-    public amountOnPage: number = 5;
+    public amountOnPage: number = 8;
 
     constructor(private serv: SupplyService,
                 public purchaseService: PurchaseService,
@@ -45,6 +47,8 @@ export class SupplyList implements OnInit {
             .subscribe(purchases => this.purchases = purchases);
         this.storageService.getLoadedStorages()
             .subscribe(storages => this.storages = storages);
+        this.serv.getLoadedSuppliesIds()
+            .subscribe(suppliesIds => this.suppliesIds = suppliesIds)
 
     }
 
@@ -58,7 +62,7 @@ export class SupplyList implements OnInit {
 
     public addSupply() {
         this.editedSupply = new Supply(
-            -1,
+            0,
             0,
             null,
             null,
