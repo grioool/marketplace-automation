@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,7 +96,7 @@ public class UserRepositoryTest {
 
         user.setEmail("new@gmail.com");
 
-        User userUpdated =  userRepository.create(user);
+        User userUpdated =  userRepository.update(user);
 
         Assertions.assertThat(userUpdated.getEmail()).isEqualTo("new@gmail.com");
 
