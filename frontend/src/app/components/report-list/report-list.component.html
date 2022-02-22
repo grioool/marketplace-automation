@@ -33,7 +33,7 @@
     <tr *ngFor="let report of reports">
             <td>{{report.id}}</td>
             <td>{{report.orderNumber}}</td>
-            <td>{{report.supply.id}}</td>
+            <td>{{report.supply.wildberriesId}}</td>
             <td>{{report.costPrice === -1 ? supplyNotFound : report.name}}</td>
             <td>{{report.orderPrice}}</td>
             <td>{{report.proceeds}}</td>

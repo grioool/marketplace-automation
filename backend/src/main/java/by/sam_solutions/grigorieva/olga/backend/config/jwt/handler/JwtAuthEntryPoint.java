@@ -28,8 +28,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
                          HttpServletResponse response,
                          AuthenticationException e)
             throws IOException, ServletException {
-        // Called when the user tries to access an endpoint which requires to be authenticated
-        // we just return unauthorizaed
         logger.error("Unauthorized error. Message - {}", e.getMessage());
 
         ServletServerHttpResponse res = new ServletServerHttpResponse(response);

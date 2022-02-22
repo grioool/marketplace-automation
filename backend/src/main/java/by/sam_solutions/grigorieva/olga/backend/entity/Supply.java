@@ -56,4 +56,11 @@ public class Supply extends AbstractEntity {
         this.supplyProducts.removeIf(candidate -> candidate.getId() == supplyProduct.getId());
         supplyProduct.setSupply(null);
     }
+
+    public SupplyProduct getProductByName(String productName) {
+        return supplyProducts.stream()
+                .filter(supplyProduct -> supplyProduct.getProduct().equals(productName))
+                .findAny()
+                .orElse(null);
+    }
 }
