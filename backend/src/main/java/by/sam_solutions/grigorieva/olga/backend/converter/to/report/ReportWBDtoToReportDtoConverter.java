@@ -26,6 +26,7 @@ public class ReportWBDtoToReportDtoConverter implements Converter<ReportWBDto, R
                 ? SupplyTableRowDto.blank(reportWBDto.getRealizationreport_id())
                 : conversionService.convert(supply.getProductByName(reportWBDto.getSa_name()), SupplyTableRowDto.class);
 
+        supplyTableRowDto.setWildberriesId(reportWBDto.getGi_id().intValue());
         ReportDto reportDto = new ReportDto();
         reportDto.setId(reportWBDto.getRealizationreport_id());
         reportDto.setOrderNumber(reportWBDto.getRid());
