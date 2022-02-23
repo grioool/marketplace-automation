@@ -3,6 +3,7 @@ package by.sam_solutions.grigorieva.olga.backend.service.user;
 import by.sam_solutions.grigorieva.olga.backend.config.HibernateConfiguration;
 import by.sam_solutions.grigorieva.olga.backend.domain.table.TablePage;
 import by.sam_solutions.grigorieva.olga.backend.dto.UserRegistrationDto;
+import by.sam_solutions.grigorieva.olga.backend.entity.Role;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import junit.framework.TestCase;
 import org.assertj.core.api.Assertions;
@@ -28,6 +29,7 @@ public class UserServiceTest extends TestCase {
 
     private final String username = "testName";
     private final String email = "test@gmail.com";
+    private final String newEmail = "new@gmail.com";
     private final String testToken = "testToken";
 
     @Test
@@ -105,11 +107,11 @@ public class UserServiceTest extends TestCase {
 
         User user = userService.getByEmail(email);
 
-        user.setEmail("new@gmail.com");
+        user.setEmail(newEmail);
 
         User userUpdated =  userService.update(user);
 
-        Assertions.assertThat(userUpdated.getEmail()).isEqualTo("new@gmail.com");
+        Assertions.assertThat(userUpdated.getEmail()).isEqualTo(newEmail);
 
     }
 
@@ -122,7 +124,7 @@ public class UserServiceTest extends TestCase {
     }
 
     @Test
-    public void test_9_getUsersPerPage() {
+    public void test_9_0_getUsersPerPage() {
 
         TablePage<User> users = userService.getUsersPerPage(1,1);
 
@@ -130,7 +132,7 @@ public class UserServiceTest extends TestCase {
     }
 
     @Test
-    public void test_1_0_createUser() {
+    public void test_9_1_createUser() {
 
         User user = new User();
         user.setPassword("");
@@ -152,29 +154,60 @@ public class UserServiceTest extends TestCase {
     }
 
     @Test
-    public void testUpdateResetPasswordToken() {
+    public void test_9_2_updateResetPasswordToken() {
+
+        User user = userService.getByEmail(newEmail);
+
+        userService.updateResetPasswordToken(testToken + "updated", newEmail);
+
+        User userUpdated =  userService.update(user);
+
+        Assertions.assertThat(userUpdated.getResetPasswordToken()).isEqualTo(testToken + "updated");
     }
 
     @Test
-    public void testUpdateResetPassword() {
+    public void test_9_3_updateResetPassword() {
+
+        User user = userService.getByEmail(newEmail);
+
+        userService.updateResetPassword("updatedPassword", newEmail);
+
+        User userUpdated =  userService.update(user);
+
+        Assertions.assertThat(userUpdated.getResetPassword()).isEqualTo("updatedPassword");
     }
 
     @Test
-    public void testUpdatePassword() {
+    public void test_9_4_updatePassword() {
+
+        User user = userService.getByResetPasswordToken(testToken);
+
+        user.setResetPasswordToken(testToken + "updated");
+
+        User userUpdated =  userService.update(user);
+
+        Assertions.assertThat(userUpdated.getResetPasswordToken()).isEqualTo(testToken + "updated");
     }
 
 
     @Test
-    public void testCreateRole() {
+    public void test_9_5_createRole() {
+
+        Role role = new Role();
+        role.setRoleName("test");
+
+        userService.createRole(role);
+
+        Assertions.assertThat(role.getId()).isGreaterThan(0);
     }
 
     @Test
-    public void testAddRoleToUser() {
+    public void test_9_6_addRoleToUser() {
     }
 
     @Test
     @Rollback(value = false)
-    public void test_15_deleteUserTest(){
+    public void test_9_7_deleteUserTest(){
 
         User user = userService.getByUsername(username);
         User user1 = userService.getByUsername(username + "1");
