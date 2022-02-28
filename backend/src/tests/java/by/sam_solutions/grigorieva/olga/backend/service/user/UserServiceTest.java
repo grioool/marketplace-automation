@@ -154,31 +154,7 @@ public class UserServiceTest extends TestCase {
     }
 
     @Test
-    public void test_9_2_updateResetPasswordToken() {
-
-        User user = userService.getByEmail(newEmail);
-
-        userService.updateResetPasswordToken(testToken + "updated", newEmail);
-
-        User userUpdated =  userService.update(user);
-
-        Assertions.assertThat(userUpdated.getResetPasswordToken()).isEqualTo(testToken + "updated");
-    }
-
-    @Test
-    public void test_9_3_updateResetPassword() {
-
-        User user = userService.getByEmail(newEmail);
-
-        userService.updateResetPassword("updatedPassword", newEmail);
-
-        User userUpdated =  userService.update(user);
-
-        Assertions.assertThat(userUpdated.getResetPassword()).isEqualTo("updatedPassword");
-    }
-
-    @Test
-    public void test_9_4_updatePassword() {
+    public void test_9_2_updatePassword() {
 
         User user = userService.getByResetPasswordToken(testToken);
 
@@ -191,7 +167,7 @@ public class UserServiceTest extends TestCase {
 
 
     @Test
-    public void test_9_5_createRole() {
+    public void test_9_3_createRole() {
 
         Role role = new Role();
         role.setRoleName("test");
@@ -202,12 +178,8 @@ public class UserServiceTest extends TestCase {
     }
 
     @Test
-    public void test_9_6_addRoleToUser() {
-    }
-
-    @Test
     @Rollback(value = false)
-    public void test_9_7_deleteUserTest(){
+    public void test_9_4_deleteUserTest(){
 
         User user = userService.getByUsername(username);
         User user1 = userService.getByUsername(username + "1");
