@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {HibernateConfiguration.class})
@@ -27,6 +26,8 @@ public class TownRepositoryTest extends TestCase {
     @Autowired
     private TownRepository townRepository;
 
+    private static Town t;
+
     @Test
     @Rollback(value = false)
     public void test_1_createTest(){
@@ -36,19 +37,21 @@ public class TownRepositoryTest extends TestCase {
 
         townRepository.create(town);
 
+        t = town;
+
         Assertions.assertThat(town.getId()).isGreaterThan(0);
     }
 
     @Test
-    public void test_2_getUserTest(){
+    public void test_2_getTest(){
 
-        Town town = townRepository.getById(1);
+        Town town = townRepository.getById(t.getId());
 
-        Assertions.assertThat(town.getId()).isEqualTo(1);
+        Assertions.assertThat(town.getId()).isEqualTo(t.getId());
     }
 
     @Test
-    public void test_3_getAllUsersTest(){
+    public void test_3_getAllTest(){
 
         List<Town> towns = townRepository.getAll();
 
@@ -58,9 +61,9 @@ public class TownRepositoryTest extends TestCase {
 
     @Test
     @Rollback(value = false)
-    public void test_4_updateUserTest(){
+    public void test_4_updateTest(){
 
-        Town town = townRepository.getById(1);
+        Town town = townRepository.getById(t.getId());
 
         town.setTownName(TownName.KIEV);
 
@@ -73,20 +76,8 @@ public class TownRepositoryTest extends TestCase {
     @Test
     @Rollback(value = false)
     public void test_5_deleteTest(){
-
-        Town town = townRepository.getById(1);
-
-        townRepository.delete(town.getId());
-
-        Town town1 = null;
-
-        Optional<Town> optionalTown = Optional.ofNullable(townRepository.getById(1));
-
-        if(optionalTown.isPresent()){
-            town1 = optionalTown.get();
-        }
-
-        Assertions.assertThat(town1).isNull();
+        townRepository.delete(t.getId());
+        Assertions.assertThat(townRepository.getById(t.getId())).isNull();
     }
 
 }

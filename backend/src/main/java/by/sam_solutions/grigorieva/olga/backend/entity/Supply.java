@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -50,6 +51,10 @@ public class Supply extends AbstractEntity {
     public void addSupplyProduct(SupplyProduct supplyProduct) {
         supplyProduct.setSupply(this);
         supplyProducts.add(supplyProduct);
+    }
+
+    public void addSupplyProducts(Collection<SupplyProduct> supplyProducts) {
+        supplyProducts.forEach(this::addSupplyProduct);
     }
 
     public void removeProduct(SupplyProduct supplyProduct) {

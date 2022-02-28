@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {HibernateConfiguration.class})
@@ -37,6 +36,8 @@ public class StorageRepositoryTest extends TestCase {
 
     @Autowired
     private TownRepository townRepository;
+
+    private static Storage s;
 
     @Test
     @Rollback(value = false)
@@ -58,15 +59,17 @@ public class StorageRepositoryTest extends TestCase {
 
         storageRepository.create(storage);
 
+        s = storage;
+
         Assertions.assertThat(storage.getId()).isGreaterThan(0);
     }
 
     @Test
     public void test_2_getTest(){
 
-        Storage storage = storageRepository.getById(1);
+        Storage storage = storageRepository.getById(s.getId());
 
-        Assertions.assertThat(storage.getId()).isEqualTo(1);
+        Assertions.assertThat(storage.getId()).isEqualTo(s.getId());
     }
 
     @Test
@@ -82,7 +85,7 @@ public class StorageRepositoryTest extends TestCase {
     @Rollback(value = false)
     public void test_4_updateTest(){
 
-        Storage storage = storageRepository.getById(1);
+        Storage storage = storageRepository.getById(s.getId());
 
         Country country = new Country();
         country.setCountryName(CountryName.RUSSIA);
@@ -100,20 +103,8 @@ public class StorageRepositoryTest extends TestCase {
     @Test
     @Rollback(value = false)
     public void test_5_deleteTest(){
-
-        Storage storage = storageRepository.getById(1);
-
-        storageRepository.delete(storage.getId());
-
-        Storage storage1 = null;
-
-        Optional<Storage> optionalStorage = Optional.ofNullable(storageRepository.getById(1));
-
-        if(optionalStorage.isPresent()){
-            storage1 = optionalStorage.get();
-        }
-
-        Assertions.assertThat(storage1).isNull();
+        storageRepository.delete(s.getId());
+        Assertions.assertThat(storageRepository.getById(s.getId())).isNull();
     }
 
 }

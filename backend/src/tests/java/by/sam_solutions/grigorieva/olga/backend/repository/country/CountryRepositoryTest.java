@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {HibernateConfiguration.class})
@@ -27,6 +26,8 @@ public class CountryRepositoryTest extends TestCase {
     @Autowired
     private CountryRepository countryRepository;
 
+    private static Country c;
+
     @Test
     @Rollback(value = false)
     public void test_1_createTest(){
@@ -35,20 +36,21 @@ public class CountryRepositoryTest extends TestCase {
         country.setCountryName(CountryName.BELARUS);
 
         countryRepository.create(country);
+        c = country;
 
         Assertions.assertThat(country.getId()).isGreaterThan(0);
     }
 
     @Test
-    public void test_2_getUserTest(){
+    public void test_2_getTest(){
 
-        Country country = countryRepository.getById(1);
+        Country country = countryRepository.getById(c.getId());
 
-        Assertions.assertThat(country.getId()).isEqualTo(1);
+        Assertions.assertThat(country.getId()).isEqualTo(c.getId());
     }
 
     @Test
-    public void test_3_getAllUsersTest(){
+    public void test_3_getAllTest(){
 
         List<Country> countries = countryRepository.getAll();
 
@@ -58,9 +60,9 @@ public class CountryRepositoryTest extends TestCase {
 
     @Test
     @Rollback(value = false)
-    public void test_4_updateUserTest(){
+    public void test_4_updateTest(){
 
-        Country country = countryRepository.getById(1);
+        Country country = countryRepository.getById(c.getId());
 
         country.setCountryName(CountryName.RUSSIA);
 
@@ -73,20 +75,8 @@ public class CountryRepositoryTest extends TestCase {
     @Test
     @Rollback(value = false)
     public void test_5_deleteTest(){
-
-        Country country = countryRepository.getById(1);
-
-        countryRepository.delete(country.getId());
-
-        Country country1 = null;
-
-        Optional<Country> optionalCountry = Optional.ofNullable(countryRepository.getById(1));
-
-        if(optionalCountry.isPresent()){
-            country1 = optionalCountry.get();
-        }
-
-        Assertions.assertThat(country1).isNull();
+        countryRepository.delete(c.getId());
+        Assertions.assertThat(countryRepository.getById(c.getId())).isNull();
     }
 
 }

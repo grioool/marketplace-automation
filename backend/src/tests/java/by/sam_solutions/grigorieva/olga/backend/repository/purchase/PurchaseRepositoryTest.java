@@ -1,6 +1,7 @@
 package by.sam_solutions.grigorieva.olga.backend.repository.purchase;
 
 import by.sam_solutions.grigorieva.olga.backend.config.HibernateConfiguration;
+import by.sam_solutions.grigorieva.olga.backend.entity.Purchase;
 import by.sam_solutions.grigorieva.olga.backend.entity.User;
 import by.sam_solutions.grigorieva.olga.backend.repository.user.UserRepository;
 import junit.framework.TestCase;
@@ -15,20 +16,27 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {HibernateConfiguration.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Transactional
 public class PurchaseRepositoryTest extends TestCase {
+
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+
     @Autowired
     private UserRepository userRepository;
 
     private final String username = "testName";
     private final String email = "test@gmail.com";
     private final String testToken = "testToken";
+
+    private static Purchase p;
 
     @Test
     @Rollback(value = false)
@@ -40,15 +48,28 @@ public class PurchaseRepositoryTest extends TestCase {
         user.setEmail(email);
         user.setNameCompany("");
         user.setWildBerriesKeys("");
-
         user.setRoles(List.of());
         user.setPassword("");
-
         user.setIsBlocked(false);
         user.setIsSubscribed(false);
         user.setResetPasswordToken(testToken);
-
         userRepository.create(user);
+
+        Purchase purchase = new Purchase();
+        purchase.setPurchasePrice(0);
+        purchase.setLogistics(0.0);
+        purchase.setDate(Timestamp.from(Instant.now()));
+        purchase.setExtra(0.0);
+        purchase.setAmount(0);
+        purchase.setProductName("");
+        purchase.setBatchPrice(0.0);
+        purchase.setPriceForOne(0.0);
+        purchase.setCostPrice(0.0);
+        purchase.setUser(user);
+
+        purchaseRepository.create(purchase);
+
+        p=purchase;
 
         Assertions.assertThat(user.getId()).isGreaterThan(0);
     }
@@ -56,81 +77,51 @@ public class PurchaseRepositoryTest extends TestCase {
     @Test
     public void test_2_getTest(){
 
-        User user = userRepository.getById(1);
+        Purchase purchase = purchaseRepository.getById(p.getId());
 
-        Assertions.assertThat(user.getId()).isEqualTo(1);
+        Assertions.assertThat(purchase.getId()).isEqualTo(p.getId());
     }
 
     @Test
     public void test_3_getAllTest(){
 
-        List<User> users = userRepository.getAll();
+        List<Purchase> purchases = purchaseRepository.getAll();
 
-        Assertions.assertThat(users.size()).isGreaterThan(0);
+        Assertions.assertThat(purchases.size()).isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(value = false)
-    public void test_4_findByUsernameTest() {
+    public void test_4_updateTest(){
 
+        Purchase purchase = purchaseRepository.getById(p.getId());
+
+        purchase.setPurchasePrice(1);
+
+        Purchase purchaseUpdated =  purchaseRepository.update(purchase);
+
+        Assertions.assertThat(purchaseUpdated.getPurchasePrice()).isEqualTo(1);
+
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void test_6_deleteTest(){
+        purchaseRepository.delete(p.getId());
         User user = userRepository.findByUsername(username);
-
-        Assertions.assertThat(user.getUsername()).isEqualTo(username);
-    }
-
-    @Test
-    @Rollback(value = false)
-    public void test_5_findByEmailTest() {
-
-        User user = userRepository.findByEmail(email);
-
-        Assertions.assertThat(user.getEmail()).isEqualTo(email);
-
-    }
-
-    @Test
-    @Rollback(value = false)
-    public void test_6_updateTest(){
-
-        User user = userRepository.findByResetPasswordToken(testToken);
-
-        user.setEmail("new@gmail.com");
-
-        User userUpdated =  userRepository.update(user);
-
-        Assertions.assertThat(userUpdated.getEmail()).isEqualTo("new@gmail.com");
-
-    }
-
-    @Test
-    @Rollback(value = false)
-    public void test_7_findByResetPasswordTokenTest() {
-
-        User user = userRepository.findByResetPasswordToken(testToken);
-
-        Assertions.assertThat(user.getResetPasswordToken()).isEqualTo(testToken);
-    }
-
-    @Test
-    @Rollback(value = false)
-    public void test_8_deleteTest(){
-
-        User user = userRepository.findByUsername(username);
-
         userRepository.delete(user.getId());
 
-        User user1 = null;
-
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUsername(username));
-
-        if(optionalUser.isPresent()){
-            user1 = optionalUser.get();
-        }
-
-        Assertions.assertThat(user1).isNull();
+        Assertions.assertThat(purchaseRepository.getById(p.getId())).isNull();
     }
 
-    public void testGetByUser() {
+    @Test
+    public void test_5_getByUser() {
+        User user = userRepository.findByUsername(username);
+
+        List<Purchase> purchases = purchaseRepository.getByUser(user);
+
+        Assertions.assertThat(purchases.size()).isGreaterThan(0);
+
     }
 }
