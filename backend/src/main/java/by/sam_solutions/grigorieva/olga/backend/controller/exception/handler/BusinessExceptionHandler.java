@@ -12,6 +12,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -157,7 +158,12 @@ public class BusinessExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
     }
 
-    //AccessDeniedException
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ExceptionDto> handleIAccessDeniedException(AccessDeniedException e) {
+        logError(e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("access.denied.error")));
+    }
 
     private void logError(Exception e) {
         logger.error(e.getClass() + ": " + e.getMessage());
