@@ -36,7 +36,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
         if (getByEmail(userDto.getEmail()) != null) throw new EmailAlreadyExists();
 
         User user = new User();
-        user.setPassword(userDto.getPassword());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setNameCompany(userDto.getNameCompany());

@@ -74,9 +74,8 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
         if (supply == null) {
             return null;
         }
-        boolean hasProduct = supply.getSupplyProducts().stream()
-                .anyMatch(supplyProduct -> supplyProduct.getProduct().equals(product));
-        if (hasProduct) return null;
+
+        if (supply.getProduct(product) == null) return null;
         return supply;
     }
 

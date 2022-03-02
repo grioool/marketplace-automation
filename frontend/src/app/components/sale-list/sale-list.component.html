@@ -46,8 +46,8 @@
     <tr *ngFor="let sale of sales">
             <td>{{sale.gNumber}}</td>
             <td>{{sale.number}}</td>
-            <td>{{sale.date}}</td>
-            <td>{{sale.lastChangeDate}}</td>
+            <td>{{sale.date | date}}</td>
+            <td>{{sale.lastChangeDate | date}}</td>
             <td>{{sale.supplierArticle}}</td>
             <td>{{sale.techSize}}</td>
             <td>{{sale.barcode}}</td>

@@ -22,7 +22,7 @@ export class RegistrationComponent {
 
     private nameCompanyRegexp: string = environment.nameCompanyRegexp;
 
-    private wbKeyRegexp: string = environment.wbKeyRegexp;
+    // private wbKeyRegexp: string = environment.wbKeyRegexp;
 
     constructor(private http: HttpClient,
                 private authService: AuthService,
@@ -49,7 +49,7 @@ export class RegistrationComponent {
             ]],
             wbKey: ['', [
                 Validators.required,
-                Validators.pattern(this.wbKeyRegexp)
+                // Validators.pattern(this.wbKeyRegexp)
             ]],
             passwordRep: ['', [
                 Validators.required
