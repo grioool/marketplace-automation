@@ -35,7 +35,7 @@
     <tbody class="tableBody">
     <tr *ngFor="let order of orders">
             <td>{{order.gNumber}}</td>
-            <td>{{order.date}}</td>
+            <td>{{order.date | date}}</td>
             <td>{{order.lastChangeDate}}</td>
             <td>{{order.supplierArticle}}</td>
             <td>{{order.techSize}}</td>

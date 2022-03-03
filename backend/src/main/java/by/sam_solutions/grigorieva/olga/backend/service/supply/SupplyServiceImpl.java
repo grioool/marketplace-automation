@@ -74,7 +74,8 @@ public class SupplyServiceImpl extends AbstractServiceImpl<Supply> implements Su
         if (supply == null) {
             return null;
         }
-        if (supply.getProductByName(product) == null) return null;
+
+        if (supply.getProduct(product) == null) return null;
         return supply;
     }
 

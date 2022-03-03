@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -52,14 +53,18 @@ public class Supply extends AbstractEntity {
         supplyProducts.add(supplyProduct);
     }
 
+    public void addSupplyProducts(Collection<SupplyProduct> supplyProducts) {
+        supplyProducts.forEach(this::addSupplyProduct);
+    }
+
     public void removeProduct(SupplyProduct supplyProduct) {
         this.supplyProducts.removeIf(candidate -> candidate.getId() == supplyProduct.getId());
         supplyProduct.setSupply(null);
     }
 
-    public SupplyProduct getProductByName(String productName) {
-        return supplyProducts.stream()
-                .filter(supplyProduct -> supplyProduct.getProduct().equals(productName))
+    public SupplyProduct getProduct(String productName) {
+        return this.supplyProducts.stream()
+                .filter(product -> productName.equals(product.getProduct()))
                 .findAny()
                 .orElse(null);
     }

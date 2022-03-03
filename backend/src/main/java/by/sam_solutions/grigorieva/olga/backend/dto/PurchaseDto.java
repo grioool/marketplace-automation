@@ -16,7 +16,6 @@ public class PurchaseDto {
     @NotNull
     private String date;
 
-    @CustomPattern(patternKey = "field.letters.regexp", message = "field.letters.invalid")
     @NotNull
     private String productName;
 
