@@ -1,5 +1,13 @@
 # Мануал по запуску программы
 
+## Необходимые ресурсы
+
+1. Java 8 or newer (full JDK not a JRE).
+2. git command line tool (https://help.github.com/articles/set-up-git)
+3. IntelliJ IDEA
+4. Apache Tomcat версии 9.0.55.
+5. Angular CLI Server
+
 ## Сервер
 
 1. Для запуска необходимо установить Apache Tomcat версии 9.0.55. Загрузить можно, используя ссылку https://tomcat.apache.org/download-90.cgi#9.0.56.
