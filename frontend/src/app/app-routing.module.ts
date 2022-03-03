@@ -14,6 +14,7 @@ import {SaleListComponent} from "./components/sale-list/sale-list.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
 import {NavigationPath} from "./classes/navigation-path";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {UserForgotPasswordComponent} from "./components/user-forgot-password/user-forgot-password.component";
 
 const routes: Routes = [{
     path: '',
@@ -31,6 +32,7 @@ const routes: Routes = [{
         {path: NavigationPath.SALES, component: SaleListComponent},
         {path: NavigationPath.ORDERS, component: OrderListComponent},
         {path: NavigationPath.PASSWORD, component: ForgotPasswordComponent},
+        {path: NavigationPath.UPASSWORD, component: UserForgotPasswordComponent},
         {path: "**", redirectTo: NavigationPath.MAIN}
     ]
 }];
