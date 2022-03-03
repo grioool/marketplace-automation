@@ -8,6 +8,7 @@ import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -64,20 +65,20 @@ public class BusinessExceptionHandler {
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<ExceptionDto> handleNotImplementedExceptions(HttpRequestMethodNotSupportedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ExceptionDto(Messages.getMessage("method.not.supported")));
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ExceptionDto(Messages.getMessageForLocale("method.not.supported", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(value = {IOException.class})
     public ResponseEntity<ExceptionDto> handlerInternalExceptions(IOException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDto(Messages.getMessage("fatal.error")));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDto(Messages.getMessageForLocale("fatal.error", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ExceptionDto> handleBadCredentialsException(BadCredentialsException e) {
         logError(e);
-        return ResponseEntity.badRequest().body(new ExceptionDto(Messages.getMessage("bad.credentials")));
+        return ResponseEntity.badRequest().body(new ExceptionDto(Messages.getMessageForLocale("bad.credentials", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -85,7 +86,7 @@ public class BusinessExceptionHandler {
     public ResponseEntity<ExceptionDto> handleUsernameNotFoundException(UsernameNotFoundException e) {
         logError(e);
         return ResponseEntity.badRequest()
-                .body(new ExceptionDto(Messages.getMessage("bad.credentials")));
+                .body(new ExceptionDto(Messages.getMessageForLocale("bad.credentials", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(UpgradeRequiredException.class)
@@ -106,21 +107,21 @@ public class BusinessExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ExceptionDto> handleConversionException(ConversionNotSupportedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(new ExceptionDto(Messages.getMessage("fatal.error")));
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(new ExceptionDto(Messages.getMessageForLocale("fatal.error", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleMethodNotValidException(MethodArgumentNotValidException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("not.valid.argument", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleNullPointerException(NullPointerException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("fatal.error", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(LocalizationException.class)
@@ -134,35 +135,35 @@ public class BusinessExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleDatabaseIntegrityException(DataIntegrityViolationException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("not.valid.argument", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleConstraintViolationException(ConstraintViolationException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("not.valid.argument", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(PSQLException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handlePSQLException(PSQLException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("not.valid.argument")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("not.valid.argument", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionDto> handleIllegalArgumentException(IllegalArgumentException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("fatal.error")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("fatal.error", LocaleContextHolder.getLocale())));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ExceptionDto> handleIAccessDeniedException(AccessDeniedException e) {
         logError(e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessage("access.denied.error")));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionDto(Messages.getMessageForLocale("access.denied.error", LocaleContextHolder.getLocale())));
     }
 
     private void logError(Exception e) {

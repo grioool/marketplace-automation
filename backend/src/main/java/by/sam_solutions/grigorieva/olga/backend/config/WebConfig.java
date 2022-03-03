@@ -92,8 +92,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         AcceptHeaderLocaleResolver slr = new AcceptHeaderLocaleResolver();
-        slr.setSupportedLocales(List.of(Locale.ENGLISH, new Locale("ru")));
         slr.setDefaultLocale(Locale.ENGLISH);
+        slr.setSupportedLocales(List.of(Locale.ENGLISH, new Locale("ru")));
         return slr;
     }
 

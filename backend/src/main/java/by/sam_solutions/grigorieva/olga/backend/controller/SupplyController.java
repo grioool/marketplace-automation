@@ -47,7 +47,7 @@ public class SupplyController {
     }
 
     @GetMapping("/suppliesByPage")
-    public TablePage<SupplyTableRowDto> getUsersByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
+    public TablePage<SupplyTableRowDto> getSuppliessByPage(@RequestParam Integer shift, @RequestParam Integer rowsPerPage, Principal principal) {
         logger.info("Getting supplies by page...");
         TablePage<SupplyProduct> page = supplyService.getSupplyProductsPerPage(getUser(principal), shift, rowsPerPage);
         return new TablePage<>(
