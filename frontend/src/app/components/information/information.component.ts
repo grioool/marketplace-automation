@@ -66,7 +66,7 @@ export class InformationComponent implements OnInit {
     }
 
     public OnChange() {
-        this.router.navigate([NavigationPath.PASSWORD]).then();
+        this.router.navigate([NavigationPath.UPASSWORD]).then();
     }
 
     public isReadOnly(user: User): boolean {

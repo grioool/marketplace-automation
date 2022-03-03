@@ -66,12 +66,12 @@ public class ForgotPasswordController {
         String subject = "Here's the link to reset your password";
 
         String content = "<p>Hello,</p>"
-                + "<p>You have requested to reset your password.</p>"
+                + "<p>You have requested resetting your password.</p>"
                 + "<p>Click the link below to change your password:</p>"
                 + "<p><a href=\"" + link + "\">Change my password</a></p>"
                 + "<br>"
-                + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+                + "<p>Ignore this email, if you do remember your password, "
+                + "or you haven't made the request.</p>";
 
         helper.setSubject(subject);
 

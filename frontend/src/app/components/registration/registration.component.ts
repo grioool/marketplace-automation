@@ -22,7 +22,7 @@ export class RegistrationComponent {
 
     private nameCompanyRegexp: string = environment.nameCompanyRegexp;
 
-    // private wbKeyRegexp: string = environment.wbKeyRegexp;
+    private wbKeyRegexp: string = environment.wbKeyRegexp;
 
     constructor(private http: HttpClient,
                 private authService: AuthService,
