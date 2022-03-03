@@ -95,55 +95,6 @@ public class PurchaseControllerTest extends TestCase {
         user.setId(objectMapper.readValue(createdUserJson, UserDto.class).getId());
     }
 
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void test_2_shouldFetchAllUsers() throws Exception {
-        List<LinkedHashMap<String, Object>> users = objectMapper.readValue(this.mockMvc.perform(get("/admin/users"))
-                        .andExpect(status().isOk())
-                        .andReturn()
-                        .getResponse()
-                        .getContentAsString(),
-                List.class
-        );
-        Assertions.assertThat(userList.stream().allMatch(userDto ->
-                users.stream().anyMatch(user -> user.get("id").equals(userDto.getId()))
-        )).isEqualTo(true);
-    }
-
-    @Test
-    public void test_3_shouldFetchOneUserById() throws Exception {
-        UserDto requestedUser = userList.stream().findAny().orElseThrow();
-        this.mockMvc.perform(get("/admin/users/{id}", requestedUser.getId()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", is(requestedUser.getEmail())))
-                .andExpect(jsonPath("$.username", is(requestedUser.getUsername())))
-                .andExpect(jsonPath("$.nameCompany", is(requestedUser.getNameCompany())))
-                .andExpect(jsonPath("$.wildBerriesKeys", is(requestedUser.getWildBerriesKeys())))
-                .andExpect(jsonPath("$.isBlocked", is(requestedUser.getIsBlocked())))
-                .andExpect(jsonPath("$.isSubscribed", is(requestedUser.getIsSubscribed())));
-    }
-
-
-    @Test
-    public void test_4_shouldUpdateUser() throws Exception {
-        UserDto updatedUser = userList.stream().findAny().orElseThrow();
-        updatedUser.setIsBlocked(true);
-        this.mockMvc.perform(
-                        put("/admin/users")
-                                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                                .content(objectMapper.writeValueAsString(updatedUser))
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", is(updatedUser.getEmail())))
-                .andExpect(jsonPath("$.username", is(updatedUser.getUsername())))
-                .andExpect(jsonPath("$.nameCompany", is(updatedUser.getNameCompany())))
-                .andExpect(jsonPath("$.wildBerriesKeys", is(updatedUser.getWildBerriesKeys())))
-                .andExpect(jsonPath("$.isBlocked", is(updatedUser.getIsBlocked())))
-                .andExpect(jsonPath("$.isSubscribed", is(updatedUser.getIsSubscribed())));
-
-    }
-
     @Test
     public void test_5_shouldDeleteUser() throws Exception {
         for (UserDto user : userList) deleteUser(user);
